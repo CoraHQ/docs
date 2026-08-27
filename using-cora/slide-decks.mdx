@@ -1,0 +1,48 @@
+---
+title: "Create Slide Decks from Google Slides with Cora"
+sidebarTitle: "Slide Decks"
+description: "Bring a Google Slides template or existing deck to Cora chat and get back a finished copy filled with your account data and edits."
+---
+
+Bring a Google Slides template or an existing deck to Cora chat, and it returns a finished copy filled with your data and edits.
+
+## Overview
+
+Cora turns any Google Slides file you bring into a finished deck, filled with your account data and edits. It always works on a copy, so your original is never changed.
+
+Two ways to use it, often combined in one deck:
+
+- **Template**: Cora fills placeholders in {{ }} braces, like {{company_name}} → AcmeCorp
+- **Existing deck**: Cora swaps fixed text, like **Jan 1, 2026** → June 22, 2026
+
+Placeholders give the most consistent results. They're optional fill-in-the-blank fields, and anything you leave unfilled simply shows as {{ }} text in the deck.
+
+## Creating a deck
+
+Before you start, make sure:
+
+- [ ] Google Drive is connected in **Settings → Integrations**
+- [ ] Your deck is a Google Slides file (convert an uploaded PowerPoint first)
+- [ ] It's shared with [**copybot@cora.ai**](mailto:copybot@cora.ai) — directly, or via **"Anyone with the link"** sharing. Viewer access is enough (Editor only if your organization blocks copying for viewers)
+
+Then:
+
+<Steps>
+  <Step title="Share your deck in chat">
+    In Cora chat, paste the link and tell Cora how to fill or edit the slides — it reads the deck and your account data to make the changes.
+  </Step>
+  <Step title="Open the finished deck">
+    Cora returns a link to the finished deck.
+  </Step>
+</Steps>
+
+Some workspaces have a template built into a Cora skill (for example, an EBR master deck), so there you skip the link and just prompt Cora. To learn how skills work and how to build your own, see [How to Build Skills](/agents/how-to-build-skills).
+
+## How the finished deck is shared
+
+Cora shares every deck it creates automatically:
+
+- **Anyone in your organization** can edit it
+- **Anyone with the link** can view it
+
+The deck is a new copy, so your original is never changed. It opens from the link Cora gives you and is owned by Cora's [**copybot@cora.ai**](mailto:copybot@cora.ai) account — use **File → Make a copy** to save it to your own Drive.

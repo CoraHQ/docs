@@ -1,0 +1,96 @@
+---
+title: "Build Your First Agent in Cora"
+sidebarTitle: "First Agent"
+description: "Step-by-step walkthrough for creating your first Cora agent in the chat-native builder, from describing your workflow to going live."
+---
+
+Building an agent in Cora is a conversation, not a one-shot exercise. You describe what you want, Cora builds it, you test it together, and then you refine it until it works the way you need. Most agents take two to five iterations to get right, and that is completely normal.
+
+Think of it like pair programming with an AI. You bring the domain knowledge (what the workflow should do, who it is for, what "good" looks like) and Cora handles the implementation. You stay in the conversation the entire time, iterating until you are happy with the result.
+
+If you are new to agents, start with [Understanding Agents](/agents/understanding-agents) for foundational concepts.
+
+## The Chat-Native Builder
+
+There is no form to fill out or wizard to click through. You build agents by chatting with Cora in the regular chat interface. Just describe the workflow you have in mind, and Cora will ask clarifying questions to fill in the details.
+
+Cora is context-aware. It knows which integrations you have connected, what data is available, and what lifecycle events are active in your workspace. It uses this context to make sure the agent it builds will actually work.
+
+## Walkthrough: Building a Weekly Pipeline Review
+
+Let us walk through a concrete example. Say you want a weekly summary of account health sent to your team every Monday morning.
+
+<Steps>
+  <Step title="Describe what you want">
+    Open the Cora chat and describe your goal in plain language. For example:
+
+    _"I want a weekly pipeline review sent to Slack every Monday at 9am."_
+  </Step>
+  <Step title="Answer Cora's questions">
+    Cora will walk you through a short series of questions to nail down the details. Expect questions like:
+
+    - **What should it do?** Post an internal Slack alert, email a digest, draft customer outreach, etc.
+    - **Who should receive it?** A Slack channel, your email, each account owner individually, etc.
+    - **When should it run?** Every Monday at 9am, daily, weekdays, etc.
+    - **What timezone?** Eastern, Pacific, UTC, etc.
+    - **What data should it include?** Health scores, risk signals, renewal dates, usage metrics, etc.
+    - **How autonomous should it be?** Internal-only alerts (Crawl), drafts with approval (Walk), or fully autonomous (Run).
+
+    Cora offers multiple-choice options for most questions, so you can pick by number rather than typing long answers. If none of the options fit, you can always describe what you want in your own words.
+  </Step>
+  <Step title="Cora builds the agent">
+    Once Cora has enough information, it creates the agent. You will see a summary of what the agent does, when it runs, and any important notes (like if an integration needs to be connected first).
+
+    Every agent is created **paused**. Nothing runs until you explicitly turn it on, which gives you space to test and refine first.
+  </Step>
+  <Step title="Test, refine, repeat">
+    This is where most of the magic happens. Once Cora builds the agent, do not just skim the summary and move on. Ask Cora to test it right away:
+
+    _"Can you test this agent?"_
+
+    Cora runs the agent in a safe sandbox where no real messages are sent and no real actions are taken. It shows you what the agent would produce: the Slack message it would send, the data it would pull, the decisions it would make.
+
+    Now look at the results. Is the summary too long? Missing a key metric? Using the wrong tone? Tell Cora what to change, right in the same conversation:
+
+    - _"Make the summary shorter. Just the top 5 accounts."_
+    - _"Add the renewal date for each account."_
+    - _"Change the tone to be more casual."_
+    - _"Only include accounts with a health score below 70."_
+
+    Cora updates the agent and you can test again immediately. You do not need to leave the chat, navigate to a settings page, or manually edit anything. Just keep talking.
+
+    **The typical loop looks like this:**
+
+    1. Ask Cora to test the agent
+    2. Review the results
+    3. Tell Cora what to change
+    4. Cora updates the agent
+    5. Test again
+
+    Most agents take two to five rounds of this loop to get right. That is not a sign something is wrong; it is how the process works. Each iteration gets you closer to exactly what you need, and it is much faster than trying to specify everything perfectly upfront.
+  </Step>
+  <Step title="Activate your agent">
+    When the test results look right and you are happy with the output, turn the agent on. You can do this in two ways:
+
+    - **In chat:** After testing, just tell Cora to activate it. Something like _"Looks good, turn it on"_ works fine.
+    - **On the Agents page:** Toggle the agent's status from **Off** to **Live**.
+
+    Once live, the agent runs according to its trigger: on its schedule, when a signal fires, or when you manually run it.
+  </Step>
+</Steps>
+
+## Tips for Getting Started
+
+Here are some tips for building agents with Cora:
+
+<Tip title="Be specific about the output.">
+  Instead of "keep me updated on accounts," try "send me a Slack message every Monday with a summary of accounts that have declining health scores."
+</Tip>
+
+- **Name the channel or recipient.** Tell Cora where the output should go: a Slack channel name, your email, or "each account owner."
+- **Include the schedule or trigger.** Saying "every weekday at 9am Eastern" or "whenever a renewal risk is detected" gives Cora what it needs to set the trigger.
+- **Start with Crawl or Walk.** If you are not sure about giving an agent full autonomy, start with internal-only alerts (Crawl) or drafts with approval (Walk). You can always increase autonomy later.
+- **Test early, test often.** Ask Cora to test the agent as soon as it is built. It is much easier to refine based on real output than to try to get the description perfect on the first try.
+- **Give feedback in plain language.** You do not need to know how agents work under the hood. Just tell Cora what you want to change ("make it shorter," "add this field," "only run on weekdays") and Cora handles the rest.
+- **Save reusable workflows as skills.** If you find yourself explaining the same workflow again and again, save it as a skill so Cora can follow it on demand. See [How to Build Skills](/agents/how-to-build-skills).
+- **You can always refine later.** Even after an agent is live, you can come back and iterate on it. See [Managing and Refining Agents](/agents/managing-and-refining-agents) for how to adjust, refine, and manage your agents over time.

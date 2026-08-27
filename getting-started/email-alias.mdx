@@ -1,0 +1,60 @@
+---
+title: "Set Up a Cora Email Alias in Gmail"
+sidebarTitle: "Email Alias"
+description: "Create a dedicated Google Workspace user account for your Cora agent so it can send, receive, and authenticate independently via Gmail."
+---
+
+To operate like a digital teammate, your Cora agent needs an email identity, just like any other teammate. This allows Cora to:
+
+- Send and receive messages with customers without being blocked by firewalls
+- Be configured for sender name, branding, and signature
+- Log in securely via SSO to sync with Gmail, CRM, and other tools
+- Operate autonomously (for example, follow-ups, escalations) or escalate to humans when needed
+
+<Warning>
+  This cannot be a Google Group, alias-only address, or shared mailbox. It must be a full Google Workspace user account that can log in and authenticate independently.
+</Warning>
+
+## Steps to Create a Dedicated Cora Email Account in Google Workspace
+
+<Steps>
+  <Step title="Request a new user account from your IT team">
+    Here is a draft message you can send to IT:
+
+    ```text
+    Subject: Request for new user account - onboarding@cora.ai
+    
+    Hi [IT team / Admin name],
+    
+    We are working with an external vendor, Cora.ai, to launch an AI-powered onboarding assistant.
+    
+    To enable the assistant to operate independently, we need a dedicated Google Workspace user account
+    (not a group or alias) with the following details:
+    
+    - Email address: onboarding@cora.ai
+    - First name: Cora
+    - Last name: Assistant
+    - Secondary email: it-team@yourcompany.com
+    - Password Instructions: Please send password setup instructions to it-team@yourcompany.com so the Cora team can assist with configuration
+    - Purpose: Used by our onboarding assistant to send and receive external emails on behalf of our team. Cora will only access this account to send/receive onboarding-related emails and integrate with Gmail + CRM via secure, OAuth-based authentication.
+    - The account will not be used for login by individual users.
+    - Requirements:
+      - Must be a full user account (not a Google Group or alias)
+      - Must support third-party app authentication (OAuth)
+      - Can be provisioned with the lowest-tier license that allows email login
+    
+    Thanks!
+    ```
+  </Step>
+  <Step title="Share the new address with your Cora implementation team">
+    Once the account is created, reply to your onboarding thread or email your Cora implementation lead with the new address (be sure to include [support@cora.ai](mailto:support@cora.ai)). This will allow us to connect it to your workflows and begin setup.
+  </Step>
+  <Step title="Book a live walkthrough">
+    Schedule time with your implementation team to walk through a 15-minute setup together to:
+
+    - Connect the Gmail and CRM integrations
+    - Configure sender display name
+    - Add a branded signature and photo
+    - Confirm OAuth permissions and test send capabilities
+  </Step>
+</Steps>

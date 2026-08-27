@@ -1,0 +1,118 @@
+---
+title: "Integrate Slack with Cora"
+sidebarTitle: "Slack"
+description: "Connect Slack to Cora for automated notifications, lifecycle event alerts, and team collaboration. Install the Cora app and invite it to channels."
+---
+
+The Slack integration enables Cora to post updates, alerts, and insights directly into your team's Slack channels. Once connected, Cora can deliver lifecycle event notifications, customer health updates, and other automated messages where your team already collaborates.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: 2–3 minutes<br />**Required Role**: Slack Workspace Admin (to approve the app) \+ Cora Organization Administrator
+</Note>
+
+## Prerequisites
+
+- Active Slack workspace
+- Workspace admin permissions in Slack (to approve app installation)
+- Organization administrator access in Cora
+
+## Permissions
+
+The Cora Slack app requests a pre-approved set of permissions during installation — no manual scope configuration is needed. These permissions allow Cora to read and post messages in channels it has been added to, identify workspace members, and respond to @mentions and slash commands.
+
+**Note**: Cora only reads messages in channels it has been explicitly added to. It does not have access to channels or direct messages it has not been invited to.
+
+## Setup Steps
+
+<Steps>
+  <Step title="Install the Cora Slack App">
+    1. Click the installation link below to begin the OAuth flow:<br />[**Install Cora for Slack**](https://slack.com/oauth/v2/authorize?client_id=8284691133957.8286483075958&scope=app_mentions:read,channels:history,channels:join,channels:read,chat:write,commands,groups:history,groups:read,groups:write,im:history,im:read,im:write,mpim:history,mpim:read,users:read,users:read.email,team:read,files:read,reactions:read&state=71db0ee4-68ed-495b-986b-c213fa203f60)
+    2. You will be redirected to Slack's authorization page
+    3. Select the **Slack workspace** you want to connect
+    4. Review the permissions Cora is requesting
+    5. Click **Allow** to approve the installation
+
+    **Enterprise Grid:** If your organization uses Slack Enterprise Grid with multiple workspaces, make sure you select the correct workspace from the dropdown during the authorization step. Cora is installed per workspace, not org-wide — installing it on the wrong workspace means it won't have access to your team's channels.
+  </Step>
+  <Step title="Invite Cora to Your Channels">
+    Once the app is installed in your workspace, you need to invite Cora to each channel where it should be active. Type the following in the channel's message box:
+
+    `/invite @Cora`
+
+    You can also click the channel name → **Integrations** → **Add an App** → select **Cora**.
+
+    **Tip**: Start with a dedicated channel (e.g., `#cora-alerts` or `#customer-updates`) to test the integration before rolling it out more broadly.
+  </Step>
+</Steps>
+
+<Warning>
+  **Identifying the correct Cora bot**
+
+  If another company you share a Slack Connect channel with also uses Cora, their Cora bot may become visible across your workspace. This means you could see **two Cora bots** when inviting — not just in the shared channel, but in **any channel** in your workspace.
+
+  When inviting Cora, pay attention to the workspace shown next to each bot in the invite dialog. Always pick the one associated with **your** workspace. Inviting the wrong instance means messages won't route to your Cora account.
+
+  If you're unsure which bot is yours, check with your Slack workspace admin.
+</Warning>
+
+Cora must be invited to every channel where you want it active — including public, private, and Slack Connect channels. For **private** and **Slack Connect** channels in particular, the bot cannot join on its own and must be manually invited.
+
+## Channel Linking
+
+For **external channels** (Slack Connect or shared channels with customers), Cora automatically detects the channel and links it to the matching customer account based on the email domains of the channel's members.
+
+Once linked, Cora can:
+
+- Send and receive messages in the channel
+- Run agent workflows triggered by channel activity
+- Track conversations and generate Signals from channel messages
+
+**Note:** Each customer account can only be linked to one external channel at a time. If the account is already linked to a different channel, the auto-link will be skipped. You can update the linked channel manually in Cora's settings.
+
+For **internal channels**, auto-linking does not apply. You'll need to set the internal channel manually in the customer organization's settings.
+
+## Internal vs External Channels
+
+Cora distinguishes between two types of channels for each customer account:
+
+- **External channel** (customer-facing) — used for communicating with customers, typically via Slack Connect. This is the channel where Cora interacts directly with the customer's team. Auto-linked when you invite Cora to the channel.
+- **Internal channel** — used for account-team alerts and internal discussion about a customer. Cora posts updates and notifications here without the customer seeing them. Must be configured manually in the customer organization's settings.
+
+If you want Cora active in both contexts, invite the bot to both channels. For external channels, Cora handles the linking automatically. For internal channels, set the channel in the organization's settings after inviting the bot.
+
+## Use Cases
+
+- **Lifecycle Event Alerts** — Receive notifications in Slack when key customer events are detected
+- **Customer Health Updates** — Get alerted when customer health scores change significantly
+- **EBR Reminders** — Automated reminders for upcoming Executive Business Reviews
+- **Team Collaboration** — Ask Cora questions directly in Slack via @mentions
+
+## Troubleshooting
+
+**Bot not responding in a channel**
+
+Confirm that Cora was the bot you invited, not a different Slack app. If another app's bot was added instead, Cora will not receive any events from that channel. Remove the wrong bot and invite Cora.
+
+**Invited the wrong Cora bot**
+
+If another company you share a Slack Connect channel with also uses Cora, their bot can appear across your workspace — not just in the shared channel. You may have accidentally invited their instance instead of yours. Remove it and re-invite, making sure to select the Cora bot associated with your workspace. Look for your workspace name or logo next to the bot in the invite dialog.
+
+**Channel not auto-linked to a customer account**
+
+Auto-linking only applies to external channels. If an external channel wasn't linked, the customer account may already be linked to a different channel, or the channel members' email domains didn't match a known customer in Cora. You can manually set the channel ID in the customer organization's settings.
+
+**"Cannot invite" error**
+
+Check that the channel's permissions allow adding apps and integrations. For customer-created Slack Connect channels, ask the customer to adjust their channel permissions to allow app invitations.
+
+**Messages not being tracked**
+
+Cora can only read and track messages from channels where it is a member. Ensure the bot has been invited to the channel. If it was removed at some point, re-invite it with **/invite @Cora**.
+
+## Important Notes
+
+- Cora only posts to and reads from channels it has been explicitly added to
+- If another company in a Slack Connect channel also uses Cora, their bot may become visible across your workspace. Always check the workspace name next to the bot when inviting to ensure you're selecting your own instance.
+- Any workspace admin can approve the initial app installation
+- Channel members can invite or remove Cora from individual channels at any time
+- To fully disconnect, a workspace admin can uninstall the Cora app from **Slack Admin** → **Manage Apps**

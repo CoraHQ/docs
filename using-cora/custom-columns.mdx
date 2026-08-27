@@ -1,0 +1,186 @@
+---
+title: "Add Custom Columns to Your Accounts Table"
+sidebarTitle: "Custom Columns"
+description: "Add Data, Banded, Rule, AI, Manual Input, and Rollup columns to the Cora Accounts table to surface CRM fields, health scores, and AI insights."
+---
+
+Add scored, labeled, AI-generated, and manually-set columns to your Accounts table to track what matters most.
+
+## Overview
+
+Custom Columns let you add your own columns to the Accounts table, pulling data from your connected integrations. Use them to surface raw CRM fields, score accounts, categorize them with rules, generate AI insights, roll up multiple scores into a single composite metric, or track statuses your team sets by hand.
+
+Columns appear on the Accounts page alongside built-in columns like Users and Last Activity. They are available to everyone on your team who can access the Accounts page.
+
+## Common Use Cases
+
+- **Surface CRM Fields**: pull in fields like Account Owner, ARR, Region, or Contract End Date directly from Salesforce, HubSpot, or other connected integrations. Format values as currency, percentage, or date.
+- **Customer Health Score**: combine engagement metrics, support ticket volume, and product usage into a single composite score. Band individual inputs (for example, NPS is greater than or equal to 8 means Healthy) and roll them up into an overall health view.
+- **Renewal Readiness**: flag accounts as "On Track", "Needs Attention", or "At Risk" based on contract end date, recent activity, and sentiment signals.
+- **Engagement Tracking**: band call count or email volume in the last 30 days to quickly spot accounts going quiet.
+- **Onboarding Status**: categorize accounts by onboarding stage based on CRM fields or milestone completion.
+- **Implementation Status**: let your team set an account's stage by hand (for example, Not started, In progress, Live) when it is not tracked in a connected system.
+- **Executive Summary**: generate a one-line AI summary of each account's recent activity and sentiment from lifecycle data.
+- **Expansion Potential**: use AI to assess expansion likelihood based on usage patterns, recent conversations, and deal history.
+- **Account Segmentation**: band accounts by ARR, employee count, or industry tier for at-a-glance portfolio views.
+
+Scores you collect through surveys, such as CSAT and NPS, can feed these columns too, so a customer's survey results sit alongside their other account data. See [Creating and Sending Surveys](/using-cora/surveys).
+
+## Column Types
+
+There are six column types. Pick the one that matches your use case:
+
+| Column type | What it does | Best for |
+| --- | --- | --- |
+| **Data** | Display a raw field value from connected integrations. Optionally format as currency, date, percent, or duration. | Surfacing CRM data without scoring or banding. |
+| **Manual input** | A value your team sets per account from a fixed, scored dropdown. | Statuses you track by hand rather than pull from a system. |
+| **Banded** | Bucket a numeric metric into scored thresholds. | Numeric data you want to tier. |
+| **Rule** | First-match-wins conditions that assign a label and score. | Categorical logic across multiple fields. |
+| **AI** | A natural-language prompt evaluated against selected data fields to produce a text or numeric answer. | Qualitative insights that structured rules cannot capture. |
+| **Rollup** | Weighted average of other numeric columns into a single composite score. | Combining multiple signals into one overall metric. |
+
+## Creating a Column
+
+<Steps>
+  <Step title="Go to Accounts">
+    Go to the **Accounts** page.
+  </Step>
+  <Step title="Open table settings">
+    Click the **settings icon** in the table toolbar.
+  </Step>
+  <Step title="Add a custom column">
+    Click **Add Custom Column**.
+  </Step>
+  <Step title="Name the column">
+    Enter a **Column name**.
+  </Step>
+  <Step title="Pick a type">
+    Pick a **Column type** (Data, Manual input, Banded, Rule, AI, or Rollup).
+  </Step>
+  <Step title="Configure settings">
+    Configure the type-specific settings (see the sections below).
+  </Step>
+  <Step title="Create">
+    Click **Create Column**.
+  </Step>
+</Steps>
+
+The column appears immediately in the table. Values will populate as Cora computes them.
+
+<Note>
+  The data source is locked after creation. To change the source, delete the column and recreate it.
+</Note>
+
+## Data Columns
+
+A Data column surfaces a raw field value from your connected integrations — no scoring, banding, or color coding. The cell shows the value as-is, formatted per your chosen display format.
+
+Configuration:
+
+- **Source**: pick an integration data source (for example, Salesforce, HubSpot, Gainsight).
+- **Field**: select the field to display (for example, ARR, Account Owner, Region).
+- **Aggregation**: how to compute the value: raw value, days since, most recent value, or count/sum/average in the last N days.
+- **Display Format**: how to render the value in the cell. Options depend on the field's data type:
+  - **Raw value**: display the value as-is (available for all field types)
+  - **Currency**: format as a dollar amount (numeric fields only)
+  - **Percent**: format as a percentage (numeric fields only)
+  - **Duration**: format as a time duration (numeric fields only)
+  - **Date**: format as a date (date/timestamp fields only)
+- **Join data** (optional): resolve a foreign-key field against a related table. For example, join an Account Owner ID to the users table to display the owner's name instead of the raw ID. Configure the related table, the key column to match on, and which columns to display.
+
+Data columns with text values appear in the **Filters** panel as checkbox filters by distinct value, and are included in **global search** results. Numeric and date Data columns are sortable but do not appear in filters.
+
+Numeric Data columns can be used as inputs to a **Rollup** column, just like Banded or Rule columns.
+
+## Manual Input Columns
+
+A Manual input column holds a value your team sets by hand for each account, chosen from a fixed dropdown you define. There is no data source or AI behind it: you pick the value directly in the Accounts table. It is ideal for statuses you track yourself, such as implementation stage or an internal risk flag.
+
+Configuration:
+
+- **Options**: define the dropdown choices. Each option has a label (the text shown in the cell), a color (green/yellow/red/grey), and a score from 0 to 100.
+- **Scores**: because every option carries a score, Manual input columns produce numeric output and can be used as a measure in a **Rollup**.
+
+To set a value, click the cell in the Accounts table and pick an option. Choose **No value** to clear it. Manual input is the only column type you edit directly in the table. Values you set stay in place until you change or clear them, and you may briefly see a syncing indicator while an update is saved.
+
+Manual input columns are not AI and never run a model, so they do not count as Actions.
+
+## Banded Columns
+
+A Banded column takes a numeric or date field, applies threshold bands, and displays a colored label for each account.
+
+Configuration:
+
+- **Source**: pick an integration data source (for example, Gainsight, Salesforce, Gong).
+- **Field**: select the metric to band on. For event-based sources like Gong calls, you can use "All records" to count events.
+- **Aggregation**: how to compute the value: raw value, days since, or count/sum/average in the last N days.
+- **Bands**: define thresholds with an operator (greater than or equal to, greater than, less than or equal to, less than, equals, not equals), value, label, color (green/yellow/red/grey), and score.
+- **Catch-all**: a mandatory "Otherwise" band for values that do not match any threshold.
+
+A live preview shows the distribution of your accounts across bands before you save.
+
+## Rule Columns
+
+A Rule column evaluates conditions top-to-bottom and assigns the first matching clause's label and score.
+
+Configuration:
+
+- **Clauses**: an ordered list of rules; drag to reorder. The first clause whose conditions match wins.
+- **Per clause**: set a label, color, score, and one or more conditions.
+- **Conditions**: pick a source, field, operator, and value. Combine multiple conditions with AND or OR.
+- **Catch-all**: a mandatory "Otherwise" clause at the bottom for accounts that do not match any rule.
+
+Available operators include equals, not equals, contains, starts with, ends with, in, not in, greater than, less than, is empty, and is not empty.
+
+## AI Columns
+
+An AI column sends selected account data through a natural-language prompt and returns a text or numeric answer for each account.
+
+Configuration:
+
+- **Data type**: Integer, Float, Text, or Boolean.
+- **Source**: entity-level sources only (for example, Salesforce Account, lifecycle summary).
+- **Fields**: select which fields to include as context for the prompt.
+- **Prompt**: describe what you want Cora to evaluate in plain language.
+- **Score labels** (numeric output only): optional display bands to show a colored label instead of a bare number.
+
+AI columns refresh **daily** and are cached when the underlying data has not changed. Click **Recompute** in the table settings menu to force an immediate refresh.
+
+## Rollup Columns
+
+A Rollup column combines multiple numeric columns into a single weighted composite score.
+
+Configuration:
+
+- **Measures**: select from existing columns that produce numeric output (Banded, Rule, Manual input, numeric AI, numeric Data, or other Rollups).
+- **Weights**: assign a weight to each measure; weights must total 100.
+- **NA policy**: how to handle missing values: **Redistribute** (skip missing values and reweight the rest) or **Treat as zero**.
+- **Score labels**: optional display bands to show a colored label.
+
+You need at least one numeric column before you can create a Rollup.
+
+## Filtering and Sorting
+
+- Every custom column is **sortable** — click the column header to sort ascending or descending.
+- **Filters panel**: Banded, Rule, Manual input, Rollup columns with display bands, and text Data columns show checkbox filters by label in the Filters menu.
+- **Global search**: use the search bar to find accounts by AI column or text Data column values.
+
+Filters and sort preferences persist across sessions.
+
+## Editing and Deleting Columns
+
+Open the table settings menu to find your custom columns under the **Custom Columns** section.
+
+- **Edit**: click the pencil icon to open the column drawer. Column name and data source are locked after creation.
+- **Delete**: click the trash icon. This is permanent. Columns referenced by a Rollup cannot be deleted until the Rollup is updated.
+- **Reorder**: drag columns in the settings menu to change their position in the table. Column order is shared across your workspace — everyone sees the same order. Visibility is personal to each user.
+- **Visibility**: toggle columns on or off without deleting them. Visibility is personal — your toggles do not affect other team members.
+
+## Compute and Freshness
+
+Different column types refresh at different speeds:
+
+- **Data, Manual input, Banded, Rule, Rollup**: live on every page load. Values are always current. For Manual input, an update you make is saved right away and appears once it finishes syncing.
+- **AI**: refreshes daily. Results are cached when the underlying data has not changed. Click **Recompute** to force an immediate refresh.
+
+The column header shows a freshness indicator: "Live" for structured columns, or the last computed time for AI columns. If a column is still building, you will see a loading state in the cells until values are ready.

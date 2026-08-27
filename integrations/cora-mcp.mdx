@@ -1,0 +1,87 @@
+---
+title: "Connect to Cora via MCP Server"
+sidebarTitle: "Cora MCP"
+description: "Use the Cora MCP server to interact with your customer data, agents, and connected systems from Claude, Cursor, or any MCP-compatible client."
+---
+
+Cora AI builds Customer Success agents that actually do the manual work to serve and grow your customers, so your teams can focus on the human, relationship-driven work that drives growth. The Cora AI MCP server brings these capabilities into any MCP-compatible client, letting you interact with your customer data, workflows, and connected systems directly through conversation.
+
+**MCP Server URL:** `https://mcp.cora.ai/mcp`
+
+## Features
+
+- **Unified customer signals:** Connect scattered customer data and surface what matters: health scores, risk signals, engagement trends, and account activity, all in one place.
+- **Agents that do the work:** Create and manage agents, track progress, and automate follow-ups across your customer portfolio without the busywork.
+- **Proactive automation:** Define signals, monitor agent health, and let automated workflows act on the right customer moments before risks escalate.
+- **Deep integrations:** Works across your existing tools, including Salesforce, BigQuery, Gong, Gainsight, Google Docs, Google Slides, and more, syncing updates and completing steps end-to-end.
+- **Natural language discovery:** Describe what you need and Cora finds the right capability across 50\+ tools, no memorization required.
+
+## Setup
+
+Connect using any MCP-compatible client, including Claude, Cursor, Windsurf, or any other client that supports the Model Context Protocol.
+
+<Steps>
+  <Step title="From Claude">
+    1. Open Cora's listing: [Cora in the Claude directory](https://claude.ai/directory/cora)
+    2. Click **Connect** / **Add**, then sign in with your Cora account when prompted
+    3. Ask "Cora who am I" to confirm your identity and organization
+  </Step>
+  <Step title="From any MCP client">
+    1. Add the Cora AI MCP server URL: `https://mcp.cora.ai/mcp`
+    2. Complete OAuth authentication with your Cora account credentials when prompted
+    3. Ask "Cora who am I" to confirm your identity and organization
+  </Step>
+</Steps>
+
+## Authentication
+
+This server requires OAuth authentication. You will need a valid Cora AI account with access to your organization. The OAuth flow is handled automatically when you connect. Sign in with your existing Cora credentials, and your client maintains your session.
+
+## Examples
+
+### Example 1: Account health check
+
+**User prompt:** "Show me account health and risks for Acme Corp."
+
+**What happens:**
+
+- Resolves health scores and risk signals for the account
+- Surfaces recent warning events and trends
+- Returns a concise summary with recommended next steps
+
+### Example 2: Customer deep dive
+
+**User prompt:** "Pull a full overview of Acme Corp."
+
+**What happens:**
+
+- Gathers health, engagement, and interaction data for the account
+- Combines signals across connected systems into a single view
+- Returns a comprehensive snapshot with key highlights
+
+### Example 3: Interaction timeline
+
+**User prompt:** "Show me recent interactions and activity for Acme Corp."
+
+**What happens:**
+
+- Surfaces the latest customer interactions, calls, and emails
+- Presents activity in chronological order with relevant context
+- Highlights anything that may need follow-up
+
+### Example 4: Executive briefing
+
+**User prompt:** "Generate an exec-level account briefing for Acme Corp."
+
+**What happens:**
+
+- Pulls health, engagement, risks, and recent activity into a single narrative
+- Formats a concise, exec-ready briefing with recommended actions
+- Designed to be shared directly with leadership
+
+## Support
+
+- **Email:** [support@cora.ai](mailto:support@cora.ai)
+- **Website:** [https://www.cora.ai](https://www.cora.ai)
+- **Privacy Policy:** [https://www.cora.ai/privacy-policy](https://www.cora.ai/privacy-policy)
+- **Terms of Use:** [https://www.cora.ai/terms-of-use](https://www.cora.ai/terms-of-use)

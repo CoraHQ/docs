@@ -1,0 +1,76 @@
+---
+title: "Understanding Agents in Cora"
+sidebarTitle: "Concepts"
+description: "Learn what agents are, key terminology (agent, run, task, skill), the three trigger types, and autonomy levels in Cora."
+---
+
+Agents are one of the most powerful features in Cora. They let you automate repetitive workflows, like sending account health digests, flagging renewal risks, or following up after onboarding milestones, so your team can focus on the work that requires a human touch.
+
+This article covers the foundational concepts you need before building your first agent.
+
+## What Is an Agent?
+
+An agent is an automated workflow that runs on your behalf. You describe what you want it to do (in plain language, by chatting with Cora) and Cora builds the workflow for you. Once activated, the agent runs automatically based on the trigger you set up: on a schedule, in response to a lifecycle event, or when you manually kick it off.
+
+Agents can do things like:
+
+- Query your data and send a summary to Slack or email
+- Draft customer outreach when a risk signal is detected
+- Post a weekly digest of renewal activity to your team
+- Send personalized alerts to each account owner about their portfolio
+
+Every agent is created **paused** by default. It will not run or take any action until you review it and explicitly turn it on.
+
+## Key Terms
+
+Here are the terms you will see when working with agents:
+
+| Term | Definition |
+| --- | --- |
+| **Agent** | The workflow itself: its trigger, the tasks it performs, and its configuration. Think of it as a template that defines what should happen and when. |
+| **Agent Run** | A single execution of an agent. Each time an agent fires (on schedule, from a signal, or manually), it creates a run. You can review what happened in each run from the Agents page. |
+| **Task** | An individual step within an agent. A simple agent might have one task (e.g., query data and send a Slack message). More complex agents chain multiple tasks together. For example, gather data first, then send an email, then follow up if the customer replies. |
+| **Skill** | A set of reusable instructions that tells Cora what to do. An agent controls when and how often something runs, while a skill defines the steps to follow, and an agent can run a skill on a schedule. See [How to Build Skills](/agents/how-to-build-skills). |
+
+## Three Trigger Types
+
+Every agent needs a trigger: the condition that tells it when to run. There are three types:
+
+**Manual:** You start the agent yourself, on demand. Good for workflows you want to run ad hoc, like generating a briefing before a specific meeting.
+
+**Scheduled:** The agent runs automatically on a recurring schedule. For example, every Monday at 9am, or daily at 6pm. You set the frequency, time, and timezone.
+
+**Event-driven (Signal):** The agent runs automatically when Cora detects a specific lifecycle event, like a renewal risk, a stakeholder change, or a competitor mention. These events come from your connected integrations (Salesforce, Gong, Gmail, Slack, and others). See [Setting Up Signals](/using-cora/setting-up-signals) for more on how lifecycle event detection works.
+
+## Autonomy Levels
+
+When you build an agent, you choose how much independence it has. Cora uses three levels:
+
+**Crawl:** The agent surfaces information internally only. It might post a Slack alert or an internal summary, but it never contacts your customers directly. This is the safest starting point.
+
+**Walk:** The agent drafts customer-facing messages (like emails) but sends them through a human approval step first. You or a designated approver review and approve each message before it goes out. This is the recommended level for customer outreach. See [How Approval Notifications Work](/agents/approval-notifications) for how approvers are notified.
+
+**Run:** The agent acts fully autonomously, including sending customer-facing messages without approval. Use this for workflows where you are confident in the output and comfortable with no human review.
+
+You can always change the autonomy level later by refining the agent through chat with Cora.
+
+## Where Agents Fit in Cora
+
+Agents work alongside the other capabilities in Cora:
+
+- **Chat:** Talk to Cora for on-the-spot questions, analysis, and actions. Chat is also where you build and refine agents.
+- **Signals:** Cora monitors your integrations for lifecycle events. Signals can trigger event-driven agents automatically.
+- **Skills:** Reusable instructions you save once and ask Cora to run on demand. An agent can run a skill on a schedule. See [How to Build Skills](/agents/how-to-build-skills).
+- **Accounts:** Your imported customer accounts. Agents can run against specific accounts or across your entire portfolio.
+- **Integrations:** Connected tools like Salesforce, Slack, Gmail, and Gong. Agents use these integrations to read data, send messages, and take actions.
+
+## The Agents Page
+
+All your agents live on the **Agents** page. From here you can:
+
+- See a list of all agents and their current status (Live or Off)
+- Search for agents by name
+- Open an agent to review its configuration, tasks, and recent runs
+- Activate or pause agents
+
+The Agents page is your home base for managing automated workflows. You can also build and refine agents from chat. The two work together.

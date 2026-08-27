@@ -1,0 +1,119 @@
+---
+title: "Integrate Salesforce with Cora"
+sidebarTitle: "Salesforce"
+description: "Connect Salesforce to Cora for CRM data access, lifecycle event tracking, account imports, and optional write-back via agent workflows."
+---
+
+The Salesforce integration enables Cora.ai to access your CRM data for customer insights, account management, and synchronization.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: 5–10 minutes<br />**Required Role**: Salesforce System Administrator or equivalent
+</Note>
+
+## Prerequisites
+
+- Active Salesforce account (Sales Cloud, Service Cloud, or similar)
+- System Administrator or API Enabled permissions in Salesforce
+- Organization administrator access in Cora.ai
+- You do **not** need to create a Connected App in Salesforce — the Cora integration is fully managed on our side
+
+## Required Permissions
+
+Cora.ai will request the following Salesforce permissions:
+
+- **API Access** (`api`) — Access Salesforce APIs
+- **Perform requests at any time** (`refresh_token`, `offline_access`) — Maintain persistent connection
+
+**Data Access Control**: Cora.ai can only access Salesforce data that the connected user has permission to access. Access is controlled by the Salesforce user's profile, permission sets, and sharing rules.
+
+**Recommended Objects**: Accounts, Contacts, Opportunities, Cases, Custom Objects (as needed)
+
+**Best Practice**: Create a dedicated Salesforce integration user with a custom profile that grants access only to the objects and fields Cora.ai needs. This provides:
+
+- Granular control over accessible data
+- Clear audit trail (all API activity attributed to the integration user)
+- Easy permission management without affecting other users
+
+## Setup Steps
+
+<Steps>
+  <Step title="Approve the Cora Connected App in Salesforce">
+    Salesforce requires your org to explicitly approve third-party Connected Apps before they can be authorized. You'll need to create a temporary permission set to allow this.
+
+    1. In Salesforce, go to **Setup** → **Permission Sets**
+    2. Click **New** and name it something like "Cora Integration Access"
+    3. In the new permission set, click **System Permissions** → **Edit**
+    4. Check the box for **"Approve Uninstalled Connected Apps"** and click **Save**
+    5. Click **Manage Assignments** → **Add Assignments**
+    6. Select the user who will connect Salesforce to Cora and click **Assign**
+
+    **Note:** This permission set can be safely removed after the connection is established (see Step 6).
+  </Step>
+  <Step title="Initiate Connection in Cora">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Salesforce** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Salesforce Authentication">
+    1. You will be redirected to the Salesforce login page
+    2. Enter your Salesforce credentials
+    3. Select the appropriate Salesforce instance (Production or Sandbox)
+  </Step>
+  <Step title="Grant Permissions">
+    1. Review the permissions that Cora.ai is requesting
+    2. Verify the requested scopes align with your security policies
+    3. Click **Allow** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The Salesforce integration card will show **Connected** status
+    3. Connection details will display:
+       - Connected by: \[Admin Name\]
+       - Connected on: \[Date\]
+       - Instance: \[Production/Sandbox\]
+  </Step>
+  <Step title="Clean Up (Optional)">
+    Once the connection is confirmed, you can remove the temporary permission set created in Step 1. Go to **Setup** → **Permission Sets** in Salesforce, select "Cora Integration Access", and delete it.
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle — from onboarding and renewals to upsells, expansion, and churn risk — so your team never misses a key moment.
+
+    1. Click the connected **Salesforce** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+**Reads:** Cora.ai syncs Accounts, Contacts, Opportunities, Cases, and other configured objects via scheduled API polling. All data stays on Cora's infrastructure and is used to surface insights and track lifecycle events.
+
+**Writes (if configured):** When agents are configured for Salesforce actions, Cora can update record fields, post to Chatter, and attach files to records. Writes only happen through explicitly configured agent workflows — never automatically or without visibility. If write-back is enabled for your organization, your Cora.ai contact will walk through the specifics and provide observability for any changes made.
+
+## Importing Accounts and Ownership Sync
+
+Once Salesforce is connected, you can import accounts, set up ownership sync, and filter by ownership on the Accounts page. See [Managing Your Accounts](/getting-started/managing-accounts) for setup instructions.
+
+## How the Sync Works
+
+Cora uses **scheduled API polling** to keep your Salesforce data in sync. Here's what that means for your org:
+
+- **Standard REST API** — Cora periodically queries Salesforce's standard API to pull the latest data. No CDC, Platform Events, or Apex triggers are involved.
+- **Nothing installed in your org** — No packages, triggers, or custom objects are created in your Salesforce instance. All processing happens on Cora's infrastructure.
+- **Change detection on our side** — Cora compares current field values against a previous snapshot stored on our infrastructure. All comparison and change detection logic runs on Cora's side.
+- **API usage** — Only standard Salesforce API calls are made, counting toward your org's daily API request limit. If API limits ever become a concern, we can adjust the polling frequency.
+
+## Security
+
+The Cora Salesforce integration uses standard OAuth 2.0 with scoped permissions. All tokens are stored in an encrypted, SOC 2 Type II-certified vault. Cora can only access and modify data that the connected Salesforce user has permission to access.
+
+## Troubleshooting
+
+**Authorization fails when clicking Connect**
+
+If you see an authorization error when trying to connect Salesforce, the most common cause is the missing **"Approve Uninstalled Connected Apps"** permission. Follow the steps in **Step 1: Approve the Cora Connected App in Salesforce** above to create and assign the required permission set, then try connecting again.
+
+**Need help?**
+
+If you run into any issues not covered here, reach out to us at [support@cora.ai](mailto:support@cora.ai) and we'll help you get connected.

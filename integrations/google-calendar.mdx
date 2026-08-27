@@ -1,0 +1,76 @@
+---
+title: "Integrate Google Calendar with Cora"
+sidebarTitle: "Google Calendar"
+description: "Connect Google Calendar to Cora so agents can reference meeting schedules and Cora can detect lifecycle events from completed customer meetings."
+---
+
+The Google Calendar integration gives Cora read-only access to your calendar so it can reference your upcoming meetings in chat and agents, and detect lifecycle events from completed customer meetings.
+
+**Integration Type**: OAuth 2.0, User-Level<br />**Scope**: Read-only (`calendar.readonly`)
+
+## Prerequisites
+
+Before setting up the integration, make sure you have:
+
+- A Google Workspace or personal Google account
+- Access to Google Calendar
+- An active Cora.ai user account
+
+## Setup Steps
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai
+    2. Go to **Settings** → **Integrations**
+    3. Click **Connect** on the Google Calendar card
+  </Step>
+  <Step title="Authorize Access">
+    1. Sign in with your Google account if prompted
+    2. Review the permissions on the consent screen
+    3. Click **Allow**
+
+    This only grants read-only access to your calendar. Cora cannot modify, create, or delete any events.
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The Google Calendar card will show **Connected** status
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment. On first connect, the **Lifecycle Events** toggle is enabled automatically, so there is usually nothing to change here.
+
+    For Google Calendar, Cora detects lifecycle events from completed meetings on the connected user's primary calendar. Meetings are matched to accounts by attendee or organizer email (or email domain) against your CRM. Cancelled meetings and meetings the connected user declined are not used.
+
+    1. Click the connected **Google Calendar** card to open its settings drawer
+    2. Confirm the **Lifecycle Events** toggle is **on**
+    3. Click **Save** if you changed the toggle
+    4. Use **Manage event types** to review which events Cora extracts. This opens your organization's Lifecycle Taxonomy settings
+
+    Which signal types appear is governed by your organization's Lifecycle Taxonomy. Detection is rule-based: you define conditions on meeting fields such as title, description, attendees, duration, and start or end time. See [Signals](/using-cora/signals) and [Setting Up Signals](/using-cora/setting-up-signals).
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+**Reads:**
+
+- Your calendar list
+- Upcoming events (date, time, title, attendees, location)
+- Event details when referenced in conversation
+- Completed meetings for lifecycle event detection (title, description, attendees, organizer, start and end time, duration, conference URL, and status)
+
+Cora does not create, modify, or delete any calendar events. Each user connects their own calendar; Cora only accesses the calendar of the user who authorized the connection.
+
+When Lifecycle Events are enabled, Cora syncs completed meetings from that primary calendar and matches them to customer accounts by attendee or organizer email. Those meetings are used to detect lifecycle events and surface them as [Signals](/using-cora/signals). Meetings without a CRM-matched participant do not produce Signals. Cora re-evaluates completed, CRM-matched meetings about once an hour.
+
+## Disconnecting
+
+To disconnect Google Calendar:
+
+1. Navigate to **Settings** → **Integrations**
+2. Locate the Google Calendar card
+3. Click **Disconnect**
+4. Confirm the disconnection
+
+You can also revoke access directly in your Google account settings at [myaccount.google.com/permissions](https://myaccount.google.com/permissions).
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

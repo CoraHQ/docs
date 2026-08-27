@@ -1,0 +1,94 @@
+---
+title: "Connect a Database via the Postgres Protocol"
+sidebarTitle: "Database"
+description: "Connect any Postgres-wire-compatible database or SQL API to Cora, including PostgreSQL, MySQL, and other databases supporting the Postgres protocol."
+---
+
+The Database connector gives Cora.ai a direct, read-only connection to any database or SQL API that speaks the PostgreSQL wire protocol (for example, Redshift, Cube, Materialize, Timescale, CockroachDB, and Postgres-compatible cloud databases). Cora.ai connects with a username and password, reads the tables your team scopes in on a schedule, and makes that data available to agents, dashboards, and workflows.
+
+**Integration Type**: Postgres Wire Protocol (username \+ password), Organization-Level<br />**Required Role**: Cora.ai Organization Administrator<br />**Connects to**: Any database or SQL API that speaks the PostgreSQL wire protocol
+
+## Prerequisites
+
+Before setting up the connector, make sure you have:
+
+- A database or SQL API endpoint that speaks the PostgreSQL wire protocol, reachable from Cora.ai over the network
+- A dedicated, read-only login (username and password) for Cora.ai. We strongly recommend a service account scoped to only the data you intend to share
+- The connection details: host, port (default `5432`), and database (or catalog) name
+- The Database connector enabled for your organization. If you don't see it on the Integrations page yet, reach out to your Cora.ai contact to request access
+
+## Required Role
+
+Connecting, editing, pausing, or disconnecting the Database connector requires the **Organization Administrator** role in Cora.ai. Other members can view the connector's status and sync details but cannot change its configuration or credentials.
+
+## Setup Steps
+
+<Note>
+  Cora.ai only ever reads from your database, and only from the tables your team agrees to share. We recommend pointing Cora.ai at a read-only login restricted to those tables or views.
+</Note>
+
+<Steps>
+  <Step title="Create a read-only login">
+    In your database, create (or reuse) a login for Cora.ai with read-only access limited to the tables or views you want to sync. Cora.ai authenticates with this login's username and password; the password is stored encrypted and is never displayed back.
+  </Step>
+  <Step title="Open the Database connector in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Go to **Settings** → **Organization Settings** → **Integrations**
+    3. Find the **Database** row in the integrations list and click **Connect**
+  </Step>
+  <Step title="Enter your connection details">
+    In the **Connection** section of the panel, fill in the fields below, then click **Connect**.
+
+    | Field | Description |
+    | --- | --- |
+    | **Host** | Hostname of your Postgres-wire endpoint. Required. |
+    | **Port** | TCP port. Defaults to `5432`. |
+    | **Database** | The database or catalog name to connect to. Required. |
+    | **Username** | The read-only login Cora.ai should authenticate as. Required. |
+    | **SSL Mode** | The TLS mode for the connection. Defaults to `require`, which enforces an encrypted connection. Use `verify-full` for stricter certificate verification. |
+    | **Password** | The password for the login above. It is encrypted on save and never shown again. When a password is already stored, leave this blank to keep the current one. |
+
+    When you click **Connect**, the connection is saved and the integration is turned on. The button then changes to **Save** for any later edits, and the connector's status reads **Connected**.
+  </Step>
+  <Step title="Cora.ai scopes the tables to sync">
+    After you connect, your Cora.ai contact configures which tables Cora.ai reads and how often. Until that's done, the connector's **Sources** and **Cadence** read "No sources configured yet" and no data syncs. Once configured, the tables and schedule appear in the connector's **Sync details**, along with the **Last Synced** time.
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+**Reads**: Cora.ai reads only the specific tables your team scopes in, on a schedule, pulling new and changed rows each run. In addition, Cora.ai agents can run ad-hoc, read-only SQL queries against the connected source to answer questions in chat and workflows.
+
+**Writes**: None. Cora.ai never writes to your database. The connection is read-only end to end: scheduled ingestion only reads, and ad-hoc agent queries run inside a read-only database transaction, so any insert, update, delete, or schema change is rejected by your database server.
+
+## How the Sync Works
+
+- Cora.ai connects over the PostgreSQL wire protocol using the host, port, database, and username you provided, plus the stored password, with TLS enforced via the SSL mode
+- On the schedule configured by Cora.ai, the connector reads the scoped tables and loads them into Cora.ai, where they're available to agents, dashboards, and workflows
+- Ad-hoc read-only queries from agents are bounded by a statement timeout and a maximum row limit, and run in a read-only transaction
+- You can pause syncing at any time without losing your configuration using the **Enable Integration** toggle (see Disconnecting)
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Scheduled ingestion only reads; agent queries run in a read-only transaction, so writes and DDL are rejected by your database |
+| **Least privilege** | You control access by giving Cora.ai a login scoped to only the tables or views you choose to share |
+| **Encrypted in transit** | TLS is enforced by default (SSL mode `require`); use `verify-full` for certificate verification |
+| **Credential security** | The password is write-only: encrypted at rest, never returned by the app, and never shown in the UI |
+| **Revocability** | Disconnect in Cora.ai to remove the stored password, or rotate or disable the login on your side to cut access immediately |
+
+## Troubleshooting
+
+- **Don't see the Database connector?** It may not be enabled for your organization yet. Reach out to your Cora.ai contact to request access.
+- **Connection fails on Connect.** Double-check the host, port, database, username, and password, confirm the endpoint is reachable from Cora.ai over the network, and verify it accepts TLS connections at the selected SSL mode.
+- **Connected, but nothing is syncing.** The set of synced tables and the schedule are configured by Cora.ai. If **Sources** shows "No sources configured yet," reach out to scope the tables. Also confirm **Enable Integration** is on.
+- **Updating the password.** Open the connector, enter a new value in **Password**, and click **Save**. Leaving it blank keeps the existing password.
+
+## Disconnecting
+
+To **pause** syncing without losing your setup, open the Database connector and turn off the **Enable Integration** toggle. Your connection details and stored password are kept, the status reads **Paused**, and syncing stops until you turn it back on.
+
+To fully **disconnect**, open the connector and click **Disconnect**. This turns off syncing and permanently removes the stored password from Cora.ai. To reconnect later, enter your connection details and password again.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

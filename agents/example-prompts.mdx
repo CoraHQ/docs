@@ -1,0 +1,92 @@
+---
+title: "Example Agent Prompts to Try in Cora"
+sidebarTitle: "Example Prompts"
+description: "Starter prompts for common Cora agent workflows: risk summaries, renewal outreach, call prep, onboarding checks, and more. Copy and paste to get started."
+---
+
+Not sure what to build first? Here are starter prompts you can type (or copy/paste) directly into the Cora chat. Each one kicks off the agent builder. Cora will ask clarifying questions, check your connected integrations, and handle the setup for you.
+
+You don't need to get every detail right upfront. Just start with one of these and let Cora guide you through the rest.
+
+For background on how agents work, see [Understanding Agents](/agents/understanding-agents). For a step-by-step building walkthrough, see [Building Your First Agent](/agents/building-your-first-agent).
+
+## Portfolio Risk Summary
+
+```text
+"Every Monday at 9am Eastern, send a summary of at-risk accounts to #cs-alerts in Slack."
+```
+
+Sets up a recurring digest of accounts that need attention, delivered to your team on a schedule.
+
+**Cora may ask you about:** which Slack channel or email to send to, what timezone, which accounts to include (e.g. a specific segment or all accounts), and how often to run it.
+
+## Renewal Risk Outreach
+
+```text
+"When a renewal risk is detected, draft an outreach email to the customer and send it to me for approval before it goes out."
+```
+
+Creates an event-driven agent that reacts to renewal risk signals and drafts personalized outreach for your review.
+
+**Cora may ask you about:** which signal or lifecycle event to trigger on, whether to send to the account owner or a specific person, and what autonomy level you want (draft with approval vs. fully autonomous).
+
+## Customer Call Prep
+
+```text
+"Build me an agent I can run before customer calls to generate a briefing with recent activity, health trends, and open risks."
+```
+
+Creates an on-demand agent you trigger manually whenever you need a quick account briefing.
+
+**Cora may ask you about:** what data to include (health scores, recent signals, usage metrics), where to deliver the briefing (chat, email, Slack), and whether to target a specific account each time.
+
+## Onboarding Progress Check
+
+```text
+"Every Wednesday, check for onboarding accounts that have stalled and post a summary to #onboarding-team in Slack."
+```
+
+Sets up a weekly check that flags accounts stuck in onboarding so your team can follow up.
+
+**Cora may ask you about:** how you define "stalled" (days inactive, missing milestones), which Slack channel to post to, and what details to include for each account.
+
+## Competitor Mention Alert
+
+```text
+"When a competitor mention is detected in a customer conversation, alert the account owner in Slack with the details."
+```
+
+Creates a real-time alert that notifies the right person when a competitive signal surfaces.
+
+**Cora may ask you about:** which signal or lifecycle event to watch for, whether to notify the account owner or a specific channel, and whether to include conversation context in the alert.
+
+## Weekly Executive Rollup
+
+```text
+"Every Friday at 4pm Eastern, email me a summary of the week's key account activity: new risks, escalations, and wins."
+```
+
+Generates a high-level end-of-week briefing for leadership or cross-functional stakeholders.
+
+**Cora may ask you about:** which categories to include (risks, wins, escalations, deal activity), whether to send via email or Slack, and whether to filter to a specific segment or region.
+
+## Stakeholder Change Follow-Up
+
+```text
+"When a champion or key stakeholder leaves an account, notify the account owner and draft talking points for the new contact."
+```
+
+Reacts to stakeholder changes with both an internal alert and a drafted action plan.
+
+**Cora may ask you about:** which stakeholder change signal to trigger on, how to deliver the notification (Slack, email), and what level of autonomy to use for the drafted outreach.
+
+## Tips for Writing Your Own Prompts
+
+These examples are just starting points. You can describe any workflow in your own words. Cora will fill in the gaps. A few tips:
+
+- **Be specific about the output:** say where you want it delivered (Slack channel, email) and what it should include.
+- **Include a schedule or trigger:** "every Monday at 9am" or "when a renewal risk is detected" gives Cora what it needs.
+- **Start simple:** a weekly Slack digest or an internal alert is a great first agent. You can always add complexity later.
+- **Don't worry about prerequisites:** if an integration or signal isn't set up yet, Cora will let you know and help you configure it.
+
+For more on trigger types and when to use each, see [Agent Triggers and Activation Rules](/agents/triggers-and-activation-rules). To learn how to refine agents after building, see [Managing and Refining Agents](/agents/managing-and-refining-agents).

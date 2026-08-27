@@ -1,0 +1,127 @@
+---
+title: "Integrate BigQuery with Cora"
+sidebarTitle: "BigQuery"
+description: "Connect Google BigQuery to Cora to query your data warehouse for account insights, lifecycle event detection, and custom column inputs."
+---
+
+The BigQuery integration gives Cora.ai a direct, read-only connection to your Google BigQuery data. Cora.ai signs in with Google, runs read-only queries against the datasets your team scopes in on a schedule, and makes that data available to agents, dashboards, and workflows.
+
+**Integration Type**: Google OAuth 2.0 (dedicated Google Workspace account), Organization-Level<br />**Required Role**: Cora.ai Organization Administrator, plus a Google Workspace administrator for the allowlist and trusted-app steps<br />**Connects to**: Google BigQuery
+
+<Warning>
+  BigQuery connects through Google's standard OAuth sign-in, so it needs a real Google Workspace user account that can log in through a browser. A GCP service account, a JSON key file, or an email alias will not work for this flow.
+</Warning>
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- A dedicated Google Workspace user account for Cora.ai (a real login that can sign in through Google in a browser), for example `data-cora@yourcompany.com`
+- The BigQuery datasets or views you want to share, with read access granted to that account
+- A Google Workspace administrator available to allowlist the account and mark Cora.ai as a trusted app
+- The BigQuery integration enabled for your organization. If you don't see it on the Integrations page yet, reach out to your Cora.ai contact to request access.
+
+## Required Permissions
+
+Grant the dedicated account the minimum access it needs, and avoid broad project-level or admin roles:
+
+- **Read access to the specific datasets or views** you want Cora.ai to see (the BigQuery Data Viewer role on those datasets)
+- **Permission to run query jobs** in the billing project (the BigQuery Job User role). Cora.ai runs read-only query jobs under the hood, so job-run permission is required in addition to data-view access
+
+Cora.ai's OAuth sign-in requests Google Cloud scopes because it creates BigQuery query jobs when reading data. We recommend starting with the minimum access above and expanding only if needed.
+
+## Setup Steps
+
+<Note>
+  The steps below are our recommended setup for security and isolation. Your team can adapt naming and structure to fit your conventions. The only hard requirements are that Cora.ai signs in with a real Google Workspace account and that the account has read access to the views you want to share.
+</Note>
+
+<Steps>
+  <Step title="Create a dedicated Google Workspace account for Cora">
+    BigQuery uses Google's standard OAuth flow, which requires a real Google Workspace user that can sign in through a browser. Create a dedicated Workspace user for Cora.ai so access is easy to audit and revoke.
+
+    Do not use a GCP service account, a JSON key file, or an email alias. None of these can complete the browser sign-in, and the connection will either fail or fall back to the wrong identity. This is the most common setup mistake, so it is worth confirming the account is a real, sign-in-capable Workspace user before continuing.
+  </Step>
+  <Step title="Grant the account read-only access to your BigQuery data">
+    We recommend a dedicated dataset that contains only the views Cora.ai should access. This acts as a clear security boundary. If your team prefers to grant access to specific views in an existing dataset, that works too.
+
+    Grant the Cora.ai account the BigQuery Data Viewer role on those datasets or views, and the BigQuery Job User role in the billing project. Keep the access scoped to only the data you intend to share.
+  </Step>
+  <Step title="Share the account email with Cora">
+    Send the exact email address of the dedicated Workspace account to your Cora.ai contact. Cora.ai allowlists this address before the connection can complete, so this step is required to unblock the sign-in.
+  </Step>
+  <Step title="Connect BigQuery in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Go to **Settings** then **Organization Settings** then **Integrations**
+    3. Find the **BigQuery** integration card and click **Connect**
+    4. Complete the Google sign-in using the dedicated Workspace account from Step 1 (not your personal account)
+  </Step>
+  <Step title="Mark Cora as a trusted app in Google Admin">
+    Because Cora.ai connects server-to-server (with no person sitting there to re-authenticate), Google Workspace session controls can periodically expire the connection and cause errors such as 400 or 403. To prevent this, a Google Workspace administrator should mark Cora.ai as trusted and exempt it from API access blocking.
+
+    In the Google Admin console:
+
+    1. Enable **Exempt trusted apps** under session controls
+    2. Go to **Security** then **Access and data control** then **API controls** then **App access control**
+    3. Filter for **cora ai** and select the Cora AI app requesting Cloud Platform scopes
+    4. Set access to **Trusted** and check **Exempt from having API access blocked**
+
+    For reference, see Google's guide: [Control which third-party and internal apps access Google Workspace data](https://support.google.com/a/answer/9368756).
+  </Step>
+  <Step title="Validate the connection">
+    Once the BigQuery card shows **Connected**, share a simple test query with your Cora.ai contact so we can confirm access to the right tables, for example:
+
+    ```sql
+    SELECT * FROM `your-project.your_dataset.your_table` LIMIT 500
+    ```
+
+    Cora.ai configures which datasets and tables are synced and how often. You do not need to configure tables yourself.
+  </Step>
+  <Step title="Enable Data Ingestion">
+    Enable data ingestion to sync information from this integration into Cora.
+
+    1. Click the connected **BigQuery** integration card to open the settings panel
+    2. Toggle **Enable Integration** on
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+**Reads**: Cora.ai reads only the datasets and tables your team scopes in, on a schedule. In addition, Cora.ai agents can run ad-hoc, read-only SQL queries against the connected BigQuery project to answer questions in chat and workflows.
+
+**Writes**: None. Cora.ai never writes to BigQuery. Both scheduled ingestion and ad-hoc agent queries only read.
+
+## How the Sync Works
+
+- Cora.ai signs in with the Google Workspace account you connected and runs read-only BigQuery query jobs through Google's BigQuery API
+- On the schedule configured by Cora.ai, the connector reads the scoped tables and loads them into Cora.ai, where they are available to agents, dashboards, and workflows
+- For tables set up for incremental sync, Cora.ai pulls only new or changed rows each run, based on a timestamp column
+- You can pause syncing at any time without losing your configuration using the **Enable Integration** toggle (see Disconnecting)
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Scheduled ingestion and agent queries only read. Cora.ai never writes to BigQuery. |
+| **Least privilege** | You grant read access only to the specific datasets or views you choose to share, and avoid project or admin roles. |
+| **Dedicated account** | A dedicated Google Workspace account makes Cora.ai's access easy to audit and revoke independently of any person. |
+| **Credential security** | The OAuth credential is stored in an encrypted vault, never logged, and never shown in the UI. |
+| **Revocability** | Remove the account's dataset access, or disconnect in Cora.ai, to cut access immediately. |
+
+## Troubleshooting
+
+- **The Connect flow only uses my own account, or I can't find where to paste service-account credentials.** BigQuery uses Google's OAuth sign-in, so it uses whichever Google account signs in, and there is no field for a service-account JSON key. Sign in with the dedicated Workspace account. Service accounts and aliases are not supported.
+- **It connected, but later started disconnecting or returning 400 or 403 errors.** This is caused by Google Workspace session controls expiring the server-to-server connection. Have a Workspace administrator mark Cora.ai as trusted and check "Exempt from having API access blocked" (see Step 5).
+- **Connected, but queries return "forbidden" or no tables are listed.** The connected account does not have access to the target datasets. Grant it read access to the specific datasets or views, then try again.
+- **Connected, but nothing is syncing.** The datasets and tables to sync are configured by Cora.ai. If nothing is flowing, reach out to scope the tables, and confirm the **Enable Integration** toggle is on.
+- **Some records are skipped.** Agents require certain fields to run (for example, a first name and email to draft an email). Rows missing required fields are skipped by design. Fill in the missing values at the source to include them.
+- **Don't see the BigQuery integration?** It may not be enabled for your organization yet. Reach out to your Cora.ai contact to request access.
+
+## Disconnecting
+
+To **pause** syncing without losing your setup, open the BigQuery card and turn off the **Enable Integration** toggle. Your connection is kept, the status reads **Paused**, and syncing stops until you turn it back on.
+
+To fully **disconnect**, open the card and click **Disconnect**. This turns off syncing and removes the stored OAuth credential from Cora.ai. To reconnect later, sign in again with the Workspace account.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

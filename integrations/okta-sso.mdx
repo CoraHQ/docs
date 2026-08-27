@@ -1,0 +1,162 @@
+---
+title: "Set Up Okta Workforce SSO for Cora"
+sidebarTitle: "Okta SSO"
+description: "Configure Okta as your identity provider for Cora using OpenID Connect so employees can sign in with corporate credentials and be provisioned automatically."
+---
+
+The Okta Workforce integration enables seamless Single Sign-On (SSO) for your organization's employees accessing Cora.ai. Using Okta as your identity provider, employees can authenticate with their corporate credentials without managing separate passwords.
+
+**Integration Type**: OpenID Connect (OIDC), Organization-Level<br />**Setup Time**: 10-15 minutes<br />**Required Role**: Okta Administrator
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Active Okta Workforce Identity subscription
+- Administrator access in Okta
+- Knowledge of your organization's email domains (for example, @yourcompany.com)
+
+## Integration Architecture
+
+Once configured, the Okta integration provides seamless authentication routing.
+
+**Flow for Enterprise Users:**
+
+1. Employee enters their work email (for example, `alice@yourcompany.com`)
+2. System automatically routes to Okta based on email domain
+3. Employee authenticates via Okta (with MFA if configured)
+4. Upon successful authentication, employee is logged into Cora.ai
+
+## Benefits
+
+- **Seamless User Experience** — Employees use existing corporate credentials
+- **Centralized Access Control** — Manage Cora.ai access through Okta policies
+- **Enhanced Security** — Leverage Okta's MFA and adaptive authentication
+- **Zero Code Changes** — Integration is transparent to end users
+- **Audit and Compliance** — Centralized audit logs in Okta
+
+## Setup Steps
+
+The Okta integration setup is a three-step process. You'll configure your Okta application, share the credentials securely with Cora.ai, and then complete the Okta tile configuration once we confirm setup is live.
+
+<Steps>
+  <Step title="Create Okta OIDC App Integration">
+    To learn how to create an Okta OIDC app integration, read [Create OIDC app integrations on Okta Help Center](https://help.okta.com/en-us/Content/Topics/Apps/Apps_App_Integration_Wizard_OIDC.htm).
+
+    **Required Settings:**
+
+    1. Log into Okta Admin Console as an **Administrator**
+    2. Navigate to **Applications** → **Applications**
+    3. Click **Create App Integration**
+    4. Configure the following:
+       - **Sign-in method**: Select **OIDC - OpenID Connect**
+       - **Application type**: Select **Web Application**
+    5. Click **Next**
+
+    **Application Settings:**
+
+    Enter the following details:
+
+    1. **App integration name**: "Cora.ai" (or your preferred name)
+    2. **Grant type**: Authorization Code (should be selected by default)
+    3. **Sign-in redirect URIs**: `https://auth.cora.ai/login/callback`
+    4. **Sign-out redirect URIs**: (leave blank or optional)
+    5. **Trusted Origins**: `https://cora.ai/`
+    6. Under **Assignments**, choose:
+       - **Controlled access**: Select who can access the application
+       - **Recommendation**: Start with specific groups for pilot testing before rolling out organization-wide
+    7. Click **Save**
+
+    **Save Application Credentials:**
+
+    After creating the app, you'll see the application details page. Save the following values:
+
+    - **Okta Domain**: Your organization's Okta domain (for example, `yourcompany.okta.com`)
+    - **Client ID**: Copy this value
+    - **Client Secret**: Click **Show**, then copy this value
+
+    <Warning>
+      Keep these credentials secure. You'll need them for Step 2.
+    </Warning>
+  </Step>
+  <Step title="Share Credentials Securely with Cora.ai">
+    Once you've created the Okta application, you need to send the credentials to Cora.ai so we can complete the backend configuration.
+
+    **Required Information:**
+
+    | Field | Description |
+    | --- | --- |
+    | **Okta Domain** | Okta's domain name for your organization (for example, `yourcompany.okta.com`) |
+    | **Client ID** | Unique identifier for your registered Okta application from Step 1 |
+    | **Client Secret** | Authentication secret for your registered Okta application from Step 1 |
+    | **Email Domain(s)** | Your organization's email domain(s) to enable automatic routing (for example, `yourcompany.com`) |
+
+    **Secure Sharing via Bitwarden Send:**
+
+    To securely share your Okta credentials with us, use **Bitwarden Send** (a secure one-time sharing tool; no Bitwarden account required):
+
+    1. Go to [Bitwarden Send](https://bitwarden.com/products/send/)
+    2. In the **"Text"** tab, paste the following:
+       ```text
+       Okta Domain: [your-org].okta.com
+       Client ID: [your-client-id]
+       Client Secret: [your-client-secret]
+       Email Domain(s): yourcompany.com, subsidiary.com (if multiple)
+       ```
+    3. Click **"Create Send"**
+    4. Click **"Copy Link"**
+    5. Send the link to your Cora.ai contact via email or Slack
+
+    **Alternative Secure Sharing Methods:**
+
+    If you prefer not to use Bitwarden Send, you can also:
+
+    - Share via your organization's secure file sharing platform
+    - Send via encrypted email
+    - Share during a scheduled call with screen sharing
+
+    **What Happens Next:**
+
+    1. Cora.ai receives your credentials securely
+    2. Our team configures the backend integration (typically within 1 business day)
+    3. We'll notify you when the integration is ready for testing
+    4. You can then proceed to Step 3 to complete the Okta tile setup
+  </Step>
+  <Step title="Complete Okta Tile Configuration">
+    Once Cora.ai confirms the backend integration is live, complete these final settings in your Okta app so the Cora tile appears for your users:
+
+    1. **Set the Initiate Login URI** — Cora.ai will provide you with a URL in the format: `https://app.cora.ai/start-login?connection=<your-org>-okta`. In the Okta app's **Login** section, paste this URL into the **"Initiate login URI"** field.
+    2. **Set "Login initiated by" to "Either Okta or App"** — By default this may be set to "App Only", which prevents the Cora tile from appearing in users' Okta dashboards. Change it to **"Either Okta or App"** so assigned users see the tile.
+    3. **Verify** — Assigned users should now see the Cora.ai tile in their Okta dashboard and can click it to launch directly into the app.
+  </Step>
+</Steps>
+
+## User Provisioning
+
+Cora.ai supports **just-in-time (JIT) user provisioning** via Okta. This means:
+
+- **No manual provisioning needed** — As long as a user clicks the Cora tile in Okta (or goes to app.cora.ai and enters their work email), they will be logged in and provisioned automatically on first access.
+- **No SCIM required** — Because Cora does not use a license-based model, there is no need for SCIM or manual user management. Inactive or dormant users have no commercial impact.
+- **Deprovisioning** — If a user should no longer have access, simply unassign them from the Cora.ai app in Okta. They will no longer be able to authenticate.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="The Cora.ai tile doesn't appear in users' Okta dashboards. What's wrong?">
+    Check that **"Login initiated by"** is set to **"Either Okta or App"** (not "App Only") in the Okta app settings. Also verify that the user is assigned to the app (directly or via group).
+  </Accordion>
+
+  <Accordion title="Do we need to manually provision users or submit tickets?">
+    No. Cora supports just-in-time provisioning. Users are automatically created on their first login via Okta. No ServiceNow ticket, no admin action, no delay.
+  </Accordion>
+
+  <Accordion title="What if a user was previously using Google SSO?">
+    Users who were previously authenticated via Google SSO will need to click **"Continue with email"** (or use the Okta tile) once to transition to Okta-based authentication. This is a one-time action.
+  </Accordion>
+
+  <Accordion title="Does Cora.ai support SCIM?">
+    SCIM is on our roadmap but not currently supported. However, because Cora uses JIT provisioning and has no per-seat licensing, the practical need for SCIM is minimal: users auto-provision on first access and dormant accounts have no cost impact.
+  </Accordion>
+</AccordionGroup>
+
+If you run into issues, contact your Cora.ai implementation contact or email [support@cora.ai](mailto:support@cora.ai).

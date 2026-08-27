@@ -1,0 +1,79 @@
+---
+title: "Integrate Gong with Cora"
+sidebarTitle: "Gong"
+description: "Connect Gong to Cora for call recording access, transcript analysis, and lifecycle event detection from customer conversations."
+---
+
+The Gong integration gives Cora.ai access to your call recordings, transcripts, and conversation intelligence so it can surface insights, track lifecycle events, and help your team stay informed about customer interactions.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: Gong Technical Administrator
+</Note>
+
+## Prerequisites
+
+- An active Gong account with recorded calls
+- Technical Administrator permissions in Gong
+- Organization administrator access in Cora.ai
+
+## Setup Steps
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Gong** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Authorize in Gong">
+    1. You will be redirected to Gong's authorization screen
+    2. Log into Gong account
+    3. Review the permissions Cora.ai is requesting
+    4. Click **Allow** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. The Gong integration card will show **Connected** status
+    2. Your name and the connection date will appear on the card
+    3. Cora will begin syncing your Gong data automatically
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle — from onboarding and renewals to upsells, expansion, and churn risk — so your team never misses a key moment.
+
+    1. Click the connected **Gong** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai syncs the following from Gong:
+
+- **Calls** — Call metadata, participants, topics, trackers, outcomes, highlights, and interaction stats
+- **Transcripts** — Full call transcripts with speaker attribution
+- **Users** — Gong user profiles for mapping calls to your team
+
+Access is **read-only**. Cora.ai does not modify any data in Gong.
+
+## How the Sync Works
+
+Cora uses **scheduled API polling** to keep your Gong data in sync. Here's what that means:
+
+- **Gong REST API** — Cora periodically queries the Gong API to pull the latest call data and transcripts. No webhooks or triggers are involved.
+- **Nothing installed in Gong** — No packages, plugins, or configuration changes are made in your Gong instance. All processing happens on Cora's infrastructure.
+- **Change detection on our side** — Cora tracks which calls have already been synced and only fetches new or updated records.
+- **Initial sync** — On first connection, Cora imports approximately the last 30 days of call data.
+
+## Troubleshooting
+
+Having trouble with Signals? See the [Signals FAQ](/faq/signals-faq) for common questions about why Signals may not appear, sync timing, and how call-to-account matching works.
+
+## Disconnecting
+
+To disconnect Gong:
+
+1. Open the Gong integration card in Cora
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+Disconnecting stops all data syncing.

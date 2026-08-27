@@ -1,0 +1,65 @@
+---
+title: "Actions and Usage in Cora"
+sidebarTitle: "Actions"
+description: "Learn what counts as an Action in Cora, the two kinds of Actions, how they are counted, and what does not count toward your usage."
+---
+
+Cora works across your connected tools to get things done: sending messages, updating your CRM, pulling in data, and generating AI insights. Each discrete unit of that work is called an **Action**, and Actions are how Cora measures usage.
+
+This page explains how we define an Action and, more importantly, what that means in practice, with examples of what does and does not count.
+
+## How we define an Action
+
+In short, an Action is a single unit of work Cora does for you. In a little more detail, an Action is a discrete unit of work Cora performs or processes, as measured by Cora's systems. It is either:
+
+- a task Cora runs in a connected system, such as sending a message, updating a CRM record, or retrieving data, or
+- an AI inference that generates or refreshes an insight, analysis, score, or other output.
+
+A few things to keep in mind:
+
+- Actions count the same way no matter how the work starts: from the Cora app, a workflow or signal, or a request through our API or MCP.
+- Actions do not include signing in, status or health checks, viewing usage data, or re-opening outputs Cora already generated.
+- Actions include work Cora does based on configurations you set up, or that Cora set up with your approval.
+
+## The two kinds of Actions
+
+**1. Work in your connected systems.** Cora performs a task in a tool you have connected. For example, sending an email, posting to Slack, updating a Salesforce or HubSpot record, or running a query to pull in data.
+
+**2. AI-derived outputs.** Cora runs an AI inference to generate or refresh an insight, analysis, score, summary, or other output. For example, producing an account health score, writing an account summary, or surfacing an AI insight.
+
+## How Actions are counted
+
+An Action is counted whenever Cora runs an AI inference or performs a task in one of your connected systems. Work that involves neither is not an Action.
+
+This is true no matter how the work starts. Whether you ask Cora directly in the app, a workflow or signal triggers it automatically, or another system calls Cora through our API or MCP interface, the same work counts as the same number of Actions. This includes work Cora performs based on configurations you set up, or that Cora set up on your behalf with your approval.
+
+As a rule of thumb, Cora counts an Action only when it actively does something for you: it runs an AI inference, or it performs a task such as sending, updating, or fetching data on request. The automatic work that keeps your data flowing and on screen is not counted.
+
+## Examples
+
+These lists are illustrative, not exhaustive, but they cover the most common cases.
+
+### Counts as an Action
+
+- Sending or drafting an email.
+- Posting a message to Slack.
+- Creating or updating a record in Salesforce or HubSpot (for example, updating a field or posting to Chatter).
+- Running a query on demand to pull in data or answer a request (for example, an agent fetching records to complete a task).
+- Generating an artifact, such as a QBR deck, an account summary, or a scoping document.
+- Extracting signals or insights from a call, email, or meeting (an AI inference over that content).
+- Running an AI inference to produce or refresh an insight, score, or summary (including a custom column value that uses AI).
+- Surfacing an AI-derived signal or insight.
+
+### Does not count as an Action
+
+- Signing in or authenticating.
+- Status or health checks.
+- Viewing your usage or billing data.
+- Automatically syncing your data into Cora, such as ingesting calls, customer interactions, CRM records, or warehouse data on a schedule.
+- Displaying or reading data that is already in Cora, including re-opening or downloading something Cora already generated.
+- Values Cora calculates with fixed rules rather than AI, such as formula, banded, rule, and rollup columns.
+
+## Good to know
+
+- A single agent run can involve several Actions. For example, an agent that sends an email, updates a record, and runs a query performs three Actions, not one.
+- When another system or agent calls Cora through the API or MCP, each task Cora performs counts as one Action.

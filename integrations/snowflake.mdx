@@ -1,0 +1,139 @@
+---
+title: "Integrate Snowflake with Cora"
+sidebarTitle: "Snowflake"
+description: "Connect Snowflake to Cora to query your data warehouse for account data, lifecycle signals, and custom column inputs."
+---
+
+The Snowflake integration replaces SFTP/CSV-based data delivery with a direct connection to your Snowflake warehouse. Cora.ai connects using RSA key-pair authentication, queries your Snowflake views on a schedule, ingests the data, and makes it available to agents, dashboards, and workflows.
+
+**Integration Type**: Key-Pair Auth (RSA Private Key), Organization-Level<br />**Required Role**: Snowflake Account Administrator or equivalent<br />**Why Key-Pair?**: RSA key-pair is the industry-standard authentication method for Snowflake service accounts — recommended by Snowflake and used by dbt, Fivetran, Airbyte, and other major data tools — because it never expires, requires no token refresh, and transmits no secrets over the wire.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Snowflake Account Administrator or equivalent access
+- Organization administrator access in Cora.ai
+- An existing Snowflake warehouse with the data you want to share
+
+## Setup Steps
+
+<Note>
+  The steps below represent our recommended setup for security and isolation. Your team is free to adapt the naming, schema structure, and warehouse configuration to fit your existing conventions. The only hard requirements are that Cora.ai's service user has `SELECT` access to the relevant views and uses key-pair authentication.
+</Note>
+
+<Steps>
+  <Step title="Create a Dedicated Schema for Cora Views">
+    We recommend a dedicated database and schema that contains only the views Cora.ai should access. This acts as a clear security boundary: Cora.ai has no visibility into any other schema. If your team prefers to grant access to views in an existing schema, that works too.
+
+    ```sql
+    CREATE DATABASE CORA_INTEGRATION_DB;
+    CREATE SCHEMA CORA_INTEGRATION_DB.CORA_VIEWS;
+    ```
+
+    Then create views in this schema that mirror your data exports:
+
+    ```sql
+    CREATE VIEW CORA_INTEGRATION_DB.CORA_VIEWS.ACCOUNTS AS
+    SELECT account_id, name, industry, created_at
+    FROM PRODUCTION_DB.CORE.ACCOUNTS;
+    ```
+
+    Keep the same column names and data types so the schema Cora.ai sees is consistent with your source data.
+  </Step>
+  <Step title="Create a Read-Only Service Account">
+    Create a dedicated role and service user scoped exclusively to the Cora views schema.
+
+    ```sql
+    -- Create a role with no inherited privileges
+    CREATE ROLE CORA_INTEGRATION_ROLE;
+    
+    -- Create a service user (cannot log in interactively)
+    CREATE USER CORA_SVC
+    DEFAULT_ROLE = CORA_INTEGRATION_ROLE
+    DEFAULT_WAREHOUSE = CORA_WH
+    TYPE = SERVICE;
+    
+    -- Grant the minimum required privileges
+    GRANT USAGE ON DATABASE CORA_INTEGRATION_DB TO ROLE CORA_INTEGRATION_ROLE;
+    GRANT USAGE ON SCHEMA CORA_INTEGRATION_DB.CORA_VIEWS TO ROLE CORA_INTEGRATION_ROLE;
+    GRANT SELECT ON ALL VIEWS IN SCHEMA CORA_INTEGRATION_DB.CORA_VIEWS TO ROLE CORA_INTEGRATION_ROLE;
+    GRANT SELECT ON FUTURE VIEWS IN SCHEMA CORA_INTEGRATION_DB.CORA_VIEWS TO ROLE CORA_INTEGRATION_ROLE;
+    
+    -- Dedicated X-Small warehouse with auto-suspend (cost isolation)
+    CREATE WAREHOUSE IF NOT EXISTS CORA_WH
+    WAREHOUSE_SIZE = 'XSMALL'
+    AUTO_SUSPEND = 60
+    AUTO_RESUME = TRUE
+    INITIALLY_SUSPENDED = TRUE;
+    
+    GRANT USAGE ON WAREHOUSE CORA_WH TO ROLE CORA_INTEGRATION_ROLE;
+    
+    -- Bind role to user
+    GRANT ROLE CORA_INTEGRATION_ROLE TO USER CORA_SVC;
+    ```
+  </Step>
+  <Step title="Generate an RSA Key Pair">
+    Generate an unencrypted RSA private key and assign the public key to the service user:
+
+    ```bash
+    # Generate private key (unencrypted PKCS#8 PEM)
+    openssl genrsa 2048 | openssl pkcs8 -topk8 -inform PEM -out cora_svc_key.p8 -nocrypt
+    
+    # Extract public key
+    openssl rsa -in cora_svc_key.p8 -pubout -out cora_svc_key.pub
+    ```
+
+    Assign the public key in Snowflake:
+
+    ```sql
+    ALTER USER CORA_SVC SET RSA_PUBLIC_KEY='<paste public key without BEGIN/END lines>';
+    ```
+
+    See Snowflake's [Key-Pair Authentication guide](https://docs.snowflake.com/en/user-guide/key-pair-auth) for details.
+  </Step>
+  <Step title="Connect Snowflake in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Snowflake** integration card and click **Connect**
+    4. Enter the credentials listed in the table below
+    5. Click **Connect** to save
+
+    | Field | Description |
+    | --- | --- |
+    | **Account Identifier** | Your Snowflake account identifier in org-account format (for example, `OXJKIGY-ZXB72198`). To find this, run the following query in Snowflake: \`SELECT CURRENT\_ORGANIZATION\_NAME() |  | '-' |  | CURRENT\_ACCOUNT\_NAME() AS account\_identifier;`Use the`account\_identifier`value from the result. This is the preferred format per Snowflake and is required by the connect flow. **Note:** The legacy account locator format (for example,`xy12345.us-east-1\`) will not work. |
+    | **Username** | The service user from Step 2 (for example, `CORA_SVC`) |
+    | **Private Key (PEM)** | The full RSA private key including `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----` lines |
+  </Step>
+  <Step title="Validate">
+    Once the Snowflake integration card shows **Connected**, Cora.ai will begin querying your views on a scheduled basis. Confirm the expected data is flowing correctly in Cora.ai.
+  </Step>
+  <Step title="Enable Data Ingestion">
+    Enable data ingestion to sync information from this integration into Cora.
+
+    1. Click the connected **Snowflake** integration card to open the settings panel
+    2. Under **Data Ingestion**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## Security Model
+
+| Principle | How It's Enforced |
+| --- | --- |
+| **Least privilege** | Role has only `USAGE` \+ `SELECT` on a dedicated schema: no `CREATE`, `INSERT`, `DELETE`, or cross-schema access |
+| **Blast radius isolation** | Dedicated database/schema means accidental view creation elsewhere is invisible to Cora |
+| **Cost isolation** | Dedicated warehouse prevents Cora queries from competing with production workloads |
+| **No credential expiry** | RSA key pairs don't expire; rotate on your schedule, not under deadline pressure |
+| **Credential security** | Private key stored in encrypted vault; never logged or persisted in application config |
+| **Revocability** | Disable user or drop role to instantly cut access |
+
+## Notes
+
+- **Read-only access**: Cora.ai only reads from your Snowflake views. Nothing is written back.
+- **No credential expiry**: RSA key pairs do not expire. Rotate at your discretion by generating a new pair and updating both Snowflake and the Cora.ai integration.
+- **Compute costs**: Queries consume credits from the designated warehouse. An X-Small with auto-suspend is sufficient for typical workloads.
+- **Schema changes**: New columns on existing views are detected automatically. New views added to the Cora schema are picked up via the `FUTURE VIEWS` grant.
+- **No passphrase**: The private key must be unencrypted (PKCS#8, no passphrase). This simplifies automation and avoids passphrase management overhead.
+
+If you need help, contact your Cora.ai implementation contact or email [support@cora.ai](mailto:support@cora.ai).

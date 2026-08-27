@@ -1,0 +1,98 @@
+---
+title: "Manage and Refine Your Cora Agents"
+sidebarTitle: "Managing"
+description: "Review agent runs, refine agents through chat, edit configuration, pause or delete agents, and roll back with version history."
+---
+
+Once you have built an agent (see [Building Your First Agent](/agents/building-your-first-agent)), you will want to monitor how it performs, make adjustments, and manage its lifecycle. This article covers day-to-day agent operations.
+
+## The Agents Page
+
+The **Agents** page is your central hub for managing all agents in your workspace.
+
+From here you can:
+
+- View all agents in a list with their name, description, and status
+- Search for agents by name
+- See each agent's status: **Live** (actively running on its trigger) or **Off** (paused)
+- Click any agent to open its detail view
+
+When you open an agent, you will see tabs for its configuration, tasks, and run history.
+
+## Running an Agent Manually
+
+You can run any agent on demand, regardless of its trigger type. This is useful for testing a live run or generating output outside the normal schedule.
+
+To run an agent manually, ask Cora in chat:
+
+_"Run my account health digest now."_
+
+Cora will start the agent immediately. If the agent can reach customers or take significant actions, Cora will confirm the scope with you before proceeding.
+
+You can also target a specific customer account:
+
+_"Run the renewal outreach agent for Acme Corp."_
+
+Manual runs produce the same output as scheduled or event-triggered runs. They are real executions, not sandboxed tests.
+
+## Reviewing Agent Runs
+
+Every time an agent runs, it creates a record you can review. To check on an agent's recent activity:
+
+**On the Agents page:** Open the agent and look at its run history. Each run shows its status (completed, in progress, or failed), the target account, and when it ran.
+
+**In chat:** Ask Cora about recent runs:
+
+- _"Did my renewal digest run this morning?"_
+- _"What happened on the last run of my onboarding agent?"_
+- _"Why did my account health agent fail?"_
+
+Cora can show you what happened in each run, including what actions were taken and what went wrong if a run failed. If a failure occurred, Cora will explain the issue in plain language and offer to fix the agent.
+
+## Refining an Agent Through Chat
+
+The easiest way to change an agent is to tell Cora what you want to adjust. You do not need to navigate to any settings page. Just describe the change in chat.
+
+Examples of things you can say:
+
+- _"Change my health digest to run daily instead of weekly."_
+- _"Add renewal dates to the account health summary."_
+- _"Make the renewal outreach agent require my approval before sending."_
+- _"Switch the Slack channel to #cs-alerts."_
+
+Cora will make the change and keep the agent **paused** so you can review before re-activating. It will show you a summary of what changed and offer to turn it back on.
+
+## Editing Agent Configuration
+
+You can also edit agent details directly on the Agents page:
+
+- **Name and description:** Update the agent's display name and summary
+- **Trigger:** Change the schedule, event, or manual trigger
+- **Tasks:** View the individual steps the agent performs
+
+For more complex changes (like adjusting what data the agent queries, changing recipients, or modifying the agent's behavior), use the chat-based refinement described above.
+
+## Pausing, Reactivating, and Deleting
+
+**Pausing:** To temporarily stop an agent from running, toggle its status to **Off** on the Agents page, or tell Cora:
+
+_"Pause my account health digest."_
+
+A paused agent keeps its configuration intact but will not run until you re-activate it.
+
+**Reactivating:** To turn a paused agent back on, toggle its status to **Live**, or tell Cora:
+
+_"Turn my account health digest back on."_
+
+**Deleting:** To permanently remove an agent, delete it from the Agents page. Deleted agents cannot be recovered.
+
+## Version History
+
+Every change you make to an agent through chat is automatically saved as a version. This gives you a full edit history you can use to roll back if a change causes issues.
+
+To work with version history, ask Cora:
+
+- _"Show me the version history for my renewal agent."_ Lists saved versions with timestamps and change notes.
+- _"Roll back my renewal agent to the previous version."_ Restores the earlier version and pauses the agent so you can review before re-activating.
+
+Rollbacks are always reversible: the pre-rollback state is saved as its own version, so you can undo a rollback if needed.

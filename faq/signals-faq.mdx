@@ -1,0 +1,67 @@
+---
+title: "Signals FAQ: Troubleshooting Lifecycle Event Detection"
+sidebarTitle: "Signals FAQ"
+description: "Troubleshoot common Signals issues: stuck signals, sync timing, activity matching, rule-based detection noise, and deduplication behavior in Cora."
+---
+
+Signals are lifecycle events Cora detects across your customer accounts. If you're new to Signals, start with [Setting Up Signals](/using-cora/setting-up-signals) for an overview and configuration instructions. Use this FAQ to troubleshoot common issues with detection, timing, and matching.
+
+<AccordionGroup>
+  <Accordion title="My Signals look stuck or haven't updated">
+    The Detected tab only shows Signals that match an Account already imported into Cora. If Cora has been analyzing new activity but the companies involved aren't in your Accounts list, those Signals won't appear.
+
+    To fix this:
+
+    - Broaden your CRM import filter (for example, include Opportunity or SQL stages, not just Customer) so more companies become Accounts in Cora
+    - Or manually add specific Accounts for companies you want tracked
+  </Accordion>
+
+  <Accordion title="Can I add an event myself?">
+    Yes. On the **Signals** page, click **Create event** to record a lifecycle event manually, or just ask Cora in chat (for example, "log a go-live for Acme on Friday"). This is handy for moments that happened offline or outside your connected tools.
+
+    Manually added events always appear on the account's timeline regardless of CRM source matching, and are labeled **Added in Cora** so you can tell them apart from automatically detected events. By default they are recorded on the timeline but do not start agent workflows. For details, see **Adding an Event Manually** in [Setting Up Signals](/using-cora/setting-up-signals).
+  </Accordion>
+
+  <Accordion title="New activity just happened but no Signal appeared yet">
+    Data from connected sources (Gong, Gmail, Slack, etc.) can take anywhere from a few minutes to a few hours to become available, depending on the integration. Cora's detection then runs on a regular cycle after that. In most cases, expect new Signals to appear within a few hours of the underlying activity.
+  </Accordion>
+
+  <Accordion title="Activity with a known customer didn't generate a Signal">
+    Cora matches activity to Accounts by checking whether the participants (call attendees, email recipients, Slack users, etc.) are linked to a company record in your CRM. If the contacts involved aren't associated with the correct company in HubSpot or Salesforce, the activity won't match — even if the company itself is already an Account in Cora.
+
+    To fix this, associate the relevant contacts with the company record in your CRM. Future activity involving those participants will then match automatically.
+  </Accordion>
+
+  <Accordion title="Why does Cora use contact-based matching instead of domain matching?">
+    We've seen many CRM setups where company domains are incorrect, or participants use personal or mismatched email addresses. Matching via contact-to-company associations in your CRM is the most reliable way to attribute activity to the right customer.
+  </Accordion>
+
+  <Accordion title="An old record generated a Signal after a minor update (example: Closed Won deal in CRM)">
+    Unrelated field edits can update **last modified**. If your rule only checks current state (for example, stage), the record can match again even though the event happened long ago.
+
+    Add a temporal filter on the business event date rather than last modified or state alone.
+  </Accordion>
+
+  <Accordion title="Lots of Signals when we first turned on rule-based detection">
+    This usually means detection conditions match historical records with no date window — for example, in a CRM, all deals currently in Closed Won. State-style conditions (for example, stage or status) match the record's current value, not when it changed.
+
+    Add a **date compare** on the date that represents when the event happened, and combine it with your other conditions using **ALL** — for example, in CRM, close date within the last 14 days plus stage. See **Detection Conditions** in [Setting Up Signals](/using-cora/setting-up-signals) for how to configure this. Rule changes apply going forward; they do not remove Signals already created.
+  </Accordion>
+
+  <Accordion title="Will a date window (for example, 14 days) retrigger my agent every day?">
+    No. A record may keep matching while it's inside your date window, but Cora deduplicates Signals so the same event is only detected once. You'll only see another Signal when something is genuinely new — for example, a different record or event type. See **Detection Conditions** in [Setting Up Signals](/using-cora/setting-up-signals) for temporal filters and deduplication.
+  </Accordion>
+
+  <Accordion title="How far back does Cora look when detecting Signals?">
+    The detection pipeline runs every hour, processing new activity from your connected integrations each cycle. How far back data is available to analyze depends on the source:
+
+    - **Gmail** — 30 days
+    - **Gong** — 30 days
+    - **Slack** — 30 days
+    - **Intercom** — 30 days
+
+    After the initial sync, Cora continuously analyzes new activity as it arrives on the hourly cycle. When classifying an event, the AI also considers up to 90 days of contact engagement history and 48 hours of cross-source context, so it can spot trends even if the triggering activity just happened.
+  </Accordion>
+</AccordionGroup>
+
+If you need more help, email [support@cora.ai](mailto:support@cora.ai).

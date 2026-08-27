@@ -1,0 +1,93 @@
+---
+title: "Set Up Your Cora Knowledge Base"
+sidebarTitle: "Knowledge Base"
+description: "Connect your docs site, PDFs, Google Drive files, and Zendesk articles so Cora can answer questions accurately in chat and agent workflows."
+---
+
+Knowledge Sources give Cora access to your company's documentation, help center articles, internal playbooks, and other reference material. When a user asks Cora a question, it searches these sources and uses the most relevant content to provide accurate, grounded answers, in both chat conversations and agent workflows.
+
+You can add sources at two levels:
+
+- **Tenant-level** — applies across all customer organizations (for example, your product docs)
+- **Customer organization** — specific to a single customer (for example, a customer-specific onboarding guide)
+
+## Supported Source Types
+
+- **Website** — paste a URL and Cora automatically crawls the site, indexing up to 200 pages. Great for public docs sites and help centers.
+- **PDF** — paste a link to a hosted PDF. Cora fetches and indexes the full document.
+- **Google Drive** — pick files directly from Google Drive using the built-in file picker. Supports Google Docs, Sheets, Slides, PDFs, Word documents, and plain text files. Requires the Google Drive integration to be connected first (Settings \> Integrations).
+- **Zendesk Help Center** — one-click import of all published articles from your Zendesk Help Center. Requires the Zendesk integration to be connected first (Settings \> Integrations).
+
+## Adding a Knowledge Source
+
+<Steps>
+  <Step title="Navigate to Knowledge Sources">
+    Go to **Settings \> Knowledge Sources** (for tenant-wide sources) or open a customer organization and click the **Knowledge Sources** tab.
+  </Step>
+  <Step title="Add a new source">
+    Click **Add Knowledge Source**.
+  </Step>
+  <Step title="Select source type">
+    Select a source type:
+
+    - **Website** — paste the starting URL
+    - **PDF** — paste the PDF link
+    - **Google Drive** — select files from the picker
+    - **Zendesk** — no additional configuration needed
+  </Step>
+  <Step title="Set Visibility and Citations">
+    - Set **Visibility** — choose whether the source is **Customer-facing** or **Internal only**
+    - Toggle **Citations** on or off — controls whether Cora can include links from this source in its responses
+  </Step>
+  <Step title="Add the source">
+    Click **Add Source**.
+  </Step>
+</Steps>
+
+Cora begins processing the source immediately. Depending on the size of the content, this may take a few minutes. You'll see a **Processing** indicator while it's working, which changes to **Processed** when complete.
+
+## Tenant vs Customer Organization Sources
+
+Sources added at the **tenant level** (via Settings \> Knowledge Sources) are available across all customer organizations. This is the right place for your product documentation, general FAQs, and company-wide resources.
+
+Sources added to a **specific customer organization** (via that org's Knowledge Sources tab) are only used when Cora is working in the context of that customer. Use this for customer-specific materials like onboarding guides, custom playbooks, or account-specific documentation.
+
+Both levels work together. When Cora answers a question for a customer organization, it searches both tenant-wide and org-specific sources.
+
+## Managing Sources
+
+Each knowledge source appears as a card in the list, showing its type, status, and metadata.
+
+Available actions:
+
+- **Toggle Citations** — turn citation links on or off at any time without re-processing the source
+- **Refresh** — re-crawl or re-sync the source to pick up content changes. Knowledge sources do not auto-refresh, so use this after updating your docs or help center.
+- **Delete** — permanently remove the source and all of its indexed content. This cannot be undone.
+
+<Note>
+  The source URL and type cannot be changed after creation. To point to a different URL, delete the source and add a new one.
+</Note>
+
+## Visibility and Citations
+
+Each source has two independent controls that determine how Cora uses it.
+
+**Visibility**
+
+- **Customer-facing** — Cora uses this source when responding in any context, including customer-facing channels
+- **Internal only** — Cora only uses this source when responding in internal channels. Content from internal sources is never surfaced to customers.
+
+**Citations**
+
+- When enabled, Cora may include links to specific pages or articles from the source in its responses
+- When disabled, Cora still uses the content for context but will not link to it
+
+These settings can be combined independently. For example, you might have a customer-facing source with citations disabled if you want Cora to use the content but not share the links.
+
+## Tips
+
+- **Start with your docs site or help center** — adding your main documentation as a website source gives Cora a strong foundation for answering product questions
+- **Use Google Drive for internal resources** — playbooks, enablement docs, and internal wikis work well as Drive sources
+- **Refresh after major content updates** — since sources don't auto-sync, click Refresh when you've published significant changes to your documentation
+- **Processing time varies** — a single PDF processes in seconds; a large docs site with hundreds of pages may take a few minutes
+- **Use visibility to control access** — keep competitive intel and internal pricing docs as Internal only, and product documentation as Customer-facing

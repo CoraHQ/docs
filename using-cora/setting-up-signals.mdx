@@ -1,0 +1,205 @@
+---
+title: "Set Up Signals for Lifecycle Event Detection"
+sidebarTitle: "Setting Up"
+description: "Configure Cora to detect lifecycle events across your integrations, view and filter Signals, add custom event types, and connect them to agent workflows."
+---
+
+Configure lifecycle event detection across your integrations so Cora can surface key moments and trigger agent workflows.
+
+## Overview
+
+Cora monitors your connected integrations and automatically detects lifecycle events — things like renewal risks, stakeholder changes, expansion opportunities, and onboarding milestones. Detected events appear on the **Signals** page and can trigger agent workflows automatically.
+
+Cora uses two detection modes:
+
+- **AI-detected** — Cora reads conversations, emails, and support tickets and classifies them using the event type descriptions you configure
+- **Rule-based** — deterministic matches on structured data (for example, "opportunity stage changed to Closed Lost")
+
+Beyond automatic detection, you can also add a lifecycle event to an account yourself. This is useful for capturing moments that happened offline or outside your connected tools. See **Adding an Event Manually** below.
+
+## Enabling Signals on an Integration
+
+Before Signals can detect events from a source, Lifecycle Events must be enabled on that integration.
+
+<Steps>
+  <Step title="Navigate to Integrations">
+    Go to **Settings** → **Organization Settings** → **Integrations**.
+  </Step>
+  <Step title="Select an integration">
+    Click the integration card you want to enable.
+  </Step>
+  <Step title="Toggle Lifecycle Events on">
+    Enable the **Lifecycle Events** toggle.
+  </Step>
+  <Step title="Save">
+    Click **Save**.
+  </Step>
+</Steps>
+
+When you enable an integration, its source is automatically added to matching event types.
+
+Integrations that support Signals:
+
+- **AI sources** — Gong, Gmail, Slack, Intercom
+- **Rule-based sources** — Salesforce, HubSpot, BigQuery, Snowflake, Gainsight
+
+## Viewing Signals
+
+The **Signals** page shows all lifecycle events Cora has detected, with severity, source, and timestamp.
+
+You can filter events by:
+
+- **Event type** — for example, Renewal At Risk, Champion Left
+- **Category** — for example, Commercial, Onboarding
+- **Severity** — Info, Warning, or Critical
+- **Source** — which integration detected the event, or Added in Cora for events you added manually
+- **Ownership** — All Accounts, My Accounts, or My Team's Accounts
+
+Click any event to see full details, a link to the original source record, metadata, and to provide feedback.
+
+## Adding an Event Manually
+
+Beyond the events Cora detects automatically, you can record a lifecycle event yourself. This is useful for moments that happened offline or outside your connected tools, such as a kickoff meeting, a go-live, or an executive change you heard about directly. Manually added events appear in the same Signals list as detected events and can feed configured columns and rollups.
+
+### From the Signals page
+
+Click **Create event** in the top-right of the Signals tab, then fill in the form:
+
+<Steps>
+  <Step title="Select the account">
+    On an account's own Signals tab the account is already selected; on the aggregate Signals view, search for it by name or email domain.
+  </Step>
+  <Step title="Choose an event type">
+    Select the **Event type** (required), chosen from your configured event types, grouped by category.
+  </Step>
+  <Step title="Add a title">
+    Enter a **Title** (required): a short summary of what happened.
+  </Step>
+  <Step title="Add a description (optional)">
+    Enter any additional detail in the **Description** field.
+  </Step>
+  <Step title="Set the occurrence time">
+    Set **Occurred at**: when the event happened. Defaults to now and cannot be set in the future.
+  </Step>
+  <Step title="Set severity">
+    Choose a **Severity**: Info, Warning, or Critical.
+  </Step>
+  <Step title="Create the event">
+    Click **Create event** to save.
+  </Step>
+</Steps>
+
+The event is processed in the background, so a short "being processed" banner may appear before it lands in the list a moment later.
+
+Manually added events are marked with the Cora logo in the **Source** column instead of an integration icon, labeled **Added in Cora** when you hover over it. The person who added the event, or an org admin, can remove it using the delete option on the event.
+
+### By asking Cora in chat
+
+You can also record a lifecycle event just by asking Cora in chat, for example "log a go-live for Acme on Friday." Cora creates the same manual event, and it appears on the account's timeline like any other.
+
+<Note>
+  Manually added events are recorded on the timeline but do not start agent workflows by default. This is different from the trigger icon described in **Agent Triggers** below, which re-fires an event that already exists.
+</Note>
+
+## Event Types and Categories
+
+Cora comes with a default set of event types organized into categories like Commercial, Stakeholder Changes, Onboarding, Adoption, Value Delivery, Sentiment & Risk, and Support & Product. Each category groups related event types — for example, Commercial includes events like renewal risks, expansion opportunities, and competitor mentions.
+
+You can see the full list by navigating to the **Lifecycle Events** tab in your organization settings. Every event type has a prompt that describes what Cora should look for, and you can edit any of them to better fit your business.
+
+## Configuring Event Types
+
+To customize how Cora detects events, go to your organization's **Lifecycle Events** tab (admin access required). Click any event type to open its settings.
+
+For each event type, you can configure:
+
+- **Prompt** — describe the event so Cora can identify it in your data. Include what to look for and what to exclude. This is what the AI uses to classify conversations and messages.
+- **Default Severity** (rule-based only) — Info, Warning, or Critical. AI-detected events get severity assigned automatically.
+- **Active Sources** — which integrations can produce this event type, shown as toggleable chips (for example, Salesforce, Gong).
+- **Detection Conditions** — narrow matches by source and metadata fields. For rule-based types, these define exactly when an event fires. For AI types, you typically don't need to set these — the prompt is usually enough.
+
+## Adding a Custom Event Type
+
+If the defaults don't cover a lifecycle moment you care about, you can create your own:
+
+<Steps>
+  <Step title="Open Lifecycle Events">
+    On the **Lifecycle Events** tab, click **\+ Add Event Type**.
+  </Step>
+  <Step title="Select a category">
+    Choose a **Category**.
+  </Step>
+  <Step title="Enter a key">
+    Enter an **Event type key** (a short identifier).
+  </Step>
+  <Step title="Write a prompt">
+    Write a **Prompt** describing what this event looks like in your data.
+  </Step>
+  <Step title="Configure sources and conditions (optional)">
+    Optionally configure **Active Sources** and **Detection Conditions**.
+  </Step>
+  <Step title="Create">
+    Click **Create**.
+  </Step>
+</Steps>
+
+Custom event types are marked with a "Custom" badge in the list.
+
+## Detection Conditions
+
+Detection conditions let you define precise rules for when an event should fire. This is primarily used for rule-based event types.
+
+<Steps>
+  <Step title="Pick a source">
+    Choose a **Source** (for example, "Salesforce - Opportunity").
+  </Step>
+  <Step title="Add conditions">
+    Add one or more conditions: **Field**, **Operator**, **Value**.
+  </Step>
+  <Step title="Choose operators">
+    Supported operators include equals, contains, in, changed to, **date compare** (compare a date field to today or a fixed date, with an optional day offset — use negative offsets for "within the last N days"), and more.
+  </Step>
+  <Step title="Set logic">
+    Conditions can be grouped with **ALL** (every condition must match) or **ANY** (at least one must match) logic.
+  </Step>
+</Steps>
+
+### Temporal filters (rule-based)
+
+<Note>
+  Rule-based conditions match **current** field values, not necessarily when those values changed. Without a date window, records that already match your rules can still produce Signals (including when you first enable Signals, or when unrelated fields are updated). Add a **date compare** on the date field that represents the event, and combine it with your other conditions using **ALL**.
+</Note>
+
+_Example (CRM):_ close date within the last 14 days plus stage or pipeline. Prefer the business event date over **last modified**; any edit can update last modified and re-match state-only rules.
+
+### Deduplication
+
+<Note>
+  A record may keep matching your rule while it stays inside a date window (for example, "close date within the last 14 days"), but Cora deduplicates Signals so the same event is only detected once. You'll typically see another Signal only when something is genuinely new — a different record, a different event type, or a rule change. See the [Signals FAQ](/faq/signals-faq) for more.
+</Note>
+
+## Agent Triggers
+
+Detected events automatically fire signals that can activate agent workflows. Agents can be configured to listen for specific event types — for example, "run this playbook when a Renewal At Risk event is detected."
+
+You can also trigger an event manually from the Signals page by clicking the trigger icon on any detected event.
+
+This is different from **Adding an Event Manually** above: the trigger icon re-fires an event that already exists, while adding an event records a new one on the timeline. Manually added events do not start agent workflows by default.
+
+## Providing Feedback
+
+You can give a thumbs up or thumbs down on any detected event to tell Cora whether it got the detection right. A thumbs down also removes the event from your health rollups and digests.
+
+For the full details, including reason codes, optional notes, updating or deleting your feedback, and giving feedback in chat, see [How Cora Collects Feedback](/using-cora/feedback).
+
+## Reset to Defaults
+
+If you want to start over, click **Reset to Defaults** on the Lifecycle Events tab. This restores all categories and event types to their original configuration.
+
+<Warning>
+  Resetting permanently deletes any custom event types you've created.
+</Warning>
+
+## Troubleshooting
+
+Having trouble with Signals? See the [Signals FAQ](/faq/signals-faq) for common questions about why events may not appear, sync timing, rule-based detection noise, and how matching works.

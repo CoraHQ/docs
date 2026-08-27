@@ -1,0 +1,95 @@
+---
+title: "Import and Manage Your Accounts in Cora"
+sidebarTitle: "Accounts"
+description: "Import accounts from Salesforce or HubSpot, configure ownership sync, filter by ownership, and add accounts manually in Cora."
+---
+
+The Accounts page is where you manage which customer accounts are in Cora and who owns them. You can import accounts from your CRM, configure ownership sync so the right team members are mapped to each account, and filter your view by ownership.
+
+## Importing Accounts from Your CRM
+
+Once your CRM (Salesforce or HubSpot) is connected, you can import accounts into Cora. Filters let you control which accounts are brought in.
+
+<Steps>
+  <Step title="Open the Import Dialog">
+    1. Navigate to the **Accounts** page.
+    2. Click **New Account**.
+    3. Click **Sync from Salesforce** or **Sync from HubSpot**.
+  </Step>
+  <Step title="Add Filters">
+    Add one or more filters to select which accounts to import. You can filter on any available field from your CRM, for example, by industry, region, lifecycle stage, record type, or account tier. Supported operators include equals, not equals, greater/less than, contains, and in/not in a list.
+  </Step>
+  <Step title="Preview">
+    Click **Preview** to review results across three tabs:
+
+    - **New to import** — CRM accounts that match your filters and are not yet in Cora
+    - **Already in Cora** — accounts already imported that still match the filters
+    - **No longer matching** — accounts already imported that no longer match the filters
+
+    Each tab shows up to 25 sample results. If there are accounts no longer matching, a warning banner will indicate how many will be deleted if they have no activity.
+  </Step>
+  <Step title="Import">
+    Click **Request Import** to begin.
+
+    The import runs in the background. New accounts/companies will be created as accounts in Cora, or linked to existing ones if a match is found.
+
+    Importing saves your filters and keeps accounts in sync.
+
+    If an account's name changes in your CRM, Cora will update it automatically.
+
+    If an account no longer matches your filters, it will be deleted from Cora.
+  </Step>
+</Steps>
+
+## Account Ownership Sync
+
+Ownership sync maps CRM fields to Cora team roles, so the right team members are associated with each account. This powers the ownership filters on the Accounts and Signals tabs.
+
+### Setting Up Ownership Sync
+
+<Steps>
+  <Step title="Navigate and open ownership sync">
+    1. Navigate to the **Accounts** page.
+    2. Click **New Account**, then **Sync from Salesforce** or **Sync from HubSpot**.
+    3. Switch to the **Account Ownership** tab.
+    4. Toggle **Enable ownership sync** on.
+  </Step>
+  <Step title="Configure field mappings">
+    For each field mapping, configure:
+
+    - **Field** — select a CRM field that references a user (for example, an owner or lookup field)
+    - **Role** — choose the role to assign: **Account Owner** or **Manager**
+    - **Their mgr toggle** (Salesforce only) — when enabled, Cora resolves the _manager_ of the person in the mapped field via Salesforce's user hierarchy, rather than the person themselves. Use this to automatically assign a Manager role to the reporting manager of the account owner or CSM.
+  </Step>
+  <Step title="Save">
+    Click **Save**.
+  </Step>
+</Steps>
+
+You can add multiple field mappings. For example, map one field with the **Account Owner** role to identify direct owners, and map another field with **Their mgr** enabled and the **Manager** role to assign their reporting manager.
+
+Ownership syncs automatically on each data refresh. Cora resolves users by matching the email address associated with the CRM user to a Cora user account.
+
+If a CRM owner does not yet have a Cora account, one is automatically created so they appear on the account team. These users appear on the team list but have no app access.
+
+## Filtering by Ownership
+
+Once ownership sync is configured, the Accounts and Signals tabs display a filter with three options:
+
+- **All Accounts** — shows every account (default)
+- **My Accounts** — shows only accounts where you have the Account Owner role
+- **My Team's Accounts** — shows accounts where you have the Manager role (that is, accounts owned by your direct reports)
+
+The "My Team's Accounts" option only appears for users who have a Manager role on at least one account.
+
+## Adding Accounts Manually
+
+You can also add accounts individually without importing from a CRM:
+
+<Steps>
+  <Step title="Add a new account manually">
+    1. Navigate to the **Accounts** page.
+    2. Click **New Account**.
+    3. Enter the account details and click **Save**.
+  </Step>
+</Steps>

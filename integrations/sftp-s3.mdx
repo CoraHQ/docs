@@ -1,0 +1,163 @@
+---
+title: "Send Data to Cora via SFTP or S3"
+sidebarTitle: "SFTP / S3"
+description: "Upload account and event data to Cora using SFTP or Amazon S3 file transfers as an alternative to direct API integrations."
+---
+
+Some Cora implementations require your team to deliver structured data files (CSV) on a regular basis — for example, daily account-level metric snapshots that power agent workflows like QBR prep or renewal outreach.
+
+Cora hosts the endpoint. Your team pushes files; we handle ingestion from there.
+
+There are two delivery options depending on your infrastructure:
+
+- **S3-compatible endpoint (preferred)** — ideal if your data team can push to an S3-compatible bucket using standard AWS SDKs or tools
+- **SFTP** — for teams that require traditional SFTP file transfer
+
+Your Cora implementation team will confirm which method to use during onboarding.
+
+## Option A: S3-Compatible Endpoint (Preferred)
+
+Cora provides a dedicated S3-compatible bucket for your organization. Any tool or SDK that supports S3 (AWS CLI, Boto3, custom ETL pipelines, etc.) will work out of the box.
+
+### What Cora Provides
+
+Your Cora team will send the following credentials via a secure link:
+
+- **Endpoint URL** — the S3-compatible endpoint
+- **Bucket name** — scoped to your organization
+- **Access Key ID**
+- **Secret Access Key**
+- **Region**
+
+Use these with any S3-compatible client. For example, with the AWS CLI:
+
+```bash
+aws s3 cp snapshot_20260317.csv s3://your-bucket/use_case_folder/ --endpoint-url YOUR_ENDPOINT
+```
+
+### What You Need to Do
+
+<Steps>
+  <Step title="Receive your credentials from the Cora team">
+  </Step>
+  <Step title="Configure your data pipeline or script to push files to the provided endpoint">
+  </Step>
+  <Step title="Push a test file and confirm with your Cora contact that it was received">
+  </Step>
+  <Step title="Begin regular delivery on the agreed schedule">
+  </Step>
+</Steps>
+
+## Option B: SFTP
+
+Cora provides a dedicated, hosted SFTP endpoint for your organization. No infrastructure setup is required on your end; just connect and push files.
+
+### What Cora Provides
+
+- **Host** — a dedicated subdomain (for example, `yourcompany.sftp.cora.ai`)
+- **Port** — 22
+- **Username** — provided by Cora
+- **Authentication** — SSH public key
+
+### What You Need to Do
+
+<Steps>
+  <Step title="Generate an SSH key pair (ECDSA, Ed25519, or RSA in OpenSSH format)">
+  </Step>
+  <Step title="Send the public key to your Cora contact via a secure link">
+  </Step>
+  <Step title="If your organization requires IP allowlisting, provide the static IP addresses that will connect">
+  </Step>
+  <Step title="Once Cora confirms the key is uploaded, test connectivity and push a sample file">
+  </Step>
+  <Step title="Confirm with your Cora contact that the file was received">
+  </Step>
+  <Step title="Begin regular delivery on the agreed schedule">
+  </Step>
+</Steps>
+
+## File Format Requirements
+
+### CSV, Wide Format
+
+We expect CSV files in **wide format** — one row per entity (for example, account), with metrics as columns:
+
+```csv
+account_id,snapshot_date,metric_a,metric_b,metric_c
+acme_123,2026-03-17,0.82,145,72
+globex_456,2026-03-17,0.65,89,68
+```
+
+**Key requirements:**
+
+- `account_id` \+ `snapshot_date` should serve as a composite key for deduplication
+- New metrics can be added as new columns; our pipeline picks them up automatically
+- Avoid per-metric directory structures (for example, one folder per metric); use columns instead
+
+### Nested or Relational Data
+
+If your data includes detail records tied to accounts (for example, individual transactions, usage events, or line items), we support three approaches:
+
+- **JSON column** — for small, bounded nested data within the main CSV
+- **Separate detail feed** — a second CSV file with `account_id` as a foreign key, for high-volume or complex related data
+- **Aggregated summary columns** — pre-aggregated values on the account row, when raw detail isn't needed
+
+Your Cora team will recommend the best approach based on your data.
+
+## Directory Structure
+
+Keep it simple:
+
+- One folder per use case or agent workflow (for example, `account_metrics/`, `renewal_data/`)
+- Daily snapshot files named `snapshot_YYYYMMDD.csv` (for example, `snapshot_20260317.csv`)
+
+Example:
+
+```text
+account_metrics/snapshot_20260317.csv
+account_metrics/snapshot_20260318.csv
+renewal_data/snapshot_20260317.csv
+```
+
+Your Cora team will agree on the exact folder names and structure during onboarding.
+
+## Data Schema
+
+Before you build your export, your Cora implementation team will send a detailed field list tailored to your use case. This typically includes:
+
+- **Identity fields** — account ID, account name
+- **Eligibility / gating attributes** — flags that determine which accounts qualify
+- **Timing fields** — snapshot date, cadence anchors (for example, renewal date)
+- **Suppression flags** — fields that indicate when outreach should be paused
+- **Contact fields** — names and emails for the relevant stakeholders
+- **Metrics** — the specific data points that power the agent workflow
+
+## Security
+
+- All credentials are shared via secure, expiring links; never over email or chat
+- S3 credentials are scoped to your organization's bucket only
+- SFTP uses SSH public key authentication (password login is disabled)
+- IP allowlisting is available for SFTP on request
+
+## Onboarding Checklist
+
+Here's the typical flow from start to first delivery:
+
+<Steps>
+  <Step title="Align on the data schema (field list) with Cora for your use case">
+  </Step>
+  <Step title="Build the export based on the schema">
+  </Step>
+  <Step title="Cora provisions the delivery endpoint (S3 or SFTP) and sends credentials">
+  </Step>
+  <Step title="Push a test file">
+  </Step>
+  <Step title="Cora confirms receipt and validates the file format">
+  </Step>
+  <Step title="Begin regular delivery on the agreed schedule">
+  </Step>
+</Steps>
+
+## Questions?
+
+Reach out to your Cora implementation contact or email [support@cora.ai](mailto:support@cora.ai) if you have any questions about file format, delivery setup, or scheduling.

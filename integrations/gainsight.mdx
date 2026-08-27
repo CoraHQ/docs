@@ -1,0 +1,110 @@
+---
+title: "Integrate Gainsight with Cora"
+sidebarTitle: "Gainsight"
+description: "Connect Gainsight to Cora using an API key to access health scores, CTAs, and usage analytics for lifecycle event detection."
+---
+
+The Gainsight integration enables Cora.ai to access customer success data, including health scores, CTAs (Calls to Action), and usage analytics. The integration uses API key authentication and is configured at the organization level.
+
+**Integration Type**: API Key, Organization-Level<br />**Setup Time**: 10-15 minutes<br />**Required Role**: Gainsight Administrator
+
+## Prerequisites
+
+Before setting up the integration, make sure you have:
+
+- Active Gainsight subscription (CS, PX, or combined)
+- Administrator access in Gainsight
+- Organization administrator access in Cora.ai
+- Gainsight API credentials (Access Key)
+
+## Required Credentials
+
+You will need to obtain the following from Gainsight:
+
+1. **Access Key** — API authentication token
+2. **Instance URL** — Your organization's Gainsight domain (for example, `https://your-company.gainsight.com`)
+
+## Obtaining Gainsight API Credentials
+
+<Steps>
+  <Step title="Access Gainsight Administration">
+    1. Log into Gainsight as an **Administrator**
+    2. Navigate to **Administration \> Connectors 2.0**
+  </Step>
+  <Step title="Generate Access Key">
+    1. Click **Create Connection**
+    2. From the **Connector** dropdown, select **Gainsight API**
+    3. Provide a descriptive name (for example, "Cora.ai Integration")
+    4. Under **Authentication Type**, select **Access Key**
+    5. Click **Generate Access Key**
+    6. **Important**: Copy the Access Key immediately. It will only be shown once.
+  </Step>
+  <Step title="Note Your Instance URL">
+    1. Your Instance URL is the domain you use to access Gainsight
+    2. Format: `https://[your-company].gainsight.com`
+    3. Do not include any path after the domain (for example, `/v2/accounts`)
+  </Step>
+</Steps>
+
+## Setup Steps in Cora.ai
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Gainsight** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Enter Credentials">
+    1. A credential input form will appear
+    2. Enter the following information:
+       - **Instance URL**: Your Gainsight domain (for example, `https://your-company.gainsight.com`)
+       - **Access Key**: The API access key you generated in Gainsight
+    3. Click **Test Connection** (if available)
+  </Step>
+  <Step title="Validate and Save">
+    1. Cora.ai will validate the credentials against Gainsight's API
+    2. If validation succeeds, click **Save** or **Connect**
+    3. If validation fails, verify:
+       - Access Key is correctly copied (no extra spaces)
+       - Instance URL format is correct
+       - Access Key hasn't expired
+  </Step>
+  <Step title="Confirm Connection">
+    1. The Gainsight integration card will show **Connected** status
+    2. Connection details will display:
+       - Connected by: `[Admin Name]`
+       - Connected on: `[Date]`
+       - Instance: `[Your Gainsight domain]`
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment.
+
+    1. Click the connected **Gainsight** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+**Reads:** Cora.ai syncs companies, health scores, CTAs, and timeline activities from Gainsight via scheduled API polling. All data stays on Cora's infrastructure and is used to surface customer success insights.
+
+**Writes (if configured):** When agents are configured for Gainsight actions, Cora can post updates to your Gainsight Timeline (for example, logging activities or insights). Writes only happen through explicitly configured agent workflows, never automatically or without visibility. If write-back is enabled for your organization, your Cora.ai contact will walk through the specifics and provide observability for any changes made.
+
+## Configuration Options
+
+After connecting Gainsight, you can configure:
+
+- **Data Sync Settings** — Select which Gainsight objects to sync (CTAs, Health Scores, etc.)
+- **Sync Frequency** — Configure data refresh intervals
+- **Custom Fields** — Map custom Gainsight fields to Cora.ai
+
+## Important Notes
+
+- Gainsight uses **API key authentication** rather than OAuth 2.0
+- Access keys may have expiration policies set by your organization
+- Renewing an expired key requires generating a new key in Gainsight and updating credentials in Cora.ai
+- API rate limits apply based on your Gainsight subscription tier
+
+If you run into issues, contact your Cora.ai implementation contact or email [support@cora.ai](mailto:support@cora.ai).

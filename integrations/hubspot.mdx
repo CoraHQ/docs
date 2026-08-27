@@ -1,0 +1,72 @@
+---
+title: "Integrate HubSpot with Cora"
+sidebarTitle: "HubSpot"
+description: "Connect HubSpot to Cora for CRM data access, lifecycle event tracking, company imports, and ownership sync. Setup takes about 2 minutes."
+---
+
+The HubSpot integration gives Cora.ai access to your CRM data — companies, contacts, deals, tickets, and ownership information — so it can surface insights, track lifecycle events, and keep your team informed.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: HubSpot Super Admin or App Marketplace Access
+</Note>
+
+## Prerequisites
+
+- An active HubSpot account (any Hub)
+- Super Admin permissions or App Marketplace Access in HubSpot
+- Organization administrator access in Cora.ai
+
+## Setup Steps
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **HubSpot** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Authorize in HubSpot">
+    1. You will be redirected to HubSpot's authorization screen
+    2. Select the HubSpot account you want to connect
+    3. Review the permissions Cora.ai is requesting
+    4. Click **Connect app** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The HubSpot integration card will show **Connected** status
+    3. Your name and the connection date will appear on the card
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle — from onboarding and renewals to upsells, expansion, and churn risk — so your team never misses a key moment.
+
+    1. Click the connected **HubSpot** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai syncs the following HubSpot objects:
+
+- **Companies** — Organization records and associated properties
+- **Contacts** — People associated with companies and deals
+- **Deals** — Pipeline and revenue data
+- **Tickets** — Support and service records
+- **Owners** — Team members assigned to records
+
+Access is scoped to the permissions of the HubSpot account that authorized the connection. During setup, HubSpot will show that Cora.ai is requesting both read and write permissions. Cora.ai reads your CRM data on a scheduled basis to keep insights current. Write-back (such as updating records in HubSpot) only occurs when agents are explicitly configured for that purpose — it will never happen without your knowledge. If write-back is enabled for your organization, your Cora.ai contact will walk through the specifics and provide observability for any changes made.
+
+## Importing Companies and Ownership Sync
+
+Once HubSpot is connected, you can import companies, set up ownership sync, and filter by ownership on the Accounts page. See [Managing Your Accounts](/getting-started/managing-accounts) for setup instructions.
+
+## Disconnecting
+
+To disconnect HubSpot:
+
+1. Open the HubSpot integration card
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+Disconnecting stops all data syncing. Previously synced data will remain available until it is manually removed.

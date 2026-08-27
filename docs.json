@@ -1,0 +1,116 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "almond",
+  "name": "Cora Help Center",
+  "colors": {
+    "primary": "#1A1A19",
+    "light": "#FBFBF9",
+    "dark": "#1A1A19"
+  },
+  "navigation": {
+    "pages": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "index",
+          "quickstart"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "group": "Get Started",
+        "icon": "rocket",
+        "pages": [
+          "index",
+          "getting-started/index",
+          "getting-started/actions-and-usage",
+          "getting-started/managing-accounts",
+          "getting-started/managing-team",
+          "getting-started/knowledge-base",
+          "getting-started/email-alias"
+        ]
+      },
+      {
+        "group": "Building Agents",
+        "icon": "robot",
+        "pages": [
+          "agents/index",
+          "agents/understanding-agents",
+          "agents/building-your-first-agent",
+          "agents/triggers-and-activation-rules",
+          "agents/managing-and-refining-agents",
+          "agents/how-to-build-skills",
+          "agents/approval-notifications",
+          "agents/example-prompts"
+        ]
+      },
+      {
+        "group": "Using Cora",
+        "icon": "sparkles",
+        "pages": [
+          "using-cora/signals",
+          "using-cora/setting-up-signals",
+          "using-cora/custom-columns",
+          "using-cora/surveys",
+          "using-cora/slide-decks",
+          "using-cora/feedback"
+        ]
+      },
+      {
+        "group": "Integrations",
+        "icon": "plug",
+        "pages": [
+          "integrations/index",
+          "integrations/salesforce",
+          "integrations/hubspot",
+          "integrations/slack",
+          "integrations/gmail-google-drive",
+          "integrations/google-calendar",
+          "integrations/gong",
+          "integrations/intercom",
+          "integrations/zendesk",
+          "integrations/gainsight",
+          "integrations/snowflake",
+          "integrations/bigquery",
+          "integrations/database-postgres",
+          "integrations/sftp-s3",
+          "integrations/okta-sso",
+          "integrations/attention",
+          "integrations/granola",
+          "integrations/cora-mcp",
+          "integrations/third-party-mcp-servers"
+        ]
+      },
+      {
+        "group": "FAQ & Troubleshooting",
+        "icon": "circle-question",
+        "pages": [
+          "faq/index",
+          "faq/general",
+          "faq/signals-faq"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Contact Support",
+      "href": "mailto:support@cora.ai"
+    }
+  },
+  "fonts": {
+    "family": "Inter"
+  },
+  "appearance": {
+    "default": "system",
+    "strict": false
+  },
+  "background": {
+    "color": {
+      "light": "#FCFBF5",
+      "dark": "#1A1A19"
+    }
+  }
+}

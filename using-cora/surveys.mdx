@@ -1,0 +1,160 @@
+---
+title: "Create and Send Customer Surveys in Cora"
+sidebarTitle: "Surveys"
+description: "Build CSAT, NPS, and custom survey templates in Artifacts, send per-recipient links, automate sends with agents, and report on responses."
+---
+
+Build survey templates in Artifacts, send them as per-recipient links, review responses, and automate surveys with agents.
+
+## Overview
+
+A survey in Cora is a set of questions you send to a customer to collect structured feedback. Common uses include measuring satisfaction (CSAT), tracking loyalty (NPS), and gathering intake or open-ended feedback.
+
+Surveys live under **Artifacts**. You build a reusable survey template, then send it as a unique link to one recipient at a time. Each response comes back into Cora attached to the account, so you can review answers alongside the rest of what you know about that customer.
+
+## Building a Survey
+
+Surveys are created and managed on the **Artifacts** page. Start from a new template, add your questions, and choose how the survey behaves before you save.
+
+<Steps>
+  <Step title="Create the template">
+    <Steps>
+      <Step title="Go to Artifacts">
+        Go to the **Artifacts** page.
+      </Step>
+      <Step title="Click New Template">
+        Click **New Template**.
+      </Step>
+      <Step title="Select Survey">
+        Under **Choose a template type**, select **Survey** ("Collect responses and feedback").
+      </Step>
+      <Step title="Name the survey">
+        Give the survey a name in the **Survey name** field.
+      </Step>
+    </Steps>
+  </Step>
+  <Step title="Add questions">
+    Click **Add Question** for each question you want to ask. For every question you can:
+
+    - Choose a **question type** (see **Question Types** below)
+    - Turn on the **Required** toggle if the recipient must answer before submitting
+
+    You can also use **Add Section** to group related questions together.
+  </Step>
+  <Step title="Choose how it is shown">
+    Set the **Mode** to control how questions appear to the recipient:
+
+    - **All at once**: every question is shown on a single page
+    - **One at a time**: questions are shown one per screen, with progress as the recipient moves through them
+  </Step>
+  <Step title="Set the completion message">
+    The **Completion message** is what the recipient sees after they submit. It defaults to "Thank you for your feedback!" and you can change it to whatever fits your survey.
+  </Step>
+  <Step title="Save">
+    Click **Create** to save a new survey, or **Save Changes** when editing an existing one. Your survey template is now ready to send.
+  </Step>
+</Steps>
+
+### Question Types
+
+Cora supports the following question types:
+
+- **Scale**: a rating on a numeric scale
+- **Short Text**: a single line of free text
+- **Long Text**: a longer, multi-line free-text response
+- **NPS (0-10)**: the standard Net Promoter Score question, where 0 means not at all likely and 10 means extremely likely to recommend
+- **CSAT (1-5)**: a customer satisfaction rating from 1 (very dissatisfied) to 5 (very satisfied)
+- **Number**: a numeric answer
+- **Single Select**: choose one option from a list
+- **Multi Select**: choose one or more options from a list
+
+Any question type can be marked **Required**.
+
+## Sending a Survey
+
+You send a survey by generating a unique link for a specific recipient. Each link is tied to one person, so you generate a new one for each customer you want to survey.
+
+<Steps>
+  <Step title="Find the template">
+    On the **Artifacts** page, find your survey template and choose **Generate Link**.
+  </Step>
+  <Step title="Select the account">
+    Under **Who will be filling out this survey?**, pick the **Account**.
+  </Step>
+  <Step title="Enter recipient details">
+    Enter the **Recipient email**, and optionally a **Recipient name (optional)**.
+  </Step>
+  <Step title="Generate the link">
+    Click **Generate Link**.
+  </Step>
+  <Step title="Copy and share">
+    Copy the **Survey link** ("Copy this link and share it with the recipient.") and send it to the recipient however you like, such as by email.
+  </Step>
+</Steps>
+
+### How links work
+
+- **One link per person**: each link is unique to the recipient you generated it for
+- **Links expire after 30 days**: generating the link again for the same recipient extends the expiry
+- **Re-submissions update in place**: if a recipient opens their link again and submits, their existing response is updated rather than duplicated
+
+### What recipients see
+
+When someone opens their link, they see a simple public survey page. There is no login required, and the page works on both desktop and mobile.
+
+Depending on the **Mode** you chose, recipients either see every question at once or move through them one at a time with **Back** and **Next** buttons and a sense of their progress. When they are done they click **Submit** and see your completion message, along with a note that they can close the page.
+
+## Automating Sends with Agents
+
+Beyond sending surveys by hand, you can have a Cora agent send and follow up on surveys automatically. You set this up yourself: ask Cora's agent builder in chat to build the agent, describe what you want it to do, then test it and turn it on. There is no special access or engineering work required.
+
+For example, you might ask Cora in chat:
+
+> "Build an agent that sends our CSAT survey when a renewal event fires on an account, sends reminders every few days until they respond, alerts the account owner when a response comes in, and writes the score back to our CRM."
+
+From a description like that, Cora builds an agent that can:
+
+- Send a survey automatically off a lifecycle signal, for example a CSAT survey when a particular event fires on an account
+- Run a reminder sequence on a schedule you choose, spaced a few days apart, where each reminder first checks whether the person has already responded and is skipped if they have, so people who have responded stop getting further reminders
+- Alert the account owner when a response comes in
+- Write scores back to your CRM
+
+Sending the survey, running the reminders, and reading responses work on their own. Steps that reach into another system depend on that integration being connected first: writing scores back to your CRM needs your CRM connected (and the fields you want to write to), and Slack alerts need Slack connected. Cora works with whatever you already have set up.
+
+To learn how agents are triggered off lifecycle events, see [Agent Triggers and Activation Rules](/agents/triggers-and-activation-rules). For more on building agents in chat, see [Building Your First Agent](/agents/building-your-first-agent) and [How to Build Skills](/agents/how-to-build-skills).
+
+## Reporting on Results
+
+Once responses start coming in, you can review individual answers and track how a survey is performing.
+
+### Reviewing responses
+
+Each submitted survey comes back into Cora as a **Survey Response** artifact attached to the account you selected when generating the link.
+
+To review answers, open the account and find its Survey Response artifacts, or filter Artifacts by the **Survey Response** type. Each response is labeled **Response from** {email} so you can see who it came from. Open one to read the individual answers.
+
+<Note>
+  Once a survey template has responses, it can't be deleted. If you try, Cora shows "Templates with responses can't be deleted."
+</Note>
+
+### Tracking responses and engagement
+
+Because each survey link is unique to one recipient, Cora always knows who was invited and who has responded. You can ask Cora for these numbers at any time to see how a survey is going, and Cora can also build you a dashboard to track your survey results on an ongoing basis. These views can also be exported to CSV.
+
+You can ask Cora for:
+
+- The **response rate**, meaning how many people have responded out of everyone who was invited
+- Who has **not responded yet**, so you know who is still outstanding
+- How long responses are taking to come back
+
+For example, you might ask Cora in chat:
+
+> "What is the current response rate on our CSAT survey, and who hasn't responded yet?"
+
+To read the actual answers, open individual responses in **Artifacts** as **Survey Response** items. Each one shows the respondent's email, when it was submitted, and their answers. Only completed responses appear in Artifacts, so people who have not responded yet are not listed there; ask Cora to see who is still outstanding.
+
+When Cora sends a survey by email through an agent, it also tracks email engagement on that send:
+
+- **Opens and clicks** on the survey link are tracked
+- Cora can use this to follow up, for example to remind people who opened the email but have not responded yet
+- Links you copy and share yourself are not open-tracked

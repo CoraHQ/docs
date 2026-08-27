@@ -1,0 +1,81 @@
+---
+title: "Integrate Zendesk with Cora"
+sidebarTitle: "Zendesk"
+description: "Connect Zendesk to Cora to import your Help Center articles as a knowledge source for AI agents and enable lifecycle event detection."
+---
+
+The Zendesk integration lets Cora.ai index your Help Center articles so AI agents can reference them when responding to customers. Once connected, all published articles are automatically imported and kept up to date.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: ~5 minutes<br />**Required Role**: Zendesk Administrator
+</Note>
+
+## Prerequisites
+
+- An active Zendesk account with Help Center enabled
+- Administrator permissions in Zendesk
+- Organization administrator access in Cora.ai
+
+## Setup Steps
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Zendesk** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Authorize in Zendesk">
+    1. You will be redirected to Zendesk's authorization screen
+    2. Log in with your Zendesk administrator credentials if prompted
+    3. Review the permissions Cora.ai is requesting
+    4. Click **Allow** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The Zendesk integration card will show **Connected** status
+    3. Your name and the connection date will appear on the card
+  </Step>
+  <Step title="Add Zendesk as a Knowledge Source">
+    After connecting the integration, add your Help Center articles to Cora's knowledge base:
+
+    1. Navigate to **Knowledge** in the left sidebar
+    2. Click **Add Knowledge Source**
+    3. Select **Zendesk Help Center**
+    4. Confirm to begin indexing
+
+    All published Help Center articles will be automatically imported and indexed. No manual article selection is needed.
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment.
+
+    For Zendesk, Cora watches your public support ticket threads, including each ticket's subject, status, priority, and customer-visible replies. Internal agent notes and satisfaction ratings (CSAT) are not used.
+
+    1. Click the connected **Zendesk** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+
+    Once enabled, Cora syncs your tickets and re-analyzes any ticket with new activity about once an hour. Which signal types appear is governed by your organization's Lifecycle Taxonomy, and the same signal types are available from your other connected sources.
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai can access:
+
+- **Help Center articles** — All published articles including titles, body content, and metadata (when added as a knowledge source)
+- **Tickets** — AI agents can search and retrieve support tickets by status, priority, requester, subject, and other fields
+
+Access is **read-only**. Cora.ai does not modify, create, or delete any content in Zendesk. User data and other Zendesk modules beyond Help Center articles and tickets are not accessed.
+
+When Lifecycle Events are enabled, the public ticket content Cora syncs is also used to detect lifecycle events and surface customer insights. Cora reads only public ticket content for this; it does not use internal agent notes or satisfaction ratings (CSAT).
+
+## Disconnecting
+
+To disconnect Zendesk:
+
+1. Open the Zendesk integration card in Cora
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+Disconnecting stops article indexing. Previously indexed articles will remain in the knowledge base until the knowledge source is removed.

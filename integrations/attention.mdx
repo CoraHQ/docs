@@ -1,0 +1,173 @@
+---
+title: "Integrate Attention with Cora"
+sidebarTitle: "Attention"
+description: "Connect Attention to Cora for call intelligence and meeting data so Cora can detect lifecycle signals from your customer conversations."
+---
+
+The Attention integration connects your recorded calls in Attention to Cora.ai as a signal source. Cora.ai polls Attention on a schedule, reads the title, transcript, summary, participants, and owner of each call, matches those calls to your accounts by attendee email, and runs AI lifecycle extraction so relevant moments show up as Signals in Cora.ai. It is a read-only connection, so Cora.ai never writes anything back to Attention.
+
+**Integration Type**: API Key, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: Cora.ai Organization Administrator or Operator
+
+## Prerequisites
+
+Before setting up the integration, make sure you have:
+
+- An active Attention account with recorded calls
+- An Attention API key, created from your Attention settings (see Step 1)
+- The Organization Administrator or Operator role in Cora.ai
+
+## Required Role
+
+Connecting, pausing, or disconnecting the Attention integration requires the **Organization Administrator** or **Operator** role in Cora.ai. Customers cannot connect integrations. Other members can view the connector's status but cannot change its configuration or credentials.
+
+## Setup Steps
+
+<Steps>
+  <Step title="Create your Attention API key">
+    1. In Attention, go to **Settings**, then **Personal API Keys** (`app.attention.tech/settings/api-keys`)
+    2. Click **Create API Key**
+    3. Copy the generated key. You will paste it into Cora.ai in Step 3
+  </Step>
+  <Step title="Open the Attention connector in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator** or **operator**
+    2. Go to **Settings**, then **Organization Settings**, then **Integrations**
+    3. Find the **Attention** card and click **Connect**
+  </Step>
+  <Step title="Paste your API key and connect">
+    1. Paste the API key you copied from Attention into the **API key** field
+    2. Click **Connect**
+    3. The card now shows **Connected**, and Cora.ai begins its initial sync
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment. On first connect, the **Lifecycle Events** toggle is enabled automatically, so there is usually nothing to change here.
+
+    1. Click the connected **Attention** card to open its settings drawer
+    2. Confirm the **Lifecycle Events** toggle is **on**
+    3. Use **Manage event types** to review which events Cora.ai extracts. This opens your organization's Lifecycle Taxonomy settings
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai reads the following from Attention:
+
+- **Calls**: title, summary, participants, and owner
+- **Transcripts**: the full call transcript, when one is available
+- **Link back to Attention**: a link to open the original call in Attention
+
+Access is **read-only**. Cora.ai never writes anything back to Attention, and nothing is installed in your Attention account.
+
+## How Signals Are Generated
+
+- **Account matching by email**: Cora.ai matches each call to an account using participant email only, either by an exact match to your CRM or by falling back to the email domain. Calls whose participants do not match a known account do not produce Signals.
+- **Transcript required**: Signals require a transcript. Calls without a transcript are still ingested, but they generate no lifecycle events.
+- **AI lifecycle extraction**: Cora.ai runs confidence-gated AI extraction on each call and classifies each item once. Extraction is governed by your organization's Lifecycle Taxonomy, and the lifecycle source is labeled **Attention - Calls** in Cora.ai.
+- **Schedule**: Cora.ai polls Attention hourly. On first connect, it backfills approximately the last 30 days of calls. No webhooks are used.
+
+For more on how Signals work, see the [Signals FAQ](/faq/signals-faq).
+
+## Pausing vs Disconnecting
+
+To **pause** ingestion without losing your setup, open the Attention connector and turn the **Lifecycle Events** toggle **off**. Cora.ai keeps your stored API key, the card still shows **Connected**, and the drawer shows **Paused**. Ingestion stops until you turn the toggle back on.
+
+To fully **disconnect**, open the connector and click **Disconnect**. This removes the stored API key from Cora.ai and stops all syncing. To reconnect later, paste a new API key and connect again.
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Cora.ai only reads from Attention. It never writes back, and nothing is installed in your Attention account. |
+| **Credential security** | The API key is encrypted at rest and never shown again after you save it. |
+| **Revocability** | Disconnect in Cora.ai to remove the stored key, or revoke the key in Attention to cut access immediately. |
+
+## Troubleshooting
+
+- **No Signals yet?** A call only generates Signals when its participants match an account by email and the call has a transcript. Calls without a matched account, or without a transcript, are ingested but produce no lifecycle events.
+- **Recently connected?** The initial backfill covers about the last 30 days and syncing runs hourly, so new calls can take up to an hour to appear.
+- **Still stuck?** See the [Signals FAQ](/faq/signals-faq) for common questions about why Signals may not appear, sync timing, and how call-to-account matching works.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).
+
+The Attention integration connects your recorded calls in Attention to Cora.ai as a signal source. Cora.ai polls Attention on a schedule, reads the title, transcript, summary, participants, and owner of each call, matches those calls to your accounts by attendee email, and runs AI lifecycle extraction so relevant moments show up as Signals in Cora.ai. It is a read-only connection, so Cora.ai never writes anything back to Attention.
+
+**Integration Type**: API Key, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: Cora.ai Organization Administrator or Operator
+
+## Prerequisites
+
+Before setting up the integration, make sure you have:
+
+- An active Attention account with recorded calls
+- An Attention API key, created from your Attention settings (see Step 1)
+- The Organization Administrator or Operator role in Cora.ai
+
+## Required Role
+
+Connecting, pausing, or disconnecting the Attention integration requires the **Organization Administrator** or **Operator** role in Cora.ai. Customers cannot connect integrations. Other members can view the connector's status but cannot change its configuration or credentials.
+
+## Setup Steps
+
+<Steps>
+  <Step title="Create your Attention API key">
+    1. In Attention, go to **Settings**, then **Personal API Keys** (`app.attention.tech/settings/api-keys`)
+    2. Click **Create API Key**
+    3. Copy the generated key. You will paste it into Cora.ai in Step 3
+  </Step>
+  <Step title="Open the Attention connector in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator** or **operator**
+    2. Go to **Settings**, then **Organization Settings**, then **Integrations**
+    3. Find the **Attention** card and click **Connect**
+  </Step>
+  <Step title="Paste your API key and connect">
+    1. Paste the API key you copied from Attention into the **API key** field
+    2. Click **Connect**
+    3. The card now shows **Connected**, and Cora.ai begins its initial sync
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment. On first connect, the **Lifecycle Events** toggle is enabled automatically, so there is usually nothing to change here.
+
+    1. Click the connected **Attention** card to open its settings drawer
+    2. Confirm the **Lifecycle Events** toggle is **on**
+    3. Use **Manage event types** to review which events Cora.ai extracts. This opens your organization's Lifecycle Taxonomy settings
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai reads the following from Attention:
+
+- **Calls**: title, summary, participants, and owner
+- **Transcripts**: the full call transcript, when one is available
+- **Link back to Attention**: a link to open the original call in Attention
+
+Access is **read-only**. Cora.ai never writes anything back to Attention, and nothing is installed in your Attention account.
+
+## How Signals Are Generated
+
+- **Account matching by email**: Cora.ai matches each call to an account using participant email only, either by an exact match to your CRM or by falling back to the email domain. Calls whose participants do not match a known account do not produce Signals.
+- **Transcript required**: Signals require a transcript. Calls without a transcript are still ingested, but they generate no lifecycle events.
+- **AI lifecycle extraction**: Cora.ai runs confidence-gated AI extraction on each call and classifies each item once. Extraction is governed by your organization's Lifecycle Taxonomy, and the lifecycle source is labeled **Attention - Calls** in Cora.ai.
+- **Schedule**: Cora.ai polls Attention hourly. On first connect, it backfills approximately the last 30 days of calls. No webhooks are used.
+
+For more on how Signals work, see the [Signals FAQ](/faq/signals-faq).
+
+## Pausing vs Disconnecting
+
+To **pause** ingestion without losing your setup, open the Attention connector and turn the **Lifecycle Events** toggle **off**. Cora.ai keeps your stored API key, the card still shows **Connected**, and the drawer shows **Paused**. Ingestion stops until you turn the toggle back on.
+
+To fully **disconnect**, open the connector and click **Disconnect**. This removes the stored API key from Cora.ai and stops all syncing. To reconnect later, paste a new API key and connect again.
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Cora.ai only reads from Attention. It never writes back, and nothing is installed in your Attention account. |
+| **Credential security** | The API key is encrypted at rest and never shown again after you save it. |
+| **Revocability** | Disconnect in Cora.ai to remove the stored key, or revoke the key in Attention to cut access immediately. |
+
+## Troubleshooting
+
+- **No Signals yet?** A call only generates Signals when its participants match an account by email and the call has a transcript. Calls without a matched account, or without a transcript, are ingested but produce no lifecycle events.
+- **Recently connected?** The initial backfill covers about the last 30 days and syncing runs hourly, so new calls can take up to an hour to appear.
+- **Still stuck?** See the [Signals FAQ](/faq/signals-faq) for common questions about why Signals may not appear, sync timing, and how call-to-account matching works.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

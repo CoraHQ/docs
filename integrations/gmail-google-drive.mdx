@@ -1,0 +1,144 @@
+---
+title: "Integrate Gmail and Google Drive with Cora"
+sidebarTitle: "Gmail & Drive"
+description: "Connect Gmail and Google Drive to Cora to read and send emails, access Drive files for context, and create presentations for EBR workflows."
+---
+
+The Gmail and Google Drive integrations enable individual users to read and send emails, access Drive files for knowledge, and create presentations directly from Cora.ai, particularly for Executive Business Review (EBR) workflows.
+
+<Note>
+  **Integration Type**: OAuth 2.0, User-Level<br />**Setup Time**: 3–5 minutes per user<br />**Required Role**: Any authenticated Cora.ai user
+</Note>
+
+## Prerequisites
+
+- Google Workspace or personal Google account
+- Gmail enabled (for Gmail integration)
+- Google Drive
+- Active Cora.ai user account
+
+## Required Permissions
+
+### Gmail Integration
+
+Cora.ai will request the following Gmail permissions:
+
+- **Read emails** — Read email messages and threads from your inbox
+- **Send emails** — Send emails and compose messages on your behalf
+
+### Google Drive Integration
+
+Cora.ai will request the following Google Drive permissions:
+
+- **Read files** — Access documents and files in your Drive for knowledge and context
+- **Create and manage files** — Create presentations and documents in your Drive
+- **Share files** — Add permissions to files created by Cora.ai
+
+## Setup Steps
+
+Cora supports integrations at the individual user level and at the shared organization level. For Gmail the account level is useful for connecting a shared inbox like [support@yourcompany.com](mailto:support@yourcompany.com) for sending emails and for detecting shared customer lifecycle events (e.g., upsell opportunity, renewal risk, etc.).
+
+### User Level Integration — Gmail or Drive
+
+<Steps>
+  <Step title="Access User Integrations">
+    1. Log into Cora.ai with your user account
+    2. Click on your **Profile picture** or avatar (top-right corner)
+    3. Select **Settings** or **Integrations** from the dropdown menu
+    4. Navigate to the **Integrations** tab
+  </Step>
+  <Step title="Initiate Gmail or Drive Connection">
+    1. Locate the integration card
+    2. Click the **Connect** button
+    3. You will be redirected to Google's authentication page
+  </Step>
+  <Step title="Google Authentication">
+    1. Select the Google account you want to connect
+    2. If prompted, enter your Google password
+    3. If 2-factor authentication is enabled, complete the verification
+  </Step>
+  <Step title="Grant Permissions">
+    1. Review the permissions Cora.ai is requesting
+    2. Google will display the requested permissions, including read and send access for Gmail and file access for Drive
+    3. Click **Allow** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The integration card will show **Connected** status
+    3. Your connected address will be displayed
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle — from onboarding and renewals to upsells, expansion, and churn risk — so your team never misses a key moment.
+
+    1. Click the connected **Gmail** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+**Note**: You can use the same Google account for both Gmail and Drive integrations or connect different accounts if needed.
+
+### Shared Gmail Integration
+
+For sending outbound emails to your customers we typically recommend creating a new shared Gmail account (e.g., [cora@yourcompany.com](mailto:cora@yourcompany.com) or [notifications@yourcompany.com](mailto:notifications@yourcompany.com)). This allows you to have a consistent and branded experience with your company logo. This shared account is connected once by an admin team member and shared across the Cora organization.
+
+**Step 1: Log Into Cora**
+
+Log into Cora.ai with your shared Google account (e.g., [cora@yourcompany.com](mailto:cora@yourcompany.com)).
+
+**Step 2: Authorize Gmail**
+
+Follow steps 1–6 detailed above to get Gmail connected.
+
+## What Cora.ai Accesses
+
+### Gmail
+
+**Reads:** Cora.ai can read email messages and threads from your connected inbox to provide context for customer interactions and workflows.
+
+**Writes:** Cora.ai can send emails on your behalf, including EBR distribution, customer communications, and automated notifications. Emails are always sent from your connected Gmail address.
+
+### Google Drive
+
+**Reads:** Cora.ai can access documents and files in your Drive to use as knowledge and context for generating insights and content.
+
+**Writes:** Cora.ai can create presentations and documents in your Drive (e.g., EBR decks from templates) and manage sharing permissions on files it creates.
+
+## Multiple Account Support
+
+You can connect multiple Gmail accounts to Cora.ai:
+
+1. On the Gmail integration card, click **Add Another Account**
+2. Follow the OAuth flow for the additional account
+3. When sending emails, you'll be able to select which account to use
+
+## Use Cases
+
+### Gmail
+
+- **EBR Distribution** — Send Executive Business Review decks via email
+- **Customer Communications** — Email customers directly from Cora.ai
+- **Automated Notifications** — Send automated alerts and updates
+- **Email Context** — Read email threads to inform customer insights and workflows
+
+### Google Drive
+
+- **EBR Creation** — Generate Executive Business Review presentations
+- **Template-Based Decks** — Create presentations from Cora.ai templates
+- **Knowledge Source** — Use Drive documents as context for generating insights
+- **Collaborative Presentations** — Share presentations with team members via Drive
+
+## Disconnecting
+
+To disconnect a Gmail or Google Drive account:
+
+1. Navigate to Profile → Settings → Integrations
+2. Locate the integration card
+3. Click **Disconnect** or **Remove**
+4. Confirm the disconnection
+
+**Note**: You can also revoke access directly in your Google account settings:
+
+- Visit [myaccount.google.com/permissions](https://myaccount.google.com/permissions)
+- Locate "Cora.ai" in the list
+- Click **Remove Access**

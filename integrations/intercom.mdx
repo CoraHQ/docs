@@ -1,0 +1,67 @@
+---
+title: "Integrate Intercom with Cora"
+sidebarTitle: "Intercom"
+description: "Connect Intercom to Cora to index conversations and support tickets as signals and use them for lifecycle event detection."
+---
+
+The Intercom integration gives Cora.ai access to your support conversations, contacts, and team data — so it can detect lifecycle events, surface customer insights, and keep your team informed about key moments across the customer journey.
+
+<Note>
+  **Integration Type**: OAuth 2.0, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: Intercom Admin
+</Note>
+
+## Prerequisites
+
+- An active Intercom workspace
+- Admin permissions in Intercom
+- Organization administrator access in Cora.ai
+
+## Setup Steps
+
+<Steps>
+  <Step title="Initiate Connection">
+    1. Log into Cora.ai as an **organization administrator**
+    2. Navigate to **Settings** → **Organization Settings** → **Integrations**
+    3. Locate the **Intercom** integration card
+    4. Click the **Connect** button
+  </Step>
+  <Step title="Authorize in Intercom">
+    1. You will be redirected to Intercom's authorization screen
+    2. Select the Intercom workspace you want to connect
+    3. Review the permissions Cora.ai is requesting
+    4. Click **Authorize** to grant access
+  </Step>
+  <Step title="Confirm Connection">
+    1. You will be redirected back to Cora.ai
+    2. The Intercom integration card will show **Connected** status
+    3. Your name and the connection date will appear on the card
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle — from onboarding and renewals to upsells, expansion, and churn risk — so your team never misses a key moment.
+
+    1. Click the connected **Intercom** integration card to open the settings panel
+    2. Under **Lifecycle Events**, toggle the switch **on**
+    3. Click **Save**
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai syncs the following Intercom data on a scheduled basis:
+
+- **Admins** — Team members in your Intercom workspace
+- **Contacts** — Customers and leads in your Intercom database
+- **Conversations** — Support threads and their metadata
+- **Conversation Parts** — Individual messages within each conversation
+
+This integration is **read-only**. Cora.ai does not write to, modify, or delete any data in your Intercom workspace. All synced data is stored on Cora's infrastructure and used to detect lifecycle events and surface customer insights.
+
+## Disconnecting
+
+To disconnect Intercom:
+
+1. Open the Intercom integration card
+2. Click **Disconnect**
+3. Confirm the disconnection
+
+Disconnecting stops all data syncing. Previously synced data will remain available until it is manually removed.

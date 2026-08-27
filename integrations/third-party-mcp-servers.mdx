@@ -1,0 +1,92 @@
+---
+title: "Connect Third-Party MCP Servers to Cora"
+sidebarTitle: "Third-Party MCP"
+description: "Connect any MCP-compatible service to Cora so agents can use external tools like Granola, Linear, Figma, and Notion in chat and workflows."
+---
+
+Cora can connect to third-party services that expose an MCP (Model Context Protocol) server. Once connected, Cora can use those services in both **chat** and **agents** — for example, pulling meeting notes from Granola, call recordings from Clarify, project issues from Linear, design files from Figma, or knowledge base pages from Notion.
+
+If the service you want to use offers an MCP server, you can connect it to Cora in a few clicks.
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- Operator or Admin access in Cora
+- The MCP server URL from the provider (usually found in their docs or settings page)
+
+## Connecting an MCP Server
+
+Most MCP servers use OAuth, so the setup is straightforward: paste the URL, save, and sign in with the provider.
+
+<Steps>
+  <Step title="Navigate to Tools">
+    Go to **Settings** → **Organization Settings** → **Tools**
+  </Step>
+  <Step title="Add the tool">
+    Click **\+ Add Tool** in the top-right
+  </Step>
+  <Step title="Enter the MCP server URL">
+    Enter a **name** and the **MCP server URL** provided by the service
+  </Step>
+  <Step title="Save and initiate connection">
+    Click **Add Tool**. The dialog stays open and transitions to a **Connect** view.
+  </Step>
+  <Step title="Authorize with the provider">
+    Click **Connect**. You'll be redirected to the provider's login page to authorize access.
+  </Step>
+  <Step title="Confirm the connection is active">
+    Once authorized, the dialog closes automatically and the connection is **active**: Cora can start using it in chat and agents right away.
+  </Step>
+</Steps>
+
+## Advanced: Other Authentication Methods
+
+If the provider requires a different authentication method, expand **Advanced Settings** when adding the connection.
+
+- **Bearer Token** — paste a token provided by the service
+- **API Key** — paste an API key from the provider
+- **Manual OAuth** — if auto-discovery doesn't work, toggle **Show advanced options** to manually enter Client ID, Client Secret, Authorization URL, Token URL, and Scopes
+
+Most providers support the default OAuth flow, so you typically won't need these options. For non-OAuth connections, you'll need to manually activate the connection after saving (click the edit icon and set the Status to **Active**).
+
+## Testing Your Connection
+
+After connecting, click the **test icon** (play button) next to the entry in the list. Cora will verify it can reach the MCP server and show how many capabilities were discovered at the endpoint.
+
+## Private vs. Shared
+
+By default, an MCP server you connect is **private** — only you can use it in chat and only your agents can access it.
+
+If you want your whole team to have access, click the **share icon** on the entry, then switch visibility from **Only me** to **Everyone in organization** in the dropdown.
+
+Only the person who created the connection can change this setting. Visibility applies to both chat and agents: private connections are only available to the creator, while organization-wide connections are available to everyone.
+
+## Reconnecting
+
+If an OAuth token expires or is revoked, open the entry (click the edit icon) and click **Connect** in the dialog footer. You can also click the **Reconnect** link that appears when a connection has lapsed.
+
+## Troubleshooting
+
+**Connection fails when clicking Connect**
+
+An error message will appear in the dialog explaining the issue (for example, invalid client, server unreachable). Verify your URL is correct and that the provider's MCP server is running.
+
+**OAuth errors**
+
+Check that the provider has authorized Cora as a client. If you're using manual OAuth settings, double-check the Client ID, Client Secret, and redirect URLs match what the provider expects.
+
+**Need help?**
+
+Reach out to us at [support@cora.ai](mailto:support@cora.ai) and we'll help you get connected.
+
+## Editing and Removing Connections
+
+Use the inline action icons next to each entry:
+
+- **Pencil icon** — edit the name, URL, auth settings, or status
+- **Trash icon** — remove the connection (with confirmation)
+
+Org admins and global admins can edit or remove any connection. Only the creator can change sharing settings.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

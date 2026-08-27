@@ -1,0 +1,66 @@
+---
+title: "How Approval Notifications Work in Cora"
+sidebarTitle: "Approvals"
+description: "Understand how reviewers are notified when an agent needs approval, how emails are bundled, how to choose a sender, and how to set up reminders."
+---
+
+Agents can be set up to pause and wait for a person to approve an action before it happens. There are two separate kinds of notification, and they are easy to confuse:
+
+- **The approval email:** automatic and built in. Sent once, when a task first needs approval.
+- **Ongoing reminders:** optional. A separate agent that periodically re-notifies reviewers about tasks still waiting.
+
+## The Approval Email
+
+When an agent assigns a task to a reviewer, Cora emails that reviewer automatically. The only setup required is choosing a reviewer and a sender.
+
+- **What it contains:** each task awaiting approval, its due date and status, a preview of what the agent wants to do, and a link to approve it.
+- **Tasks are bundled.** Reviewers never get one email per task. Cora collects a reviewer's tasks over a window of about five minutes and sends one email covering that window.
+- **The number of emails depends on how quickly tasks arrive,** not how many there are. A bulk launch that produces tasks gradually over half an hour sends several emails, one per window. A burst arriving at once is bundled into far fewer.
+- **It is sent once.** If the reviewer does not act, Cora will not email them again about those tasks. Each email does list up to five other tasks already awaiting that reviewer, but this is not a reminder system.
+
+## Choosing a Sender
+
+**Select the sender for email notifications** controls who the email appears to come from, and it must be set. Turning on the **Email notification** toggle is not enough on its own: if the sender is blank, approval emails are not sent and no error is shown, so an agent can look correctly configured while sending nothing.
+
+- **Cora:** the default system sender. Emails come from your workspace's Cora address.
+- **A specific teammate:** emails come from that person's address, so reviewers recognize the sender.
+
+Cora never picks a sender for you, and new agents start with this field empty. If reviewers are not getting emails, check it first.
+
+<Warning title="Blank sender silences approval emails">
+  If the sender is blank, approval emails are not sent and no error is shown. An agent can look correctly configured while sending nothing. Always select a sender before going live.
+</Warning>
+
+## Choosing Who Reviews
+
+The **Who should review?** setting routes approvals two ways:
+
+- **Specific user:** one named person receives every approval from this agent.
+- **Team role:** the reviewer is chosen when the task is created, based on the customer account involved. Routing to the **account owner** sends each approval to whoever owns that account, so one agent can serve many accounts with different reviewers.
+
+**Reviewers must be Cora users** with access to the relevant workspace. Someone who exists only as a contact on a customer account cannot receive approvals. Agents have a single reviewer by default; to notify more than one person, set that up when building the agent.
+
+## Ongoing Reminders
+
+Reminders are not part of the approval email. They come from a separate, optional agent that runs on a schedule and reports what is still outstanding.
+
+- **What it does:** sends targeted people a summary of their outstanding tasks (not yet started, awaiting approval, or overdue) across all accounts, by email or Slack.
+- **How it differs:** the approval email announces new tasks once. The reminder agent re-surfaces existing tasks until they are handled.
+- **It is off by default.** Some teams run it daily, some weekly, and some skip it because a recurring digest can get noisy. Contact your Cora team to have one set up.
+
+The two are independent, so the same task can appear in both an approval email and a later reminder.
+
+## Troubleshooting
+
+**A reviewer is not receiving approval emails.** Check in order:
+
+1. **Is a sender selected?** A blank sender silently stops the email. This is the most common cause.
+2. **Is the reviewer a Cora user with workspace access?** If not, the task still pauses for approval but nobody is notified.
+3. **Is the Email notification toggle on?** It is on by default, but confirm it was not switched off.
+
+Two other common cases:
+
+- **A reviewer expected a reminder and got none.** The approval email is sent only once. Recurring reminders need the separate agent described above.
+- **A task is waiting for approval but nobody was notified.** The reviewer configuration probably could not be resolved, for example if that person no longer has workspace access. The task is not lost: tasks awaiting approval stay visible in your organization's task list, where anyone with access can approve them directly.
+
+For more on adjusting agents, see [Managing and Refining Agents](/agents/managing-and-refining-agents).

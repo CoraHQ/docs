@@ -1,0 +1,92 @@
+---
+title: "Agent Triggers and Activation Rules in Cora"
+sidebarTitle: "Triggers"
+description: "Deep dive into manual, scheduled, and event-driven agent triggers, task-level activation rules, and how to test triggers before going live."
+---
+
+Every agent needs a trigger: the rule that determines when it runs. Choosing the right trigger is one of the most important decisions when building an agent. This article covers each trigger type in detail and explains how tasks within an agent can be sequenced with their own activation rules.
+
+For foundational concepts, see [Understanding Agents](/agents/understanding-agents). For a walkthrough of building an agent, see [Building Your First Agent](/agents/building-your-first-agent).
+
+## Manual Triggers
+
+A manually triggered agent runs only when you explicitly start it. It will never run on its own.
+
+**When to use:** Workflows you want to run on demand, like generating a briefing before a customer call, pulling a one-time report, or kicking off a process for a specific account.
+
+**How to run:** Ask Cora in chat (e.g., _"Run my executive briefing agent"_) or trigger it from the Agents page. You can target a specific customer account when running manually.
+
+**How to set up:** When building an agent, tell Cora you want it to run on demand or only when you ask. For example: _"Build me an agent I can run manually to generate a customer briefing."_
+
+## Scheduled Triggers
+
+A scheduled agent runs automatically on a recurring basis: daily, weekly, on specific days, or at custom intervals.
+
+**When to use:** Recurring workflows like weekly digests, daily health reports, Monday morning summaries, or end-of-day escalation checks.
+
+**Schedule options:**
+
+- **Daily:** Runs every day at a specified time
+- **Weekdays:** Runs Monday through Friday
+- **Weekly:** Runs on a specific day (e.g., every Monday at 9am)
+- **Custom:** Specific days and times (e.g., Monday, Wednesday, and Friday at 8am)
+
+**Timezone:** Scheduled agents run in the timezone you specify. When building an agent, always include your timezone (e.g., "9am Eastern" or "8am Pacific"). If you do not specify one, Cora will ask. Schedules without a timezone default to UTC, which is rarely what you want.
+
+**How to set up:** Include the schedule in your description to Cora. For example: _"Send me a renewal risk summary every Monday at 9am Eastern."_
+
+## Event-Driven Triggers (Signals)
+
+An event-driven agent runs automatically when Cora detects a specific lifecycle event in your connected integrations. These events are called **signals**: things like a renewal risk flagged in Salesforce, a competitor mention detected in a Gong call, or a stakeholder change identified in an email.
+
+**When to use:** Workflows that should fire in response to something happening, like reaching out to a customer when their health score drops, alerting the team when a champion leaves, or following up after a new deal closes.
+
+**How it works:**
+
+1. Cora monitors your connected integrations for lifecycle events (see [Setting Up Signals](/using-cora/setting-up-signals))
+2. When an event matching your agent's trigger condition is detected, the agent runs automatically
+3. The agent receives context about the event (which account, what happened, severity) and uses it to take action
+
+**Important:** Event-driven agents only fire when the lifecycle event they watch for is active and has at least one connected source. If the event type is not yet set up, Cora will let you know during building and can help you configure it.
+
+**How to set up:** Describe the triggering event to Cora. For example: _"When a renewal risk is detected, draft an outreach email to the customer."_ Cora will check if a matching signal already exists in your workspace. If it does, Cora will wire the agent to it. If not, Cora can help you set up a new one.
+
+Sending a survey is a common action for an event-driven agent, for example sending a CSAT survey when a lifecycle event fires on an account. See [Surveys](/using-cora/surveys).
+
+## Choosing the Right Trigger Type
+
+A simple way to decide:
+
+- **"Every Monday" / "Daily at 9am" / "Weekdays"** → **Scheduled.** Best for digests, summaries, and periodic reports sent to your team.
+- **"When X happens" / "If a risk is detected"** → **Event-driven.** Best for reacting to customer lifecycle moments with per-account actions.
+- **"Only when I ask" / "On demand"** → **Manual.** Best for ad hoc workflows you want full control over.
+
+Keep in mind: if your agent's output is one message per customer account (e.g., a personalized email to each at-risk customer), that is an event-driven agent, even if you also want it to check daily. Scheduled agents are best for aggregate work like team-wide summaries.
+
+## Task-Level Activation Rules
+
+While the agent-level trigger controls _when the agent starts_, individual tasks within an agent can have their own activation rules that control _when each step happens_. This is how you build multi-step workflows.
+
+The most common task-level rules:
+
+**Immediate:** The task runs as soon as the agent starts. This is the default for the first (or only) task in an agent.
+
+**After another task completes:** The task waits for a specific preceding task to finish before it starts. This is how you chain tasks in a sequence (e.g., gather data first, then send the email).
+
+**After a delay:** The task waits a set amount of time before running (e.g., follow up 3 days after the initial outreach).
+
+**When a customer replies:** The task waits for a customer to respond to a message sent by an earlier task (e.g., process the customer's reply to a welcome email).
+
+**On its own schedule:** The task runs on a recurring schedule independent of other tasks (e.g., a weekly check within an ongoing workflow).
+
+You generally do not need to configure these directly. When you describe a multi-step workflow to Cora, it sets up the appropriate task sequencing automatically.
+
+## Testing Triggers Before Activating
+
+Before turning an agent on, you can verify it is set up correctly:
+
+**For scheduled agents:** Review the schedule Cora set up (visible in the agent's configuration on the Agents page or in the chat summary). Make sure the time, frequency, and timezone are correct.
+
+**For event-driven agents:** Check that the lifecycle event the agent watches for is active and has a connected source. Cora will warn you during building if something is missing. You can also ask Cora to test the agent in a sandbox to see how it would behave.
+
+**For all agents:** Ask Cora to test the agent (_"Test my renewal outreach agent"_). Testing runs the agent in a safe sandbox where no real messages are sent, so you can validate behavior without any risk. See [Building Your First Agent](/agents/building-your-first-agent) for more on testing.

@@ -1,0 +1,103 @@
+---
+title: "Integrate Granola with Cora"
+sidebarTitle: "Granola"
+description: "Connect Granola to Cora to pull meeting notes into chat and agents using the Model Context Protocol for richer customer context."
+---
+
+The Granola integration connects your meeting notes in Granola to Cora.ai as a signal source. Cora.ai polls Granola on a schedule, reads the title, summary, attendees, owner, transcript (when available), and source URL of each note, matches those notes to your accounts by attendee email, and runs AI lifecycle extraction so relevant moments show up as Signals in Cora.ai. It is a read-only connection, so Cora.ai never writes anything back to Granola.
+
+Only **Public** notes (visible to everyone in your workspace) and notes in **Team Space** sync. Personal or private notes do not sync.
+
+**Integration Type**: API Key, Organization-Level<br />**Setup Time**: ~2 minutes<br />**Required Role**: Cora.ai Organization Administrator or Operator
+
+## Prerequisites
+
+Before setting up the integration, make sure you have:
+
+- An active Granola workspace with meeting notes
+- A Granola API key that includes the **Public notes** access scope (see Step 1). Only Public and Team-space notes sync; personal or private notes do not
+- The Organization Administrator or Operator role in Cora.ai
+
+## Required Role
+
+Connecting, pausing, or disconnecting the Granola integration requires the **Organization Administrator** or **Operator** role in Cora.ai. Customers cannot connect integrations. Other members can view the connector's status but cannot change its configuration or credentials.
+
+## Setup Steps
+
+<Steps>
+  <Step title="Create your Granola API key">
+    1. In Granola, go to **Settings**, then **Connectors**, then **Personal API keys** (under the **API** heading)
+    2. Click **Create new key**
+    3. Select the **Public notes** access scope ("Notes visible to everyone in the workspace", which includes notes in "Team Space")
+    4. Click **Generate API Key** and copy the generated key. You will paste it into Cora.ai in Step 3
+
+    <Important>
+  Even though the page is labeled "Personal API keys", Cora.ai only syncs Public and Team-space notes, so the key must include the 
+
+  **Public notes**
+
+   scope. A key limited to personal notes will sync nothing.
+</Important>
+  </Step>
+  <Step title="Open the Granola connector in Cora.ai">
+    1. Log into Cora.ai as an **organization administrator** or **operator**
+    2. Go to **Settings**, then **Organization Settings**, then **Integrations**
+    3. Find the **Granola** card and click **Connect**
+  </Step>
+  <Step title="Paste your API key and connect">
+    1. Paste the API key you copied from Granola into the **API key** field
+    2. Click **Connect**
+    3. The card now shows **Connected**, and Cora.ai begins its initial sync
+  </Step>
+  <Step title="Enable Lifecycle Events">
+    Track events across your customer lifecycle, from onboarding and renewals to upsells, expansion, and churn risk, so your team never misses a key moment. On first connect, the **Lifecycle Events** toggle is enabled automatically, so there is usually nothing to change here.
+
+    1. Click the connected **Granola** card to open its settings drawer
+    2. Confirm the **Lifecycle Events** toggle is **on**
+    3. Use **Manage event types** to review which events Cora.ai extracts. This opens your organization's Lifecycle Taxonomy settings
+  </Step>
+</Steps>
+
+## What Cora.ai Accesses
+
+Once connected, Cora.ai reads the following from Granola:
+
+- **Notes**: title, summary, attendees, and owner
+- **Transcripts**: the note's transcript, when one is available
+- **Source URL**: a link to open the original note in Granola
+
+Cora.ai reads only Public and Team-space notes; personal or private notes are never read. Access is **read-only**. Cora.ai never writes anything back to Granola, and nothing is installed in your Granola workspace.
+
+## How Signals Are Generated
+
+- **Account matching by email**: Cora.ai matches each note to an account using attendee email only, either by an exact match to your CRM or by falling back to the email domain. Notes whose attendees do not match a known account do not produce Signals.
+- **Summary required**: Signals require a note summary. Notes without a summary are still ingested, but they generate no lifecycle events.
+- **Public and Team-space only**: Only Public and Team-space notes are synced. Personal or private notes are not read, so they never produce Signals.
+- **AI lifecycle extraction**: Cora.ai runs confidence-gated AI extraction on each note and classifies each item once. Extraction is governed by your organization's Lifecycle Taxonomy, and the lifecycle source is labeled **Granola - Notes** in Cora.ai.
+- **Schedule**: Cora.ai polls Granola hourly. On first connect, it backfills approximately the last 30 days of notes. No webhooks are used.
+
+For more on how Signals work, see the [Signals FAQ](/faq/signals-faq).
+
+## Pausing vs Disconnecting
+
+To **pause** ingestion without losing your setup, open the Granola connector and turn the **Lifecycle Events** toggle **off**. Cora.ai keeps your stored API key, the card still shows **Connected**, and the drawer shows **Paused**. Ingestion stops until you turn the toggle back on.
+
+To fully **disconnect**, open the connector and click **Disconnect**. This removes the stored API key from Cora.ai and stops all syncing. To reconnect later, paste a new API key and connect again.
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Cora.ai only reads from Granola. It never writes back, and nothing is installed in your Granola workspace. |
+| **Scope-limited** | Cora.ai reads only Public and Team-space notes. Personal or private notes are never accessed. |
+| **Credential security** | The API key is encrypted at rest and never shown again after you save it. |
+| **Revocability** | Disconnect in Cora.ai to remove the stored key, or revoke the key in Granola to cut access immediately. |
+
+## Troubleshooting
+
+- **No Signals yet?** A note only generates Signals when its attendees match an account by email and the note has a summary. Notes without a matched account, or without a summary, are ingested but produce no lifecycle events.
+- **Nothing syncing at all?** Confirm your API key includes the **Public notes** scope. A key limited to personal notes will sync nothing, because Cora.ai only reads Public and Team-space notes.
+- **Recently connected?** The initial backfill covers about the last 30 days and syncing runs hourly, so new notes can take up to an hour to appear.
+- **Still stuck?** See the [Signals FAQ](/faq/signals-faq) for common questions about why Signals may not appear, sync timing, and how note-to-account matching works.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).

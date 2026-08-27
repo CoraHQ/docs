@@ -1,0 +1,79 @@
+---
+title: "How to Build and Use Skills in Cora"
+sidebarTitle: "Skills"
+description: "Create reusable skill instructions in Cora chat, use and share them with your org, and schedule them with agents to run on a recurring basis."
+---
+
+A skill is a set of reusable instructions that Cora follows on demand. Instead of re-explaining the same workflow every time, you save it once as a skill and then ask Cora to run it whenever you need it. Each skill has a clear **Title**, a short **Description** that tells Cora when to use it, and an **Instructions** body written in plain language.
+
+A skill is different from an agent. A skill defines **what to do**: the steps, the format, the tone, the details Cora should follow. An agent defines **when and how often** something happens: its trigger, its schedule, and its autonomy. You can think of a skill as a reusable recipe and an agent as the thing that decides when the recipe gets cooked. The two work together, and you can ask an agent to run a skill on a schedule.
+
+If you are new to how automation works in Cora, start with [Understanding Agents](/agents/understanding-agents) for the foundational concepts, then come back here to learn how skills fit in.
+
+## Creating a Skill from Chat
+
+The natural way to build a skill is to work through the task with Cora in chat and then ask Cora to save it. This is the recommended way to create a skill. Walk through the workflow in a normal conversation, refine it until the output looks right, and then ask Cora to turn it into a skill. For example:
+
+_"That is exactly the format I want. Save this as a skill called Weekly Executive Briefing."_
+
+Cora captures the instructions from your conversation and saves them as a new skill. Skills you create this way are **Private** by default, so only you can see and use them until you decide to share.
+
+Updating a skill works the same way. Just ask Cora in chat to change how a skill should behave, and Cora updates the saved instructions for you. For example:
+
+_"Update my Weekly Executive Briefing skill to add a section on pipeline changes."_
+
+## Using a Skill
+
+To use a skill, just ask Cora for it in chat. You do not need to open the Skills page or paste the instructions. For example:
+
+_"Run my Weekly Executive Briefing skill."_
+
+Your skills are available to Cora automatically. Cora keeps your catalog of skills in mind during a conversation and uses each skill's **Description** to decide when it applies. That means you can also describe what you need in your own words, and Cora will reach for the right skill on its own. A clear, specific Description is what makes this work well.
+
+## Viewing and Managing Skills
+
+All of your skills live on the **Skills** page. Open **Settings** and go to **Skills** to see everything you have, with columns for **Skill**, **Owner**, **Visibility**, and **Updated**. This is the place to review your skills, keep them organized, and make quick changes. Most skills are created and updated in chat, but if you prefer to start from a blank form you can also select **Create Skill** to add one here directly.
+
+### Editing a Skill
+
+For a minor change, open the skill and select **Edit skill**. You can update the **Title**, **Description**, **Category**, or **Instructions (Markdown)**, then select **Save Changes**. For anything larger, it is usually faster to ask Cora to update the skill in chat.
+
+### Transferring and Deleting
+
+A skill's row actions also let you hand it off or remove it:
+
+- **Transfer ownership:** Hand ownership of the skill to another person in your organization.
+- **Delete skill:** Remove the skill when you no longer need it.
+
+## Sharing Skills
+
+Each skill has a visibility setting that controls who can use it:
+
+- **Private:** Only you can see and use the skill. This is the default for skills you create.
+- **Org:** Everyone in your organization can use the skill.
+
+To make a private skill available to your whole organization, select **Share** from its row on the **Skills** page.
+
+## Scheduling a Skill
+
+Because a skill defines what to do, you can pair it with an agent to run it on a schedule. Just ask Cora to run a skill on a recurring basis. For example:
+
+_"Run my Weekly Executive Briefing skill every Monday at 9am Eastern and post it to Slack."_
+
+Cora sets up an agent with the schedule you describe. To learn more about schedules and other trigger types, see [Agent Triggers and Activation Rules](/agents/triggers-and-activation-rules).
+
+One helpful detail: the agent loads the latest version of the skill each time it runs. So when you edit a skill, every scheduled run picks up your changes automatically. You do not need to rebuild the agent after updating the skill.
+
+## Quick-Start Skills
+
+Your organization may come with a set of pre-built skills to get you started. These quick-start skills are ready-to-use templates owned by **Cora**, and you will see them in your Skills list alongside any skills you create.
+
+Admins can tailor quick-start skills to fit how your team works by editing their instructions. If you ever want to return them to their original state, an admin can use **Reset to Defaults** to restore the pre-built skills.
+
+## Tips
+
+Here are a few tips for getting the most out of skills:
+
+- **Build and update in chat.** The fastest way to a great skill is to refine the workflow with Cora first, confirm the output looks right, and then save it. When you want to change a skill later, just ask Cora in chat.
+- **Write a clear Description.** The Description is how Cora knows when to use a skill. A specific line like "Use when someone asks for the weekly executive briefing" works far better than a vague one.
+- **Share what works.** When a private skill proves useful, set its visibility to Org so the rest of your team can use it too.

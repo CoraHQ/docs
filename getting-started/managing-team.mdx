@@ -1,0 +1,97 @@
+---
+title: "Manage Your Team and User Roles in Cora"
+sidebarTitle: "Team"
+description: "Add, edit, and remove users in your Cora workspace. Learn about roles (User, Customer, Operator, Admin) and team designations like Account Owner and Manager."
+---
+
+Manage who has access to your Cora workspace and what they can do. Operators and admins can add new users, assign roles, and remove access, all from the Team page in Settings.
+
+## Roles
+
+Each user is assigned a role that determines what they can see and do in Cora. Roles are listed below from least to most access.
+
+**User**
+
+No functional access. This is a placeholder role for users that exist in the system but have not yet been assigned a working role. Users with only this role will see an "Unauthorized" page on login. An operator or admin must change their role before they can use Cora.
+
+**Customer**
+
+Access to task lists and artifacts. This role is designed for collaboration with your customers (external users) on use cases like product launches, onboarding, and other agent-driven workflows.
+
+**Operator**
+
+Can manage users and access most features, including chat, agents, analytics, and settings. This role is typically used for internal team members who oversee multiple accounts.
+
+**Admin**
+
+Full administrative access, including user management, integrations, settings, and configuration across all organizations.
+
+A user's role determines what they see after login: the manager app, the customer portal, or an unauthorized page.
+
+## Other Designations
+
+**Account Owner**
+
+A team designation (not a permission level) that identifies the primary owner of an account. This tag is used by Cora's agents and workflows to know who is responsible for an account, for example, routing notifications or assigning follow-ups. Account owners have the same access level as the User role. An operator or admin must assign an additional role for full portal access.
+
+**Manager**
+
+A team designation (not a permission level) that identifies users who oversee a group of account owners. When ownership sync is configured, Cora can automatically assign the Manager designation based on CRM hierarchy data. Managers see a "My Team's Accounts" filter on the Accounts and Signals tabs, letting them view accounts owned by their direct reports. Like Account Owner, this designation does not grant additional permissions. The user's role (Operator, Admin, etc.) still controls what they can access. See [Managing Your Accounts](/getting-started/managing-accounts) for setup instructions.
+
+## Adding a User
+
+<Steps>
+  <Step title="Add a user">
+    1. Navigate to **Settings** → **Team**.
+    2. Click **Add User**.
+    3. Enter the user's full name, email address, and select a role.
+    4. Click **Save**.
+  </Step>
+</Steps>
+
+Cora does not send invite emails. Once a user is added here, they can log in immediately at cora.ai using the email address provided.
+
+## Editing a User
+
+<Steps>
+  <Step title="Edit a user">
+    1. Find the user in the team list.
+    2. Click the edit icon on their row.
+    3. Update their name, email, or role as needed.
+    4. Click **Save**.
+  </Step>
+</Steps>
+
+## Removing a User
+
+<Steps>
+  <Step title="Remove a user">
+    1. Find the user in the team list.
+    2. Click the remove icon on their row.
+    3. Confirm the removal.
+  </Step>
+</Steps>
+
+Removing a user revokes their access to the organization. This action takes effect immediately.
+
+## Filtering and Search
+
+Use the search bar at the top of the team list to find users by name or email. You can also filter by:
+
+- **Status** — Active or Inactive
+- **Role** — Filter to a specific role to narrow the list
+
+## Who Can Manage Users
+
+Both Operators and Admins can add, edit, and remove users in their organization and its customer organizations. The difference is in which roles they can assign:
+
+- **Admins** can assign any role, including other Admins.
+- **Operators** can assign Operator and below, but cannot assign the Admin role.
+
+Users you do not have permission to manage will not show edit or remove actions on their row.
+
+## Automatic Provisioning with Okta
+
+If your organization uses Okta for SSO, user creation and role assignment are handled automatically via just-in-time (JIT) provisioning. When a user authenticates through Okta for the first time, their Cora account is created and their role is assigned based on your Okta configuration. No manual setup is required on the Team page.
+
+For setup instructions, see the [Okta SSO integration guide](/integrations/okta-sso).
