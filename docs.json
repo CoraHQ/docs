@@ -101,7 +101,13 @@
     }
   },
   "fonts": {
-    "family": "Inter"
+    "family": "Inter",
+    "heading": {
+      "family": "Tiempos Text",
+      "source": "/fonts/TiemposText-Regular.woff2",
+      "format": "woff2",
+      "weight": 400
+    }
   },
   "appearance": {
     "default": "system",
