@@ -6,15 +6,7 @@
   font-display: swap;
 }
 
-:root {
-  --font-family-headings-custom: "Tiempos Text", Georgia, "Times New Roman", serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Product analogue: app-bar page title only. Section headings stay Inter. */
+#page-title {
   font-family: "Tiempos Text", Georgia, "Times New Roman", serif;
 }
