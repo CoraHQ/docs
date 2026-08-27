@@ -107,6 +107,9 @@
       "source": "/fonts/TiemposText-Regular.woff2",
       "format": "woff2",
       "weight": 400
+    },
+    "body": {
+      "family": "Inter"
     }
   },
   "appearance": {
