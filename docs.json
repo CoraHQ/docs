@@ -29,6 +29,7 @@
         "pages": [
           "index",
           "getting-started/index",
+          "getting-started/core-concepts",
           "getting-started/actions-and-usage",
           "getting-started/managing-accounts",
           "getting-started/managing-team",
@@ -54,6 +55,7 @@
         "group": "Using Cora",
         "icon": "sparkles",
         "pages": [
+          "using-cora/artifacts",
           "using-cora/signals",
           "using-cora/setting-up-signals",
           "using-cora/custom-columns",
