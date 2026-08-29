@@ -22,30 +22,29 @@ Cora has a small set of nouns that show up everywhere. Learn them here, then fol
 
 ## How they connect
 
+You connect [integrations](/integrations/index). Cora watches them and raises [signals](/using-cora/signals) when something notable happens on an account.
+
+A [skill](/agents/how-to-build-skills) is reusable instructions — what to do. An [agent](/agents/understanding-agents) is when those steps should run: a trigger and the rest of the config. Inside an agent, each step is a **task**. Each time an agent fires, that is an **agent run**.
+
+**Chat** is the on-demand path: ask a question, build or refine an agent, or ask Cora to write something now. Chat can do the work once; an agent is what you save so it can run again.
+
+**Artifacts** are the saved outputs from chat or an agent run — documents, dashboards, surveys, and similar deliverables. They live on the **Artifacts** page. The run is the execution; the artifact is what you keep.
+
+**Custom columns** sit on the Accounts table as scores and labels, not on Artifacts. **Actions** count usage; they are not another object in this flow.
+
 ```mermaid
-flowchart LR
+flowchart TB
   integrations[Integrations] --> signals[Signals]
-  signals --> agents[Agents]
-  agents --> artifacts[Artifacts]
-  chat[Chat] --> artifacts
+  skills[Skills] --> agentBox
+  signals --> agentBox
+  chat[Chat] --> agentBox
+  subgraph agentBox [Agent]
+    tasks[Tasks]
+  end
+  agentBox --> runs[AgentRuns]
+  chat --> artifacts[Artifacts]
+  runs --> artifacts
 ```
-
-1. Your [integrations](/integrations/index) feed Cora data.
-2. Cora turns matching events into [signals](/using-cora/signals).
-3. A signal can start an [agent](/agents/understanding-agents), or you start one yourself.
-4. Chat and agents write [artifacts](/using-cora/artifacts) you can open later.
-
-Signals detect. Agents act. Artifacts are the output.
-
-## Not the same as
-
-These names get used interchangeably. They are not the same thing.
-
-- A **signal** is an event, not a document.
-- An **agent** is a workflow, not a one-off chat answer. Chat can do the same kind of work once. An agent is what you save so it can run again.
-- An **agent run** is one execution, not the saved output. The output you keep is an artifact.
-- A **skill** is instructions, not a schedule. The schedule lives on the agent.
-- An **artifact** is an output, not a place to store what an agent remembers from run to run. Use it for something a person should open later: a brief, a dashboard, a survey, a checklist.
 
 ## Related terms
 
