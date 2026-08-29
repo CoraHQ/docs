@@ -24,23 +24,20 @@ Cora has a small set of nouns that show up everywhere. Learn them here, then fol
 
 You connect [integrations](/integrations/index). Cora watches them and raises [signals](/using-cora/signals) when something notable happens on an account.
 
-A [skill](/agents/how-to-build-skills) is reusable instructions — what to do — that chat or an agent can invoke. An [agent](/agents/understanding-agents) is when those steps should run: a trigger and the rest of the config. Inside an agent, each step is a **task**. Each time an agent fires, that is an **agent run**.
+A [skill](/agents/how-to-build-skills) is reusable instructions — what to do. An [agent](/agents/understanding-agents) is a saved workflow with a trigger and the rest of the config. Inside an agent, each step is a **task**. Each time an agent fires, that is an **agent run**.
 
-**Chat** is the on-demand path: ask a question, invoke a skill or an agent, or ask Cora to write something down. Chat can do the work once; an agent is what you save so it can run again.
-
-**Artifacts** are the saved outputs from chat or an agent run — documents, dashboards, surveys, and similar deliverables. They live on the **Artifacts** page. The run is the execution; the artifact is what you keep.
+**Artifacts** are the saved outputs from agents and skills — documents, dashboards, surveys, and similar deliverables. They live on the **Artifacts** page. The run is the execution; the artifact is what you keep.
 
 ```mermaid
 flowchart TB
   integrations[Integrations] --> signals[Signals]
   signals --> agents[Agents]
-  chat[Chat] --> agents
-  chat --> skills[Skills]
-  agents --> skills
-  agents --> agentRun["Agent run"]
-  chat --> artifacts[Artifacts]
-  agentRun --> artifacts
+  signals --> skills[Skills]
+  agents --> artifacts[Artifacts]
+  skills --> artifacts
 ```
+
+Chat or Slack can run a skill, start an agent, or write an artifact; an agent can also run a skill. Most agents still fire from a signal or a schedule.
 
 ## Related terms
 
