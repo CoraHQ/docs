@@ -1,0 +1,36 @@
+---
+title: "Core Concepts in Cora"
+sidebarTitle: "Core Concepts"
+description: "The key vocabulary in Cora: signals, agents, runs, tasks, skills, and artifacts, and how they fit together."
+---
+
+Cora has a small set of nouns that show up everywhere. Learn them here, then follow the links for the how-tos.
+
+## Key concepts
+
+**Signal.** Something Cora detects: a lifecycle event across your connected tools, such as a renewal risk, a stakeholder change, or an expansion opportunity. Signals live on the **Signals** page. A signal can start an agent. See [Setting Up Signals](/using-cora/setting-up-signals).
+
+**Agent.** A reusable workflow you save so the same work can run again. An agent has a trigger (manual, scheduled, or a signal), tasks, and an autonomy level. You build and refine agents in chat, then turn them on from the **Agents** page. Trigger types and autonomy levels are covered in [Understanding Agents](/agents/understanding-agents).
+
+**Agent run.** One execution of an agent. Each time an agent fires (on a schedule, from a signal, or when you start it), Cora creates a run. Review what happened from the **Agents** page.
+
+**Task.** One step inside an agent. A simple agent might have a single task, such as querying data and posting to Slack. A more complex agent chains tasks: gather data, send an email, then follow up if the customer replies.
+
+**Skill.** Reusable instructions that tell Cora what to do: the steps, the format, and the tone. An agent controls when and how often something runs. A skill is the recipe; an agent can run that skill on a schedule. See [How to Build Skills](/agents/how-to-build-skills).
+
+**Artifact.** A saved deliverable on an account or the workspace: a document, dashboard, survey, checklist, file, or link. Agents and chat create them. You open them on the **Artifacts** page. See [Artifacts](/using-cora/artifacts).
+
+## How they connect
+
+You connect [integrations](/integrations/index). Cora watches them and raises [signals](/using-cora/signals) when something notable happens on an account.
+
+A [skill](/agents/how-to-build-skills) is reusable instructions: what to do. An [agent](/agents/understanding-agents) is a saved workflow with a trigger and the rest of the config. An agent can also run a skill. Inside an agent, each step is a **task**. Each time an agent fires, that is an **agent run**. Most agents still fire from a signal or a schedule.
+
+**Artifacts** are the saved outputs from agents and skills: documents, dashboards, surveys, and similar deliverables. They live on the **Artifacts** page. The run is the execution; the artifact is what you keep. Chat or Slack can run a skill, start an agent, or write an artifact.
+
+## Related terms
+
+These show up next to the concepts above. Each page is the how-to.
+
+- **Action.** A unit of work Cora counts toward usage, such as sending a message or generating an artifact. See [Actions and Usage](/getting-started/actions-and-usage).
+- **Custom column.** A column you add to the Accounts table to surface CRM fields, scores, or AI insights. See [Custom Columns](/using-cora/custom-columns).

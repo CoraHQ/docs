@@ -1,16 +1,16 @@
 ---
 title: "Understanding Agents in Cora"
 sidebarTitle: "Concepts"
-description: "Learn what agents are, key terminology (agent, run, task, skill), the three trigger types, and autonomy levels in Cora."
+description: "How agents work in Cora: what you can automate, the three trigger types, autonomy levels, and the Agents page."
 ---
 
-Agents are one of the most powerful features in Cora. They let you automate repetitive workflows, like sending account health digests, flagging renewal risks, or following up after onboarding milestones, so your team can focus on the work that requires a human touch.
+Agents automate recurring workflows (account health digests, renewal-risk follow-up, onboarding check-ins) so your team can spend time on the work that needs a person.
 
-This article covers the foundational concepts you need before building your first agent.
+For the short definitions of **agent**, **agent run**, **task**, and **skill**, see [Core Concepts](/getting-started/core-concepts). This page is how agents work.
 
-## What Is an Agent?
+## What Agents Can Do
 
-An agent is an automated workflow that runs on your behalf. You describe what you want it to do (in plain language, by chatting with Cora) and Cora builds the workflow for you. Once activated, the agent runs automatically based on the trigger you set up: on a schedule, in response to a lifecycle event, or when you manually kick it off.
+You describe the workflow in chat, and Cora builds it. Once you turn the agent on, it runs from the trigger you set: on a schedule, when a signal fires, or when you start it yourself.
 
 Agents can do things like:
 
@@ -20,17 +20,6 @@ Agents can do things like:
 - Send personalized alerts to each account owner about their portfolio
 
 Every agent is created **paused** by default. It will not run or take any action until you review it and explicitly turn it on.
-
-## Key Terms
-
-Here are the terms you will see when working with agents:
-
-| Term | Definition |
-| --- | --- |
-| **Agent** | The workflow itself: its trigger, the tasks it performs, and its configuration. Think of it as a template that defines what should happen and when. |
-| **Agent Run** | A single execution of an agent. Each time an agent fires (on schedule, from a signal, or manually), it creates a run. You can review what happened in each run from the Agents page. |
-| **Task** | An individual step within an agent. A simple agent might have one task (e.g., query data and send a Slack message). More complex agents chain multiple tasks together. For example, gather data first, then send an email, then follow up if the customer replies. |
-| **Skill** | A set of reusable instructions that tells Cora what to do. An agent controls when and how often something runs, while a skill defines the steps to follow, and an agent can run a skill on a schedule. See [How to Build Skills](/agents/how-to-build-skills). |
 
 ## Three Trigger Types
 
@@ -56,13 +45,15 @@ You can always change the autonomy level later by refining the agent through cha
 
 ## Where Agents Fit in Cora
 
-Agents work alongside the other capabilities in Cora:
+Agents sit next to the rest of Cora. Use this as a map; the definitions live on [Core Concepts](/getting-started/core-concepts).
 
-- **Chat:** Talk to Cora for on-the-spot questions, analysis, and actions. Chat is also where you build and refine agents.
-- **Signals:** Cora monitors your integrations for lifecycle events. Signals can trigger event-driven agents automatically.
-- **Skills:** Reusable instructions you save once and ask Cora to run on demand. An agent can run a skill on a schedule. See [How to Build Skills](/agents/how-to-build-skills).
-- **Accounts:** Your imported customer accounts. Agents can run against specific accounts or across your entire portfolio.
-- **Integrations:** Connected tools like Salesforce, Slack, Gmail, and Gong. Agents use these integrations to read data, send messages, and take actions.
+- [Core Concepts](/getting-started/core-concepts): short definitions for agent, run, task, skill, signal, and artifact
+- **Chat**: where you ask one-off questions, and where you build and refine agents
+- [Signals](/using-cora/signals): lifecycle events that can start an event-driven agent. Setup is in [Setting Up Signals](/using-cora/setting-up-signals)
+- [Artifacts](/using-cora/artifacts): saved outputs agents and chat create (documents, dashboards, surveys, and more)
+- [Skills](/agents/how-to-build-skills): reusable instructions an agent can run on a schedule
+- [Accounts](/getting-started/managing-accounts): the customers an agent can run against, one account or the whole portfolio
+- [Integrations](/integrations/index): the tools agents read from and write to (Salesforce, Slack, Gmail, Gong, and others)
 
 ## The Agents Page
 
