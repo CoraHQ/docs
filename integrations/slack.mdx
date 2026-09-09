@@ -55,9 +55,14 @@ The Cora Slack app requests a pre-approved set of permissions during installatio
   If you're unsure which bot is yours, check with your Slack workspace admin.
 </Warning>
 
-Cora must be invited to every channel where you want it active — including public, private, and Slack Connect channels. For **private** and **Slack Connect** channels in particular, the bot cannot join on its own and must be manually invited.
+Cora must be invited to every channel where you want it active — including public, private, and Slack Connect channels. For **private** and **Slack Connect** channels in particular, the bot cannot join on its own and must be manually invited. Once invited, Cora can answer questions in that channel and sync its messages. It cannot auto-join.
 
 ## Channel Linking
+
+Inviting Cora to a channel and mapping that channel on an account are two different tracks:
+
+- **Chat and data** — Invite Cora to the channel. Mapping is not required to @mention Cora, DM Cora, or sync messages so Cora can answer questions like “what happened on this account?”
+- **Proactive Signals** — Invite Cora and map the channel on the account. External channels auto-link. You set the internal channel in the account's settings.
 
 For **external channels** (Slack Connect or shared channels with customers), Cora automatically detects the channel and links it to the matching customer account based on the email domains of the channel's members.
 
@@ -79,6 +84,8 @@ Cora distinguishes between two types of channels for each customer account:
 - **Internal channel** — used for account-team alerts and internal discussion about a customer. Cora posts updates and notifications here without the customer seeing them. Must be configured manually in the customer organization's settings.
 
 If you want Cora active in both contexts, invite the bot to both channels. For external channels, Cora handles the linking automatically. For internal channels, set the channel in the organization's settings after inviting the bot.
+
+Mapping is what enables proactive Signals. You do not need a mapped channel to chat with Cora or to sync messages so Cora can answer questions about recent activity.
 
 ## Use Cases
 
@@ -108,6 +115,33 @@ Check that the channel's permissions allow adding apps and integrations. For cus
 **Messages not being tracked**
 
 Cora can only read and track messages from channels where it is a member. Ensure the bot has been invited to the channel. If it was removed at some point, re-invite it with **/invite @Cora**.
+
+## Common questions
+
+<AccordionGroup>
+  <Accordion title="Does Cora have to be in a channel for data to sync?">
+    Yes. Invite Cora to each channel you want synced. Adding Cora to one public channel does not add it to your other channels.
+  </Accordion>
+
+  <Accordion title="What's the difference between chatting with Cora and getting Signals?">
+    They are two different tracks:
+
+    - **Chat and data** — Invite Cora to the channel. You can @mention Cora, DM Cora, and Cora syncs messages so it can answer questions about recent activity.
+    - **Proactive Signals** — Invite Cora and map the channel on the account. External channels auto-link when you invite Cora. You set the internal channel in the account's settings.
+  </Accordion>
+
+  <Accordion title="Can Cora join private channels?">
+    Cora cannot auto-join a private channel. Someone on your team must invite it. After you invite Cora, you can chat with it in that channel and Cora syncs the channel's messages.
+  </Accordion>
+
+  <Accordion title="How far back does Cora read after I add it?">
+    Cora reads the last 30 days of messages in that channel, then continues syncing new activity. For how lookback works with Signals, see the [Signals FAQ](/faq/signals-faq).
+  </Accordion>
+
+  <Accordion title="Do I need to map internal vs external just to ask Cora about recent activity?">
+    No. Inviting Cora is enough to @mention it, DM it, or ask about recent activity. Mapping is only required for proactive Signals.
+  </Accordion>
+</AccordionGroup>
 
 ## Important Notes
 
