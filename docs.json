@@ -82,6 +82,7 @@
           "integrations/bigquery",
           "integrations/database-postgres",
           "integrations/sftp-s3",
+          "integrations/data-export",
           "integrations/okta-sso",
           "integrations/attention",
           "integrations/granola",

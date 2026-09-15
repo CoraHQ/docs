@@ -1,0 +1,23 @@
+---
+title: "Export Data"
+sidebarTitle: "Export Data"
+description: "Activity and usage data, exported daily to an S3-compatible bucket"
+---
+
+Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it. Your Cora contact will share access with you.
+
+## What's included
+
+**Activities** (`export/cora_activities/cora_activities.parquet`, or `.csv`). One row per platform activity. That includes chat and Slack engagement, email send/open/click, human-in-the-loop task events, and related product events. Each row includes an activity id and type, when it happened, channel, user, account, and related agent or task when applicable.
+
+**Actions** (`export/cora_actions/cora_actions.parquet`, or `.csv`). One row per billed unit of work. This matches how Cora counts [Actions](/getting-started/actions-and-usage): tool calls in connected systems, lifecycle events Cora extracts, and AI custom-column generations. Each row includes an action id and type, when it happened, account, and related agent, user, or task when applicable.
+
+Both files include `exported_at`, the UTC timestamp of that snapshot.
+
+Supported formats: **Parquet** (default) and **CSV**.
+
+Additional datasets are available on request.
+
+## Cadence
+
+The export runs once per day, around 06:00 UTC. Each run overwrites the previous files, so the bucket always holds the latest full export.
