@@ -101,7 +101,7 @@
       },
       {
         "group": "Changelog",
-        "icon": "scroll-text",
+        "icon": "newspaper",
         "pages": [
           "changelog"
         ]
@@ -109,12 +109,6 @@
     ]
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Changelog",
-        "href": "/changelog"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Contact Support",
