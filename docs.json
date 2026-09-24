@@ -100,10 +100,10 @@
         ]
       },
       {
-        "group": "Changelog",
+        "group": "Product updates",
         "icon": "newspaper",
         "root": "changelog",
-        "pages": ["changelog"]
+        "pages": []
       }
     ]
   },
