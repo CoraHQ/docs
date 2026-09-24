@@ -102,9 +102,8 @@
       {
         "group": "Changelog",
         "icon": "newspaper",
-        "pages": [
-          "changelog"
-        ]
+        "root": "changelog",
+        "pages": []
       }
     ]
   },
