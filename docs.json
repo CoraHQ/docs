@@ -103,7 +103,7 @@
         "group": "Changelog",
         "icon": "newspaper",
         "root": "changelog",
-        "pages": []
+        "pages": ["changelog"]
       }
     ]
   },
