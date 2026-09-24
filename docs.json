@@ -98,10 +98,23 @@
           "faq/general",
           "faq/signals-faq"
         ]
+      },
+      {
+        "group": "Changelog",
+        "icon": "scroll-text",
+        "pages": [
+          "changelog"
+        ]
       }
     ]
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Changelog",
+        "href": "/changelog"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Contact Support",
