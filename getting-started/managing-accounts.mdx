@@ -129,15 +129,6 @@ What happens when you confirm depends on your role:
   An imported account nobody has worked on still counts as empty. Cora ignores the team members, role assignment, and lifecycle signal that an import creates, so you don't have to clear those by hand before deleting.
 </Note>
 
-### What Gets Deleted
-
-When an admin deletes an account, everything scoped to that account goes with it. The confirmation dialog names the main categories before you continue, and a refused delete names exactly what Cora found, so you never have to guess from this page.
-
-Two limits are worth knowing, since neither is visible in those messages:
-
-- **Custom column values are deleted, but the columns are not.** Columns belong to your workspace, so they stay and keep working for your other accounts.
-- **Other accounts are never affected.** Deleting an account leaves the other accounts in your workspace untouched, and your workspace itself cannot be deleted from the Accounts page.
-
 <Tip>
   When you delete several accounts at once, Cora handles each one independently. If some are refused, the rest are still deleted, and the notification lists each failure with its reason.
 </Tip>
