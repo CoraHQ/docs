@@ -116,14 +116,8 @@ You can delete an account if you created it, or if you are an admin. An operator
 
 What happens when you confirm depends on your role:
 
-- **Admins** delete the account together with everything attached to it. The confirmation dialog says so before you continue: "This will also delete all associated data, including agents, activity, signals, knowledge, and integrations."
-- **Everyone else** can only delete an account that is empty. If the account still holds data, Cora refuses the delete and names what it found:
-
-  ```
-  Cannot delete Openai: it still has agents and tasks. Ask an admin to delete it, or remove the data first.
-  ```
-
-  Remove the listed items first, or ask an admin to delete the account for you.
+- **Admins** delete the account together with everything attached to it. The confirmation dialog spells out what will be removed before you continue.
+- **Everyone else** can only delete an account that is empty. If the account still holds data, Cora refuses the delete and tells you what it found. Remove those items first, or ask an admin to delete the account for you.
 
 <Tip>
   When you delete several accounts at once, Cora handles each one independently. If some are refused, the rest are still deleted, and the notification lists each failure with its reason.
