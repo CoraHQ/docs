@@ -112,18 +112,18 @@ You can also add accounts individually without importing from a CRM:
 
 ### Who Can Delete an Account
 
-You can delete an account if you created it, or if you are an admin or an org admin for the workspace that owns it. An operator who did not create an account cannot delete it.
+You can delete an account if you created it, or if you are an admin. An operator who did not create an account cannot delete it.
 
 What happens when you confirm depends on your role:
 
-- **Admins and org admins** delete the account together with everything attached to it. The confirmation dialog says so before you continue: "This will also delete all associated data, including agents, activity, signals, knowledge, and integrations."
+- **Admins** delete the account together with everything attached to it. The confirmation dialog says so before you continue: "This will also delete all associated data, including agents, activity, signals, knowledge, and integrations."
 - **Everyone else** can only delete an account that is empty. If the account still holds data, Cora refuses the delete and names what it found:
 
   ```
-  Cannot delete Openai: it still has agents and tasks. Ask an org admin to delete it, or remove the data first.
+  Cannot delete Openai: it still has agents and tasks. Ask an admin to delete it, or remove the data first.
   ```
 
-  Remove the listed items first, or ask an admin or org admin to delete the account for you.
+  Remove the listed items first, or ask an admin to delete the account for you.
 
 <Note>
   An imported account nobody has worked on still counts as empty. Cora ignores the team members, role assignment, and lifecycle signal that an import creates, so you don't have to clear those by hand before deleting.
@@ -131,7 +131,7 @@ What happens when you confirm depends on your role:
 
 ### What Gets Deleted
 
-When an admin or org admin deletes an account, Cora removes everything scoped to it:
+When an admin deletes an account, Cora removes everything scoped to it:
 
 - Agents, checklists and surveys, along with their tasks and any artifacts those tasks produced
 - Activity and signals, including manually logged lifecycle events
