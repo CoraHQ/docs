@@ -131,17 +131,12 @@ What happens when you confirm depends on your role:
 
 ### What Gets Deleted
 
-When an admin deletes an account, Cora removes everything scoped to it:
+When an admin deletes an account, everything scoped to that account goes with it. The confirmation dialog names the main categories before you continue, and a refused delete names exactly what Cora found, so you never have to guess from this page.
 
-- Agents, checklists and surveys, along with their tasks and any artifacts those tasks produced
-- Activity and signals, including manually logged lifecycle events
-- The account's custom column values, including any you set by hand. The columns themselves belong to your workspace and are not affected
-- Custom skills, tools, and survey invitations
-- Integrations, their pipeline runs, and any credentials the account held
-- Knowledge sources and the account's knowledge base
-- Team access to the account, so the account stops appearing in anyone's ownership filters
+Two limits are worth knowing, since neither is visible in those messages:
 
-Accounts under the same workspace are untouched. Deleting one account never affects a sibling account, and your own workspace cannot be deleted from the Accounts page.
+- **Custom column values are deleted, but the columns are not.** Columns belong to your workspace, so they stay and keep working for your other accounts.
+- **Other accounts are never affected.** Deleting an account leaves the other accounts in your workspace untouched, and your workspace itself cannot be deleted from the Accounts page.
 
 <Tip>
   When you delete several accounts at once, Cora handles each one independently. If some are refused, the rest are still deleted, and the notification lists each failure with its reason.
