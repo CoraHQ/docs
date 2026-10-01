@@ -1,10 +1,10 @@
 ---
 title: "Import and Manage Your Accounts in Cora"
 sidebarTitle: "Accounts"
-description: "Import accounts from Salesforce or HubSpot, configure ownership sync, filter by ownership, and add accounts manually in Cora."
+description: "Import accounts from Salesforce or HubSpot, configure ownership sync, filter by ownership, add accounts manually, and delete accounts in Cora."
 ---
 
-The Accounts page is where you manage which customer accounts are in Cora and who owns them. You can import accounts from your CRM, configure ownership sync so the right team members are mapped to each account, and filter your view by ownership.
+The Accounts page is where you manage which customer accounts are in Cora and who owns them. You can import accounts from your CRM, configure ownership sync so the right team members are mapped to each account, filter your view by ownership, and delete accounts you no longer track.
 
 ## Importing Accounts from Your CRM
 
@@ -93,3 +93,56 @@ You can also add accounts individually without importing from a CRM:
     3. Enter the account details and click **Save**.
   </Step>
 </Steps>
+
+## Deleting Accounts
+
+<Steps>
+  <Step title="Select the accounts">
+    1. Navigate to the **Accounts** page.
+    2. Use the checkboxes to select one or more accounts.
+  </Step>
+  <Step title="Confirm">
+    Click **Delete**, then confirm in the dialog.
+  </Step>
+</Steps>
+
+<Warning>
+  Deleting an account is permanent. The account and its data are not archived, and there is no undo.
+</Warning>
+
+### Who Can Delete an Account
+
+You can delete an account if you created it, or if you are an admin or an org admin for the workspace that owns it. An operator who did not create an account cannot delete it.
+
+What happens when you confirm depends on your role:
+
+- **Admins and org admins** delete the account together with everything attached to it. The confirmation dialog says so before you continue: "This will also delete all associated data, including agents, activity, signals, knowledge, and integrations."
+- **Everyone else** can only delete an account that is empty. If the account still holds data, Cora refuses the delete and names what it found:
+
+  ```
+  Cannot delete Openai: it still has agents and tasks. Ask an org admin to delete it, or remove the data first.
+  ```
+
+  Remove the listed items first, or ask an admin or org admin to delete the account for you.
+
+<Note>
+  An imported account nobody has worked on still counts as empty. Cora ignores the team members, role assignment, and lifecycle signal that an import creates, so you don't have to clear those by hand before deleting.
+</Note>
+
+### What Gets Deleted
+
+When an admin or org admin deletes an account, Cora removes everything scoped to it:
+
+- Agents, checklists and surveys, along with their tasks and any artifacts those tasks produced
+- Activity and signals, including manually logged lifecycle events
+- The account's custom column values, including any you set by hand. The columns themselves belong to your workspace and are not affected
+- Custom skills, tools, and survey invitations
+- Integrations, their pipeline runs, and any credentials the account held
+- Knowledge sources and the account's knowledge base
+- Team access to the account, so the account stops appearing in anyone's ownership filters
+
+Accounts under the same workspace are untouched. Deleting one account never affects a sibling account, and your own workspace cannot be deleted from the Accounts page.
+
+<Tip>
+  When you delete several accounts at once, Cora handles each one independently. If some are refused, the rest are still deleted, and the notification lists each failure with its reason.
+</Tip>
