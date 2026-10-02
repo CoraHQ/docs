@@ -1,23 +1,67 @@
 ---
 title: "Export Data"
 sidebarTitle: "Export Data"
-description: "Activity and usage data, exported daily to an S3-compatible bucket"
+description: "Email activity and usage data, exported daily to an S3-compatible bucket"
 ---
 
 Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it. Your Cora contact will share access with you.
 
 ## What's included
 
-**Activities** (`export/cora_activities/cora_activities.parquet`, or `.csv`). One row per platform activity. That includes chat and Slack engagement, email send/open/click, human-in-the-loop task events, and related product events. Each row includes an activity id and type, when it happened, channel, user, account, and related agent or task when applicable.
+The export is email activity plus billed usage. Account, task, and agent fields live on sends. Join engagement, bounces, and replies back to a send on `email_id`.
 
-**Actions** (`export/cora_actions/cora_actions.parquet`, or `.csv`). One row per billed unit of work. This matches how Cora counts [Actions](/getting-started/actions-and-usage): tool calls in connected systems, lifecycle events Cora extracts, and AI custom-column generations. Each row includes an action id and type, when it happened, account, and related agent, user, or task when applicable.
+`crm_id` is the Salesforce account id, or the HubSpot company id when Salesforce has none. It is on sends and on actions.
 
-Both files include `exported_at`, the UTC timestamp of that snapshot.
+The files omit message bodies, Gmail snippets, and IP addresses.
 
-Supported formats: **Parquet** (default) and **CSV**.
+Every file includes `exported_at`, the UTC timestamp of that snapshot.
+
+Supported formats are **Parquet** (default) and **CSV**. Prefer Parquet. In CSV, `recipient_emails` and `reply_signals` are strings.
 
 Additional datasets are available on request.
 
+### Email sends
+
+`export/cora_email_sends/cora_email_sends.parquet` (or `.csv`). One row per tracked send.
+
+Columns: `email_id`, `message_id`, `thread_id`, `subject`, `sent_at`, `recipient_emails`, `organization_id`, `organization_name`, `crm_id`, `task_id`, `task_name`, `agent_run_id`, `agent_run_name`, `agent_id`, `agent_name`.
+
+`recipient_emails` is a list. Unnest it when you need one row per address.
+
+### Email engagement
+
+`export/cora_email_engagement/cora_email_engagement.parquet` (or `.csv`). One row per open or click. The tracking token covers the whole send, so the row has no recipient.
+
+Columns: `event_id`, `event_type`, `event_at`, `email_id`, `message_id`, `destination_url`, `user_agent`, `automated`.
+
+`event_type` is `opened` or `clicked`. `destination_url` is set on clicks only.
+
+`automated` is true when `event_at` is at or before that send's `sent_at` plus 30 seconds. It is null when the send is unknown. Treat it as a hint. To apply a different rule, ignore `automated` and filter on `user_agent` and the timestamps.
+
+### Email bounces
+
+`export/cora_email_bounces/cora_email_bounces.parquet` (or `.csv`). One row per failed recipient.
+
+Columns: `email_id`, `message_id`, `recipient_email`, `bounced_at`, `bounce_reason`.
+
+A row is a delivery-status notification that reached an ingested mailbox, so bounces that never arrived there are missing. Cora splits `X-Failed-Recipients` into one row per address. When that header is empty, the row is still exported and `recipient_email` is null. `email_id` is null when `In-Reply-To` does not match a tracked send.
+
+### Email replies
+
+`export/cora_email_replies/cora_email_replies.parquet` (or `.csv`). One row per inbound reply. This file carries sentiment on the reply.
+
+Columns: `reply_id`, `replied_at`, `thread_id`, `from_email`, `email_id`, `message_id`, `reply_signals`.
+
+`from_email` comes from the ingested message. `email_id` is set when `In-Reply-To` matches a send, and null otherwise. `thread_id` is always present, so you can match on the thread when `email_id` is null.
+
+`reply_signals` is a nested list of the lifecycle signals on that exact message. Each item has `signal_id`, `event_type`, `category`, `severity`, and `occurred_at`. The list is empty when the source message was never ingested, or when every signal on it was routing bookkeeping (`agent_thread_email_reply`, `unthreaded_email`, `email_delivery_failed`).
+
+### Actions
+
+`export/cora_actions/cora_actions.parquet` (or `.csv`). One row per billed unit of work. This matches how Cora counts [Actions](/getting-started/actions-and-usage): tool calls in connected systems, lifecycle events Cora extracts, and AI custom-column generations. Each row includes an action id and type, when it happened, account, `crm_id`, and related agent, user, or task when applicable.
+
 ## Cadence
 
-The export runs once per day, around 06:00 UTC. Each run overwrites the previous files, so the bucket always holds the latest full export.
+The export runs once per day, around 06:00 UTC. Each run overwrites the files it writes, so those objects are the latest snapshot.
+
+Bounces and replies can be absent until mailbox ingest is in place. A run that skips one of those files leaves the previous object in the bucket.
