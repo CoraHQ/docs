@@ -21,6 +21,10 @@ Each run writes one file per dataset, and each dataset has its own folder in the
 | **Email replies** | A reply that came back, and what Cora read from it |
 | **Actions** | A billed unit of work |
 
+Every file includes `exported_at`, the UTC timestamp of that snapshot.
+
+Supported formats: **Parquet** (default) and **CSV**.
+
 Additional datasets are available on request.
 
 ### Email sends
@@ -73,16 +77,10 @@ Counting opens or bounces against the number of sends is the usual starting poin
 Now and then a reply or a bounce arrives that Cora cannot tie to a specific send.
 Those rows still export, and replies always name the conversation they came from, so you can group them that way instead.
 
-## Formats
-
-Parquet is the default, and CSV is available on request.
-We recommend Parquet, because it preserves the list of recipients and the signals on a reply as lists.
-CSV flattens both into text that your pipeline has to parse.
-
 ## Cadence
 
-The export runs once per day, around 06:00 UTC, and each run replaces the files from the run before it.
-Every row carries `exported_at`, the time of the snapshot it came from, so you can confirm how current the data is.
+The export runs once per day, around 06:00 UTC.
+Each run overwrites the previous files, so the bucket always holds the latest export.
 
 Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up.
 If a run has nothing to write for a dataset, the file from the previous run stays in the bucket.
