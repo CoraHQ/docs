@@ -6,7 +6,8 @@ description: "Email activity and usage data, exported daily to an S3-compatible 
 
 Cora can deliver a daily copy of your email activity and usage data to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
 
-Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it. Your Cora contact will share access with you.
+Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it.
+Your Cora contact will share access with you.
 
 ## What's included
 
@@ -24,52 +25,69 @@ Additional datasets are available on request.
 
 ### Email sends
 
-Each row covers one email Cora sent: the subject, when it went out, who it was addressed to, the account it belongs to, and the agent and task behind it. If you have a CRM connected, the row also carries that account's CRM id, so you can line the export up with your own account records.
+Each row covers one email Cora sent: the subject, when it went out, who it was addressed to, the account it belongs to, and the agent and task behind it.
+If you have a CRM connected, the row also carries that account's CRM id, so you can line the export up with your own account records.
 
 Recipients come as a list, because a single email can go to more than one person.
 
 ### Email engagement
 
-Each row is one open or one click. For clicks, the row also records which link was followed.
+Each row is one open or one click.
+For clicks, the row also records which link was followed.
 
-Engagement is tracked per email rather than per recipient. When an email went to several people, an open tells you the email was opened, not which of them opened it.
+Engagement is tracked per email rather than per recipient.
+When an email went to several people, an open tells you the email was opened, not which of them opened it.
 
-Some opens are automatic rather than a person reading the email, such as a mail client or a security scanner loading images. Cora flags these with a deliberately simple rule: an open or click recorded within 30 seconds of the email going out is marked automatic, since a person rarely reads an email that fast. Leave the flagged rows out of your engagement numbers to get closer to real readers.
+Some opens are automatic rather than a person reading the email, such as a mail client or a security scanner loading images.
+Cora flags these with a deliberately simple rule: an open or click recorded within 30 seconds of the email going out is marked automatic, since a person rarely reads an email that fast.
+Leave the flagged rows out of your engagement numbers to get closer to real readers.
 
-The flag is a convenience rather than a verdict, and it can miss an automatic open that arrives later. Each row also reports the mail client behind the engagement, so you can ignore the flag and group the data your own way.
+The flag is a convenience rather than a verdict, and it can miss an automatic open that arrives later.
+Each row also reports the mail client behind the engagement, so you can ignore the flag and group the data your own way.
 
 ### Email bounces
 
 Each row is one failed delivery, with the address that failed and the reason given.
 
-Cora reads bounces from the delivery failure notices that come back to the connected mailbox. Treat the file as the bounces Cora can see rather than a complete record from your mail provider.
+Cora reads bounces from the delivery failure notices that come back to the connected mailbox.
+Treat the file as the bounces Cora can see rather than a complete record from your mail provider.
 
 ### Email replies
 
 Each row is one reply, with who sent it and when.
 
-This is also where sentiment lives. Cora reads every reply for lifecycle signals, such as a renewal risk or an escalation, and attaches them to the reply along with the category and severity of each one.
+This is also where sentiment lives.
+Cora reads every reply for lifecycle signals, such as a renewal risk or an escalation, and attaches them to the reply along with the category and severity of each one.
 
 ### Actions
 
-Each row is one billed unit of work, matching how Cora counts [Actions](/getting-started/actions-and-usage): tasks in connected systems, lifecycle events Cora extracts, and AI custom-column generations. Rows record what was done and when, with the related account, agent, user, or task.
+Each row is one billed unit of work, matching how Cora counts [Actions](/getting-started/actions-and-usage): tasks in connected systems, lifecycle events Cora extracts, and AI custom-column generations.
+Rows record what was done and when, with the related account, agent, user, or task.
 
 ## How the datasets fit together
 
-Sends are the center of the email data. Engagement, bounces, and replies each point back to the send they belong to, so you join them to sends to pick up the subject, the account, and the agent context. Counting opens or bounces against the number of sends is the usual starting point for delivery and engagement reporting.
+Sends are the center of the email data.
+Engagement, bounces, and replies each point back to the send they belong to, so you join them to sends to pick up the subject, the account, and the agent context.
+Counting opens or bounces against the number of sends is the usual starting point for delivery and engagement reporting.
 
-Now and then a reply or a bounce arrives that Cora cannot tie to a specific send. Those rows still export, and replies always name the conversation they came from, so you can group them that way instead.
+Now and then a reply or a bounce arrives that Cora cannot tie to a specific send.
+Those rows still export, and replies always name the conversation they came from, so you can group them that way instead.
 
 ## Formats
 
-Parquet is the default, and CSV is available on request. We recommend Parquet, because it preserves the list of recipients and the signals on a reply as lists. CSV flattens both into text that your pipeline has to parse.
+Parquet is the default, and CSV is available on request.
+We recommend Parquet, because it preserves the list of recipients and the signals on a reply as lists.
+CSV flattens both into text that your pipeline has to parse.
 
 ## Cadence
 
-The export runs once per day, around 06:00 UTC, and each run replaces the files from the run before it. Every row carries `exported_at`, the time of the snapshot it came from, so you can confirm how current the data is.
+The export runs once per day, around 06:00 UTC, and each run replaces the files from the run before it.
+Every row carries `exported_at`, the time of the snapshot it came from, so you can confirm how current the data is.
 
-Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up. If a run has nothing to write for a dataset, the file from the previous run stays in the bucket.
+Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up.
+If a run has nothing to write for a dataset, the file from the previous run stays in the bucket.
 
 ## What's not included
 
-The export describes activity, not content. Message bodies and reader IP addresses are never exported.
+The export describes activity, not content.
+Message bodies and reader IP addresses are never exported.
