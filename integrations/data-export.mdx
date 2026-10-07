@@ -1,23 +1,82 @@
 ---
 title: "Export Data"
 sidebarTitle: "Export Data"
-description: "Activity and usage data, exported daily to an S3-compatible bucket"
+description: "Email activity and usage data, exported daily to an S3-compatible bucket"
 ---
 
-Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it. Your Cora contact will share access with you.
+Cora can deliver a daily copy of your email activity and usage data to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
+
+Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it.
+Your Cora contact will share access with you.
 
 ## What's included
 
-**Activities** (`export/cora_activities/cora_activities.parquet`, or `.csv`). One row per platform activity. That includes chat and Slack engagement, email send/open/click, human-in-the-loop task events, and related product events. Each row includes an activity id and type, when it happened, channel, user, account, and related agent or task when applicable.
+Each run writes one file per dataset, and each dataset has its own folder in the bucket:
 
-**Actions** (`export/cora_actions/cora_actions.parquet`, or `.csv`). One row per billed unit of work. This matches how Cora counts [Actions](/getting-started/actions-and-usage): tool calls in connected systems, lifecycle events Cora extracts, and AI custom-column generations. Each row includes an action id and type, when it happened, account, and related agent, user, or task when applicable.
+| Dataset | What one row is |
+| --- | --- |
+| **Email sends** | An email an agent sent on your behalf |
+| **Email engagement** | An open or a click on one of those emails |
+| **Email bounces** | An email that could not be delivered |
+| **Email replies** | A reply that came back, and what Cora read from it |
+| **Actions** | A billed unit of work |
 
-Both files include `exported_at`, the UTC timestamp of that snapshot.
+Every file includes `exported_at`, the UTC timestamp of that snapshot.
 
 Supported formats: **Parquet** (default) and **CSV**.
 
 Additional datasets are available on request.
 
+### Email sends
+
+Each row covers one email Cora sent: the subject, when it went out, who it was addressed to, the account it belongs to, and the agent and task behind it.
+If you have a CRM connected, the row also carries that account's CRM id, so you can line the export up with your own account records.
+
+Recipients come as a list, because a single email can go to more than one person.
+
+### Email engagement
+
+Each row is one open or one click.
+For clicks, the row also records which link was followed.
+
+Engagement is tracked per email rather than per recipient.
+When an email went to several people, an open tells you the email was opened, not which of them opened it.
+
+Some opens are automatic rather than a person reading the email, such as a mail client or a security scanner loading images.
+Cora flags these with a deliberately simple rule: an open or click recorded within 30 seconds of the email going out is marked automatic, since a person rarely reads an email that fast.
+Leave the flagged rows out of your engagement numbers to get closer to real readers.
+
+The flag is a convenience rather than a verdict, and it can miss an automatic open that arrives later.
+Each row also reports the mail client behind the engagement, so you can ignore the flag and group the data your own way.
+
+### Email bounces
+
+Each row is one failed delivery, with the address that failed and the reason given.
+
+Cora reads bounces from the delivery failure notices that come back to the connected mailbox.
+Treat the file as the bounces Cora can see rather than a complete record from your mail provider.
+
+### Email replies
+
+Each row is one reply, with who sent it and when.
+
+This is also where sentiment lives.
+Cora reads every reply for lifecycle signals, such as a renewal risk or an escalation, and attaches them to the reply along with the category and severity of each one.
+
+### Actions
+
+Each row is one billed unit of work, matching how Cora counts [Actions](/getting-started/actions-and-usage): tasks in connected systems, lifecycle events Cora extracts, and AI custom-column generations.
+Rows record what was done and when, with the related account, agent, user, or task.
+
+## How the datasets fit together
+
+Sends are the center of the email data.
+Engagement, bounces, and replies each point back to the send they belong to, so you join them to sends to pick up the subject, the account, and the agent context.
+Counting opens or bounces against the number of sends is the usual starting point for delivery and engagement reporting.
+
 ## Cadence
 
-The export runs once per day, around 06:00 UTC. Each run overwrites the previous files, so the bucket always holds the latest full export.
+The export runs once per day, around 06:00 UTC.
+Each run overwrites the previous files, so the bucket always holds the latest export.
+
+Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up.
