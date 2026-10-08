@@ -1,0 +1,61 @@
+---
+title: "Test and Monitor Agent Performance"
+sidebarTitle: "Performance"
+description: "How Cora checks an agent's work: sandbox tests before you turn it on, and checks on every finished live run after."
+---
+
+An agent acts on your behalf, so you want two kinds of confidence: that it does the right thing before you turn it on, and that it keeps doing the right thing once it is live. Cora gives you both by checking the agent's work against criteria, which are written-down statements of what success looks like.
+
+Before an agent goes live, **tests** run it in a sandbox and grade the result. Once it is live, **live monitoring** grades each finished run. This article covers how criteria are set and how to use each kind of check.
+
+## Success Criteria
+
+A criterion is one thing that must be true for a step to count as done right, such as "the email names the renewal date and the account owner." Every check Cora runs is graded against criteria, so they decide what passing means.
+
+An agent keeps two sets:
+
+- **Test criteria** belong to each test scenario. Cora writes them from what you say when you describe how you will know the agent worked. For example: _"It worked if the email names the renewal date and the account owner."_
+- **Live criteria** belong to each step of the agent and are checked on every live run. A step with no live criteria is not checked live.
+
+Checks tied to one test situation, such as a particular sample account, stay in the tests. Live criteria hold only what should be true of every real run.
+
+To change criteria, tell Cora in chat:
+
+- _"Make the renewal step also check that the email has a clear next step."_
+- _"Add a test where the account has no owner, and check that the agent doesn't send."_
+
+## Tests
+
+A test is a sandbox run of your agent. Its tools are mocked, so nothing is sent to real accounts or systems. You see what the agent would produce and whether it met your criteria, with no risk, before you turn it on.
+
+To run one, ask Cora in chat:
+
+_"Test my renewal outreach agent."_
+
+Each test runs every scenario on the agent's AI steps. A scenario is a situation the agent should handle, such as an account with a renewal in 30 days, along with the criteria for that situation. Cora writes scenarios from the requirements you gave it. To cover a situation you care about, ask Cora to add it as a scenario, and the next test runs it along with the rest. If a test fails, Cora explains what missed and the change it plans to make before testing again.
+
+To check on a test that already ran, ask:
+
+_"How did the last test go?"_
+
+This reads the latest result and does not start a new run. Cora tells you when the test ran and whether the agent has changed since. If it has, Cora offers to test it again.
+
+You can also see past tests on the agent's **Performance** tab, under **Tests**.
+
+## Live Monitoring
+
+Live monitoring checks the outcome of each finished live run against that step's live criteria. A run can complete without errors and still miss the bar, and that is what these checks catch.
+
+When any checks fail, you get one email an hour as the agent's creator. It groups failures by agent and lists the accounts and the checks that missed. The email calls these checks hypercare. An hour with no failures sends nothing.
+
+To dig in, click **Investigate with Cora** in the email to open a chat about that agent, or ask Cora directly:
+
+_"Why did my renewal agent's checks fail this week?"_
+
+Cora can look back up to seven days. It tells you whether the agent's behavior or the criteria look wrong. If the behavior is wrong, it suggests a fix to the agent. If the criteria are wrong, it changes them only after you confirm, and it will not weaken a criterion just to make a check pass. If a failure came from an older version of the agent, Cora says so, since a later edit may already have fixed it.
+
+You can also open the agent's **Performance** tab and go to **Live monitoring**, or click **View runs** in the email to see the run history.
+
+**Stopping the emails:** Ask Cora to remove the step's live criteria, for example _"Remove the live checks from the renewal step."_ That turns off live monitoring for that step. Pausing the agent stops its runs instead, which is a different choice.
+
+To review what a run did, or to refine the agent after a miss, see [Managing and Refining Agents](/agents/managing-and-refining-agents).
