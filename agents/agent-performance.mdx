@@ -1,0 +1,53 @@
+---
+title: "Agent performance"
+sidebarTitle: "Agent performance"
+description: "Test an agent in a sandbox before you turn it on, then see how Cora checks each finished live run against the criteria you set."
+---
+
+The **Performance** tab on an agent has two parts. **Tests** check the agent in a sandbox before it goes live. **Live monitoring** checks each finished run once it is on. Both use the same kind of criteria.
+
+## Tests
+
+A test is a sandbox run of your agent. Its tools are mocked, so nothing is sent to real accounts or systems. You see what the agent would produce and whether it met the bar you set, without any risk.
+
+### Start a test
+
+Ask Cora in chat:
+
+_"Test my renewal outreach agent."_
+
+You can also open the agent, go to **Performance**, then **Tests**. That view lists past test runs and their results.
+
+### Scenarios and criteria
+
+Each test runs one or more scenarios. A scenario is a situation the agent should handle, such as an account with a renewal in 30 days. Each scenario has criteria that define what passed means for that run.
+
+Cora writes the scenarios and criteria when you tell it how you will know the agent worked. For example: _"It worked if the email names the renewal date and the account owner."_ A test passes when its runs meet those criteria.
+
+### Ask about a test that already ran
+
+Asking about a test does not start a new one. If you ask _"How did the last test go?"_, Cora reads the latest result. It tells you when that test ran and whether the agent has changed since. If the agent has changed, ask Cora to test it again.
+
+## Live monitoring
+
+Live monitoring runs automated quality checks on live task runs. Each check compares a finished run against that step's acceptance criteria. The run completed. The check is whether the outcome met the bar you set.
+
+The hourly email calls these checks hypercare. In the app, open the agent and go to **Performance**, then **Live monitoring**.
+
+### How criteria are set
+
+Criteria are set when you tell Cora how you will know the step worked. A step with no criteria is not checked.
+
+### The hourly email
+
+You get one email an hour, only when something failed, because you created the agent. It groups failures by agent and lists the accounts and the checks that missed.
+
+### When a check misses
+
+**Investigate with Cora** opens a chat about that agent. **View runs** opens the run history. Cora will say whether the agent's behavior or the criteria look wrong, and it will not change the criteria unless you confirm.
+
+To review what a run did, or to refine the agent afterward, see [Managing and Refining Agents](/agents/managing-and-refining-agents).
+
+### Stop the emails
+
+To stop the emails for a step, ask Cora to remove its acceptance criteria, or remove them yourself. Pausing the agent stops the runs, which is a different choice.

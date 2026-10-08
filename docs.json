@@ -46,13 +46,7 @@
           "agents/building-your-first-agent",
           "agents/triggers-and-activation-rules",
           "agents/managing-and-refining-agents",
-          {
-            "group": "Agent performance",
-            "pages": [
-              "agents/testing-agents",
-              "agents/hypercare"
-            ]
-          },
+          "agents/agent-performance",
           "agents/how-to-build-skills",
           "agents/approval-notifications",
           "agents/example-prompts"
@@ -139,5 +133,15 @@
       "light": "#FCFBF5",
       "dark": "#1A1A19"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/agents/hypercare",
+      "destination": "/agents/agent-performance#live-monitoring"
+    },
+    {
+      "source": "/agents/testing-agents",
+      "destination": "/agents/agent-performance#tests"
+    }
+  ]
 }
