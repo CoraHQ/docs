@@ -20,9 +20,9 @@ Artifacts are not agent runs, and they are not signals. A run is one execution o
 
 Use **Filters** on the **Artifacts** page to show specific types. The filter labels are:
 
-- **Document.** Markdown you can read in Cora, such as a meeting prep doc, a QBR summary, or an account brief. Chat and agents both write these.
+- **Document.** Markdown you can read in Cora, such as a meeting prep doc, a QBR summary, or an account brief. Chat and agents both write these. You can mark one as a [template](#templates).
 - **Dashboard.** Live charts and tables over your warehouse data. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**.
-- **Presentation.** An in-app slide deck, such as a QBR or a book review. Ask Cora in chat when you want one. Chat shows a preview. Reopen it from **Artifacts** with the **Presentation** filter, then **Present** from the player. You cannot pin a presentation to **Analytics**; that stays dashboards.
+- **Presentation.** An in-app slide deck, such as a QBR or a book review. Ask Cora in chat when you want one. Chat shows a preview. Reopen it from **Artifacts** with the **Presentation** filter, then **Present** from the player. You cannot pin a presentation to **Analytics**; that stays dashboards. You can mark one as a [template](#templates).
 - **Survey** and **Survey Response.** A **Survey** is the reusable template. A **Survey Response** is a completed set of answers, attached to the account you sent the link for. Building, sending, and reporting on surveys is covered in [Surveys](/using-cora/surveys).
 - **Task List.** A checklist you work through. It is not an agent. An agent is a workflow that can run on its own. A task list is a list of items to complete.
 - **File Upload** and **External Link.** Files people attach, and links out to Drive or the web.
@@ -78,12 +78,37 @@ _"Take Alex off that doc."_
    - **Everyone in org** — visible to your whole team.
 3. Under **People**, add teammates by name or email to give them access directly. This works the same way whether you're set to **Private** or **Everyone in org** — it doesn't switch you out of either one.
 
+## Templates
+
+Mark a document or presentation as a **template** when you want it reused, such as a standard QBR deck or a renewal brief. Agents running on your accounts can read your templates and copy them into a new document or deck for that account. They never change the template itself.
+
+Everything else you save stays private to your team. An account's agents see only what you mark as a template, whatever its sharing setting.
+
+### From the Artifacts page
+
+1. Open **Artifacts**, find the item, and open its preview.
+2. Select **Use as template**. The item shows a **Template** label.
+
+Select **Use as template** again to turn it off.
+
+### From chat
+
+Ask Cora:
+
+_"Make my QBR deck a template."_
+_"Stop treating my QBR deck as a template."_
+
+You can also mark one as you create it: _"Create a QBR agenda and save it as a template."_
+
+You can only mark a template on your own organization, not on a customer account, and only if you created the item or you're an Admin. Dashboards can't be templates. Surveys and checklists have their own templates; see [Surveys](/using-cora/surveys). To build a deck from a template, see [Slide Decks](/using-cora/slide-decks#reuse-a-deck-as-a-template).
+
 ## Who can edit
 
 Sharing a document lets someone read it. It does not let them change it.
 
 - A document, dashboard, or presentation a person created can be edited or deleted by that person or an Admin. Pinning a dashboard to Analytics is an edit.
 - Something Cora wrote, including an account brief, can be edited by anyone who can already open it. Only an Admin can delete it.
+- A template is read only for agents running on your accounts. They copy it; they cannot change or delete it.
 - If you can open an item but cannot change it, the page is view only and names who can.
 
 Dashboards and presentations are edited in chat. Documents can also be edited on the page.
