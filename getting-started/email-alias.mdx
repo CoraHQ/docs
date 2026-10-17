@@ -1,13 +1,13 @@
 ---
 title: "Set Up a Cora Email Alias in Gmail"
 sidebarTitle: "Email Alias"
-description: "Create a dedicated Google Workspace user account for your Cora agent so it can send, receive, and authenticate independently via Gmail."
+description: "Create a dedicated Google Workspace user account for your Cora agent so it can send, receive, and authenticate independently via Gmail, and add a sender photo so Gmail shows your brand."
 ---
 
 To operate like a digital teammate, your Cora agent needs an email identity, just like any other teammate. This allows Cora to:
 
 - Send and receive messages with customers without being blocked by firewalls
-- Be configured for sender name, branding, and signature
+- Be configured for sender name, branding, photo, and signature
 - Log in securely via SSO to sync with Gmail, CRM, and other tools
 - Operate autonomously (for example, follow-ups, escalations) or escalate to humans when needed
 
@@ -42,6 +42,7 @@ To operate like a digital teammate, your Cora agent needs an email identity, jus
       - Must be a full user account (not a Google Group or alias)
       - Must support third-party app authentication (OAuth)
       - Can be provisioned with the lowest-tier license that allows email login
+      - Please add a profile photo (company logo recommended) while signed in as this user, and set photo visibility to Anyone so Gmail recipients see a branded avatar instead of a generic silhouette
     
     Thanks!
     ```
@@ -54,7 +55,35 @@ To operate like a digital teammate, your Cora agent needs an email identity, jus
 
     - Connect the Gmail and CRM integrations
     - Configure sender display name
-    - Add a branded signature and photo
+    - Add a branded signature and [sender photo](#add-a-sender-photo-so-gmail-shows-your-brand)
     - Confirm OAuth permissions and test send capabilities
   </Step>
 </Steps>
+
+## Add a sender photo so Gmail shows your brand
+
+Without a profile photo on the dedicated Cora account, Gmail shows a generic silhouette next to outbound mail from addresses like [cora@yourcompany.com](mailto:cora@yourcompany.com). Upload a company logo or Cora-branded image so recipients recognize the sender.
+
+Google only shows that photo to people outside your organization if the Cora user uploads it and makes it visible. A photo added only in the Admin console stays internal and will not fix what customers see.
+
+<Steps>
+  <Step title="Sign in as the Cora user">
+    Open a browser and sign in to Google as the dedicated address (for example [cora@yourcompany.com](mailto:cora@yourcompany.com)). Do not use a personal or admin account for this step.
+  </Step>
+  <Step title="Upload a profile photo">
+    1. Go to [Google Account personal info](https://myaccount.google.com/personal-info)
+    2. Click **Profile picture**
+    3. Upload a square company logo or brand image (JPEG or PNG)
+    4. Click **Save as profile picture**
+  </Step>
+  <Step title="Make the photo visible to recipients">
+    1. On the same **Personal info** page, under **Choose what others see**, click **Go to About me**
+    2. Next to the profile picture, set visibility to **Anyone**
+
+    If you cannot change the photo or visibility, ask IT to allow profile-picture editing for this user in the Admin console (**Directory → Directory settings → Profile editing**), then repeat these steps while signed in as the Cora user.
+  </Step>
+</Steps>
+
+<Tip>
+  Gmail can take a few hours to show the new photo. Recipients on Outlook and other clients may still see a default icon. Gmail uses the Google Account photo.
+</Tip>
