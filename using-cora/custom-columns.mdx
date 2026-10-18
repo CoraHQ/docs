@@ -10,7 +10,9 @@ Add scored, labeled, AI-generated, and manually-set columns to your Accounts tab
 
 Custom Columns let you add your own columns to the Accounts table, pulling data from your connected integrations. Use them to surface raw CRM fields, score accounts, categorize them with rules, generate AI insights, roll up multiple scores into a single composite metric, or track statuses your team sets by hand.
 
-Columns appear on the Accounts page alongside built-in columns like Users and Last Activity. They are available to everyone on your team who can access the Accounts page.
+Columns appear on the Accounts page alongside built-in columns like Users and Last Activity. Everyone who can access the Accounts page can view them. Only Admins can add, edit, reorder, recompute, or delete columns. Visibility stays personal. Anyone with access can still set a Manual input value.
+
+For the one-page summary on each account, see [Account briefs](/using-cora/account-briefs).
 
 ## Common Use Cases
 
@@ -46,10 +48,10 @@ There are six column types. Pick the one that matches your use case:
     Go to the **Accounts** page.
   </Step>
   <Step title="Open table settings">
-    Click the **settings icon** in the table toolbar.
+    Click **Configure table columns**.
   </Step>
   <Step title="Add a custom column">
-    Click **Add Custom Column**.
+    Click **Add custom column**.
   </Step>
   <Step title="Name the column">
     Enter a **Column name**.
@@ -144,7 +146,16 @@ Configuration:
 - **Prompt**: describe what you want Cora to evaluate in plain language.
 - **Score labels** (numeric output only): optional display bands to show a colored label instead of a bare number.
 
-AI columns refresh **daily** and are cached when the underlying data has not changed. Click **Recompute** in the table settings menu to force an immediate refresh.
+### Which accounts
+
+Choose **Which accounts** for an AI column, the same choice as an [account brief](/using-cora/account-briefs):
+
+- **All accounts**
+- **Matching rules** — only accounts that match every rule. Rules use CRM account fields from Salesforce, HubSpot, or Gainsight.
+
+The count shows how many accounts the column covers.
+
+AI columns refresh **daily** and are cached when the underlying data has not changed. In **Configure table columns**, click **Recompute** on the column to refresh it now.
 
 ## Rollup Columns
 
@@ -169,18 +180,21 @@ Filters and sort preferences persist across sessions.
 
 ## Editing and Deleting Columns
 
-Open the table settings menu to find your custom columns under the **Custom Columns** section.
+Open **Configure table columns**. Your columns are listed under **Custom columns**.
 
-- **Edit**: click the pencil icon to open the column drawer. Column name and data source are locked after creation.
-- **Delete**: click the trash icon. This is permanent. Columns referenced by a Rollup cannot be deleted until the Rollup is updated.
-- **Reorder**: drag columns in the settings menu to change their position in the table. Column order is shared across your workspace — everyone sees the same order. Visibility is personal to each user.
+- **Edit**: click **Edit column** to open the column editor. Column name and data source are locked after creation.
+- **Recompute**: on an AI column, click **Recompute** to refresh it now.
+- **Delete**: click **Delete column**. This is permanent. Columns referenced by a Rollup cannot be deleted until the Rollup is updated.
+- **Reorder**: drag columns to change their position in the table. Column order is shared across your workspace — everyone sees the same order.
 - **Visibility**: toggle columns on or off without deleting them. Visibility is personal — your toggles do not affect other team members.
+
+Only Admins can add, edit, reorder, recompute, or delete columns. Anyone with access can still set a Manual input value.
 
 ## Compute and Freshness
 
 Different column types refresh at different speeds:
 
 - **Data, Manual input, Banded, Rule, Rollup**: live on every page load. Values are always current. For Manual input, an update you make is saved right away and appears once it finishes syncing.
-- **AI**: refreshes daily. Results are cached when the underlying data has not changed. Click **Recompute** to force an immediate refresh.
+- **AI**: refreshes daily. Results are cached when the underlying data has not changed. In **Configure table columns**, click **Recompute** on the column to refresh it now.
 
 The column header shows a freshness indicator: "Live" for structured columns, or the last computed time for AI columns. If a column is still building, you will see a loading state in the cells until values are ready.
