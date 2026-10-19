@@ -1,10 +1,10 @@
 ---
 title: "Export Data"
 sidebarTitle: "Export Data"
-description: "Email activity and usage data, exported daily to an S3-compatible bucket"
+description: "Email activity, signals and usage data, exported daily to an S3-compatible bucket"
 ---
 
-Cora can deliver a daily copy of your email activity and usage data to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
+Cora can deliver a daily copy of your email activity, signals and usage data to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
 
 Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it.
 Your Cora contact will share access with you.
@@ -19,6 +19,7 @@ Each run writes one file per dataset, and each dataset has its own folder in the
 | **Email engagement** | An open or a click on one of those emails |
 | **Email bounces** | An email that could not be delivered |
 | **Email replies** | A reply that came back, and what Cora read from it |
+| **Signals** | A lifecycle signal on an account, such as an escalation or a renewal risk |
 | **Actions** | A billed unit of work |
 
 Every file includes `exported_at`, the UTC timestamp of that snapshot.
@@ -62,6 +63,18 @@ Each row is one reply, with who sent it and when.
 
 This is also where sentiment lives.
 Cora reads every reply for lifecycle signals, such as a renewal risk or an escalation, and attaches them to the reply along with the category and severity of each one.
+
+### Signals
+
+Each row is one signal on an account: its type, category, severity, when it happened, and the account's CRM id.
+
+Signals your team entered in Cora carry their title, description and details.
+For an escalation, the details include its status, reason, risk, ARR and due date.
+
+Signals Cora detected from an email, ticket, call or meeting carry the type, severity, date and a link to the source, but not the text, since you already hold the source message.
+
+A signal that changes over time, such as an escalation that is opened, updated and closed, appears as one row per change.
+Take the latest row per escalation for its current state.
 
 ### Actions
 
