@@ -92,6 +92,35 @@ Log into Cora.ai with your shared Google account (e.g., [cora@yourcompany.com](m
 
 Follow steps 1–6 detailed above to get Gmail connected.
 
+## Use Drive Files in Chat and Agents
+
+Once Drive is connected, Cora reads a file only after you grant it that file. Nothing in your Drive is visible to Cora until you do.
+
+<Steps>
+  <Step title="Grant a file in chat">
+    1. Paste the file's link into Cora chat (Docs, Slides, Sheets, PDFs and images)
+    2. Click **Grant** on the card that appears next to Cora's reply
+    3. Cora reads the file right away, and keeps access to it from then on
+  </Step>
+  <Step title="Use the file in an agent">
+    1. Ask Cora to build the agent, or tell Cora which file an existing agent should read
+    2. Every run re-reads the file, so a tracker or sign-up sheet that changes each week is always current
+    3. Runs use the Drive connection and grants of the person who built the agent, so that person should connect Drive and grant the file
+  </Step>
+</Steps>
+
+### Google Sheets
+
+- **Read** — Cora reads any tab of a granted sheet, up to 10 MB, in chat and in agent runs
+- **Create** — Ask Cora to create a Google Sheet in your Drive from chat
+- **Update** — Cora can add rows and update cells in a sheet it created or one you granted
+
+### Not Supported Yet
+
+- Browsing or searching your Drive
+- Granting a folder, or picking up files that appear in a folder later
+- Granting a file from an agent run (the Grant card is only in chat)
+
 ## What Cora.ai Accesses
 
 ### Gmail
@@ -102,9 +131,9 @@ Follow steps 1–6 detailed above to get Gmail connected.
 
 ### Google Drive
 
-**Reads:** Cora.ai can access documents and files in your Drive to use as knowledge and context for generating insights and content.
+**Reads:** Cora.ai can read the Drive files you grant it (Docs, Slides, Sheets, PDFs and images) to use as knowledge and context for generating insights and content, in chat and in agent runs.
 
-**Writes:** Cora.ai can create presentations and documents in your Drive (e.g., EBR decks from templates) and manage sharing permissions on files it creates.
+**Writes:** Cora.ai can create presentations, documents and sheets in your Drive (e.g., EBR decks from templates), add rows and update cells in sheets it created or you granted, and manage sharing permissions on files it creates.
 
 ## Multiple Account Support
 
