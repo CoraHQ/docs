@@ -37,7 +37,9 @@ Once your CRM (Salesforce or HubSpot) is connected, you can import accounts into
 
     If an account's name changes in your CRM, Cora will update it automatically.
 
-    If an account no longer matches your filters, it will be deleted from Cora.
+    If an account no longer matches your filters, Cora deletes it if it has no activity. Accounts with activity stay in Cora.
+
+    Sync can't tell when a company is deleted or merged in your CRM. The matching account stays in Cora until you delete it.
   </Step>
 </Steps>
 
@@ -122,3 +124,7 @@ What happens when you confirm depends on your role:
 <Tip>
   When you delete several accounts at once, Cora handles each one independently. If some are refused, the rest are still deleted, and the notification lists each failure with its reason.
 </Tip>
+
+### Deleted Accounts Stay Deleted
+
+When you delete an account that came from Salesforce or HubSpot, Cora remembers its CRM record and skips it in future imports, so sync doesn't bring it back, even if the company still matches your filters. Accounts Cora removes automatically because they no longer match your filters aren't remembered, and can return if they match again.
