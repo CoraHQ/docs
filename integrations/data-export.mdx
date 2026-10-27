@@ -1,10 +1,10 @@
 ---
 title: "Export Data"
 sidebarTitle: "Export Data"
-description: "Email activity, signals and usage data, exported daily to an S3-compatible bucket"
+description: "Email activity, signals, usage, and account scores, exported daily to an S3-compatible bucket"
 ---
 
-Cora can deliver a daily copy of your email activity, signals and usage data to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
+Cora can deliver a daily copy of your email activity, signals, usage, and account scores to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
 
 Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it.
 Your Cora contact will share access with you.
@@ -21,6 +21,8 @@ Each run writes one file per dataset, and each dataset has its own folder in the
 | **Email replies** | A reply that came back, and what Cora read from it |
 | **Signals** | A lifecycle signal on an account, such as an escalation or a renewal risk |
 | **Actions** | A billed unit of work |
+| **Health score** | An account's health score, its band, and the reason |
+| **Expansion potential** | An account's expansion potential, its band, and the reason |
 
 Every file includes `exported_at`, the UTC timestamp of that snapshot.
 
@@ -81,6 +83,17 @@ Take the latest row per escalation for its current state.
 Each row is one billed unit of work, matching how Cora counts [Actions](/getting-started/actions-and-usage): tasks in connected systems, lifecycle events Cora extracts, and AI custom-column generations.
 Rows record what was done and when, with the related account, agent, user, or task.
 
+### Health score
+
+Each row is one account.
+`score` is the numeric health score, `label` is the band, and `reason` explains the score.
+The row also includes when the score was computed.
+When a CRM is connected, the row carries that account's CRM id, so you can line the score up with your own account records.
+
+### Expansion potential
+
+Each row is one account, in the same shape as health score: the numeric score, the band, the explanation, when it was computed, and the CRM id.
+
 ## How the datasets fit together
 
 Sends are the center of the email data.
@@ -93,3 +106,6 @@ The export runs once per day, around 06:00 UTC.
 Each run overwrites the previous files, so the bucket always holds the latest export.
 
 Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up.
+
+Health score and expansion potential are included once those columns are set up.
+Until then, that file is left out and the rest of the export still runs.
