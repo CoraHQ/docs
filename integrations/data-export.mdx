@@ -1,10 +1,10 @@
 ---
 title: "Export Data"
 sidebarTitle: "Export Data"
-description: "Email activity, signals, usage, and account scores, exported daily to an S3-compatible bucket"
+description: "Email activity, signals, usage, and custom columns, exported daily to an S3-compatible bucket"
 ---
 
-Cora can deliver a daily copy of your email activity, signals, usage, and account scores to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
+Cora can deliver a daily copy of your email activity, signals, usage, and custom columns to an S3-compatible bucket, so your team can report on it in your own warehouse or BI tool.
 
 Reach out to your Cora contact or email [support@cora.ai](mailto:support@cora.ai) to enable it.
 Your Cora contact will share access with you.
@@ -21,8 +21,7 @@ Each run writes one file per dataset, and each dataset has its own folder in the
 | **Email replies** | A reply that came back, and what Cora read from it |
 | **Signals** | A lifecycle signal on an account, such as an escalation or a renewal risk |
 | **Actions** | A billed unit of work |
-| **Health score** | An account's health score, its band, and the reason |
-| **Expansion potential** | An account's expansion potential, its band, and the reason |
+| **Custom columns** | One account's value for one column on the accounts grid |
 
 Every file includes `exported_at`, the UTC timestamp of that snapshot.
 
@@ -83,16 +82,28 @@ Take the latest row per escalation for its current state.
 Each row is one billed unit of work, matching how Cora counts [Actions](/getting-started/actions-and-usage): tasks in connected systems, lifecycle events Cora extracts, and AI custom-column generations.
 Rows record what was done and when, with the related account, agent, user, or task.
 
-### Health score
+### Custom columns
 
-Each row is one account.
-`score` is the numeric health score, `label` is the band, and `reason` explains the score.
-The row also includes when the score was computed.
-When a CRM is connected, the row carries that account's CRM id, so you can line the score up with your own account records.
+Each row is one account and one column from your accounts grid.
+The file includes every column on the grid, and the next export follows the grid: a column you add shows up, and a column you remove drops out.
+The file's own columns stay the same, so your loader does not change when the grid does.
+Filter or pivot on `column_id` to work with one column, such as a health score.
 
-### Expansion potential
+| Column | What it holds |
+| --- | --- |
+| `organization_id` | The account |
+| `organization_name` | The account's name |
+| `crm_id` | The Salesforce account id, or the HubSpot company id when that is the CRM on the account |
+| `column_id` | The id to filter on |
+| `column_name` | The column's name on the grid |
+| `column_type` | How the column is produced |
+| `value` | The column's text |
+| `score` | The numeric value |
+| `label` | The band, such as Healthy or At risk |
+| `reason` | The explanation, when the column has one |
+| `computed_at` | When the value was computed |
 
-Each row is one account, in the same shape as health score: the numeric score, the band, the explanation, when it was computed, and the CRM id.
+When a CRM is connected, `crm_id` lines the row up with your own account records.
 
 ## How the datasets fit together
 
@@ -107,5 +118,5 @@ Each run overwrites the previous files, so the bucket always holds the latest ex
 
 Reply and bounce data depends on a connected mailbox, so those two files may not appear until that is set up.
 
-Health score and expansion potential are included once those columns are set up.
+Custom columns are included once your accounts grid has columns.
 Until then, that file is left out and the rest of the export still runs.
