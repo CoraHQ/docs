@@ -126,11 +126,11 @@ To learn how agents are triggered off lifecycle events, see [Agent Triggers and 
 ### Surveying one person more than once
 
 By default, each person has one survey link per survey on an account.
-When the same person can need a separate survey for each piece of work, such as one per completed engagement, ask the agent builder to send each survey with that work's ID as its reference.
-Each reference gets its own link and its own response, so one engagement's answers never replace another's, and an unanswered survey doesn't hold up the next one.
-Reminders and response lookups use the same reference, so they stay with that engagement's survey.
+When the same person can need a separate survey for each piece of work, such as one per completed engagement, ask the agent builder to send each survey with that work's ID as its `reference_id`.
+Each reference ID gets its own link and its own response, so one engagement's answers never replace another's, and an unanswered survey doesn't hold up the next one.
+Reminders and response lookups use the same reference ID, so they stay with that engagement's survey.
 
-> "Send our CSAT survey for each completed engagement, using the engagement ID as the survey reference."
+> "Send our CSAT survey for each completed engagement, using the engagement ID as the survey reference ID."
 
 ## Reporting on Results
 
