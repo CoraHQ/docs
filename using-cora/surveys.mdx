@@ -123,6 +123,15 @@ Sending the survey, running the reminders, and reading responses work on their o
 
 To learn how agents are triggered off lifecycle events, see [Agent Triggers and Activation Rules](/agents/triggers-and-activation-rules). For more on building agents in chat, see [Building Your First Agent](/agents/building-your-first-agent) and [How to Build Skills](/agents/how-to-build-skills).
 
+### Surveying one person more than once
+
+By default, each person has one survey link per survey on an account.
+When the same person can need a separate survey for each piece of work, such as one per completed engagement, ask the agent builder to send each survey with that work's ID as its `reference_id`.
+Each reference ID gets its own link and its own response, so one engagement's answers never replace another's, and an unanswered survey doesn't hold up the next one.
+Reminders and response lookups use the same reference ID, so they stay with that engagement's survey.
+
+> "Send our CSAT survey for each completed engagement, using the engagement ID as the survey reference ID."
+
 ## Reporting on Results
 
 Once responses start coming in, you can review individual answers and track how a survey is performing.
