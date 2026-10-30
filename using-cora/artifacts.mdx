@@ -1,10 +1,10 @@
 ---
 title: "Work with Artifacts in Cora"
 sidebarTitle: "Artifacts"
-description: "Find, open, and share saved Cora outputs: documents, dashboards, presentations, surveys, checklists, files, and links."
+description: "Find, open, and share saved Cora outputs: documents, dashboards, presentations, pages, surveys, checklists, files, and links."
 ---
 
-Artifacts are the saved outputs Cora keeps for you: briefs, dashboards, presentations, surveys, checklists, files, and links. Agents and chat create most of them. You open them later from the **Artifacts** page.
+Artifacts are the saved outputs Cora keeps for you: briefs, dashboards, presentations, pages, surveys, checklists, files, and links. Agents and chat create most of them. You open them later from the **Artifacts** page.
 
 The brief on an account's **Overview** is set up from Accounts. See [Account briefs](/using-cora/account-briefs).
 
@@ -25,6 +25,7 @@ Use **Filters** on the **Artifacts** page to show specific types. The filter lab
 - **Document.** Markdown you can read in Cora, such as a meeting prep doc, a QBR summary, or an account brief. Chat and agents both write these. You can mark one as a [template](#templates).
 - **Dashboard.** Live charts and tables over your warehouse data. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**.
 - **Presentation.** An in-app slide deck, such as a QBR or a book review. Ask Cora in chat when you want one. Chat shows a preview. Reopen it from **Artifacts** with the **Presentation** filter, then **Present** from the player. You cannot pin a presentation to **Analytics**; that stays dashboards. You can mark one as a [template](#templates).
+- **Page.** An HTML page you ask Cora to build, such as a customer-facing layout. Ask Cora in chat when you want one. You can mark one as a [template](#templates).
 - **Survey** and **Survey Response.** A **Survey** is the reusable template. A **Survey Response** is a completed set of answers, attached to the account you sent the link for. Building, sending, and reporting on surveys is covered in [Surveys](/using-cora/surveys).
 - **Task List.** A checklist you work through. It is not an agent. An agent is a workflow that can run on its own. A task list is a list of items to complete.
 - **File Upload** and **External Link.** Files people attach, and links out to Drive or the web.
@@ -33,13 +34,13 @@ Use **Filters** on the **Artifacts** page to show specific types. The filter lab
 
 Most artifacts start in one of three ways:
 
-- **Ask Cora in chat.** For example, ask for a prep doc, an account brief, a dashboard, or a presentation or QBR deck. Cora saves the result as an artifact.
+- **Ask Cora in chat.** For example, ask for a prep doc, an account brief, a dashboard, a presentation or QBR deck, or a page. Cora saves the result as an artifact.
 - **An agent writes one.** When a task's output is a document, dashboard, presentation, or similar deliverable, that output is saved as an artifact on the account or workspace.
 - **You build a survey template.** On the **Artifacts** page, click **New Template**, select **Survey**, and save it. See [Surveys](/using-cora/surveys) for the rest of that flow.
 
 Generating an artifact counts as an [Action](/getting-started/actions-and-usage). Opening or downloading one Cora already created does not.
 
-New documents and dashboards are private to you by default — see [Sharing](#sharing) below to change that.
+New documents, dashboards, and pages are private to you by default — see [Sharing](#sharing) below to change that.
 
 ## How to find them
 
@@ -55,7 +56,7 @@ On an account, the **Artifacts** tab shows that account's items with the same ty
 
 ## Sharing
 
-Documents and dashboards are **private to you by default**: only you can see one until you decide otherwise. There are two independent things you can do to widen access, and you can combine them:
+Documents, dashboards, and pages are **private to you by default**: only you can see one until you decide otherwise. There are two independent things you can do to widen access, and you can combine them:
 
 - **Change visibility** between **Private** (you, plus anyone you've added below) and **Organization** (your whole team).
 - **Add specific people**, regardless of which visibility you're on. Adding or removing someone never changes the Private/Organization setting — it just widens or narrows who, specifically, can see a private item.
@@ -82,9 +83,9 @@ _"Take Alex off that doc."_
 
 ### Share with someone at a customer account
 
-You can give a person at a customer account access to a document you saved on that account. They see it on their **Artifacts** page in the customer portal and can read it. They can't edit it.
+You can give a person at a customer account access to a document or page you saved on that account. They see it on their **Artifacts** page in the customer portal and can read it. They can't edit it.
 
-1. Save the document on the account, or open it from that account's **Artifacts** tab.
+1. Save the document or page on the account, or open it from that account's **Artifacts** tab.
 2. Select **Share**, then under **People** pick the person. People at the account are labeled **Customer**.
 3. Cora warns that this person is outside your company. Select **Share** to confirm.
 
@@ -92,7 +93,7 @@ Or ask Cora: _"Share the onboarding plan with `<email-address>`."_ Give Cora the
 
 ## Templates
 
-Mark a document or presentation as a **template** when you want it reused, such as a standard QBR deck or a renewal brief. Agents running on your accounts can read your templates and copy them into a new document or deck for that account. They never change the template itself.
+Mark a document, presentation, or page as a **template** when you want it reused, such as a standard QBR deck or a renewal brief. Agents running on your accounts can read your templates and copy them into a new document, deck, or page for that account. They never change the template itself.
 
 Everything else you save stays private to your team. An account's agents see only what you mark as a template, whatever its sharing setting.
 
@@ -118,19 +119,33 @@ You can only mark a template on your own organization, not on a customer account
 
 Sharing a document lets someone read it. It does not let them change it.
 
-- A document, dashboard, or presentation a person created can be edited or deleted by that person or an Admin. Pinning a dashboard to Analytics is an edit.
+- A document, dashboard, presentation, or page a person created can be edited or deleted by that person or an Admin. Pinning a dashboard to Analytics is an edit.
 - Something Cora wrote, including an account brief, can be edited by anyone who can already open it. Only an Admin can delete it.
 - A template is read only for agents running on your accounts. They copy it; they cannot change or delete it.
 - If you can open an item but cannot change it, the page is view only and names who can.
 - A customer you share with can read the item and never edit it. Handing an item to a new owner works for teammates only.
 
-Dashboards and presentations are edited in chat. Documents can also be edited on the page.
+Dashboards, presentations, and pages are edited in chat. Documents can also be edited on the page.
 
 Your change applies right away.
 
 <Note>
   You'll only see **Share** on artifacts you created. Cora can only change visibility or people-access on artifacts you own — someone else's private document or dashboard won't show up for you until they add you.
 </Note>
+
+## Pages
+
+Ask Cora in chat for an HTML page, such as a customer-facing layout. Cora saves it on **Artifacts**.
+
+It opens inside Cora. It is not a public website. Share it the same way as a document, including with someone at the customer account.
+
+Images you upload in chat are saved with the page. A link to another site opens in a new tab. A link to a section of the page stays on the page.
+
+**Export PDF** downloads the page as it looks when it opens. Anything that appears only after a click is not in the file. Asking Cora to email the page sends that PDF.
+
+A page can include its own layout and behavior. It does not load scripts, frames, or forms from other sites.
+
+Mark it as a template the same way as a document or presentation.
 
 ## Slide decks vs artifacts
 
