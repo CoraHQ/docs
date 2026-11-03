@@ -1,0 +1,64 @@
+---
+title: "Self-Improving Agents"
+sidebarTitle: "Self-improving agents"
+description: "Your agents get better every time an approver edits a draft. Cora turns approver feedback into proposed improvements, and agent builders choose which ones ship."
+---
+
+Every time an approver edits one of your agent's drafts before sending it, the agent gets a lesson. An approver might rewrite the opening, tighten the subject, or swap a recipient. Cora records that feedback, spots the patterns across approvals, and turns them into proposed improvements for the agent's builder. The agent gets better with every approval cycle, and the builder decides what changes.
+
+## Approvers and builders
+
+Two roles work together to improve an agent:
+
+- **Approvers** are the people an agent sends its drafts to for review. They edit, approve, or reject each draft for a specific account. Every edit and rejection is feedback on how the agent should work.
+- **Builders** own the agent itself. They review the feedback approvers leave and decide which changes to make to the agent, so the improvement applies to every account it runs on.
+
+One person can hold both roles. This page is written for builders.
+
+## What Cora records
+
+For every draft that goes through approval, Cora keeps the approver's feedback:
+
+- **Edits:** each field the approver changed before approving, such as the body, subject, recipients, or CC, with both the agent's draft and the approver's version.
+- **Approvals:** who approved the draft and when.
+- **Rejections:** who rejected the draft, when, and the reason they gave.
+
+## Builders approve every improvement
+
+An approver's edit fixes one draft for one account. A change to the agent affects every account it runs on. So Cora proposes improvements based on patterns across many approvals, and you, as the builder, choose what ships.
+
+## Review approver feedback in chat
+
+Ask Cora to summarize the feedback approvers left on your agent:
+
+- _"What did approvers change in the renewal outreach agent's emails in the last two weeks?"_
+- _"Show me the agent's draft and the approved version of the Acme Corp renewal email."_
+- _"Which drafts from my onboarding agent did approvers reject, and why?"_
+
+Cora lists each approved, edited, and rejected draft, with what changed.
+
+## Turn feedback into agent changes
+
+Once you see a pattern, ask Cora to propose changes:
+
+- _"Based on approver feedback from the last month, what should we change in the renewal outreach agent?"_
+
+Cora groups similar edits and proposes specific changes, such as a shorter opening, a different sign-off, or a different recipient rule. Review the proposals, then tell Cora which to apply:
+
+- _"Apply the first two suggestions."_
+
+Cora updates the agent, saves the change as a new version, and keeps the agent paused so you can review before turning it back on.
+
+## Get improvement proposals delivered
+
+Instead of remembering to ask, you can have Cora send you proposals on a schedule. Build an agent that reviews the last period's approver feedback, turns the patterns into specific suggestions, and emails them to you. Each suggestion comes with an **Apply in Cora** link. One click opens Cora chat and asks it to prepare that change for you.
+
+To set it up, ask Cora:
+
+_"Build an agent that runs every Monday, reviews last week's approver edits and rejections on my renewal outreach agent, and emails me up to five proposed improvements. Each one should explain the pattern, show an example edit, and include a link that opens Cora chat and asks Cora to show me the exact change to the renewal outreach agent before making it."_
+
+When you click a link, Cora shows you the exact change to the agent and makes it when you say go. As with any other change, Cora saves a new version and pauses the agent for your review.
+
+## Track and undo changes
+
+Every change Cora makes to the agent is saved in its version history, so you can see what changed over time and roll back if a change doesn't work as intended. See [Version history](/agents/managing-and-refining-agents#version-history).

@@ -49,6 +49,7 @@
           "agents/agent-performance",
           "agents/how-to-build-skills",
           "agents/approval-notifications",
+          "agents/self-improving-agents",
           "agents/example-prompts"
         ]
       },
