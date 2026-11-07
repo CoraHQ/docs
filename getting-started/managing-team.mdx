@@ -24,7 +24,9 @@ Read-only access for people who need to follow accounts without changing them, s
 
 A Viewer can open the accounts list, each account's overview and signals timeline, the Signals page, Analytics, and artifacts shared with the organization or with them, including artifacts they created.
 
-A Viewer cannot create or edit anything, use chat, work tasks, build or turn on agents, or connect integrations, including their own email and calendar. Calls and messages still appear on the timeline when Gong, Slack, or a teammate's connected Gmail or calendar already captured them.
+A Viewer can connect their own Gmail, Google Calendar, and Google Drive. They cannot connect company-wide tools, such as Slack or Salesforce, and they cannot see or disconnect a teammate's connection.
+
+A Viewer cannot create or edit anything, use chat, work tasks, or build or turn on agents. Calls and messages still appear on the timeline when Gong, Slack, or a teammate's connected Gmail or calendar already captured them.
 
 **Operator**
 
@@ -37,6 +39,67 @@ Full administrative access, including user management, integrations, settings, a
 A user's role determines what they see after login: the manager app, a read-only view of it for a Viewer, the customer portal, or an unauthorized page.
 
 In the customer portal, a customer sees their account's task lists on **Home**, their open tasks on **Tasks**, and on **Artifacts** the task lists plus the documents shared with them. To give a customer a document, see [Share with someone at a customer account](/using-cora/artifacts#share-with-someone-at-a-customer-account).
+
+## What each role can do
+
+The User role has no access. A Cora platform admin bypasses these checks.
+
+### Accounts and signals
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View accounts, overview, timeline, Signals, and Analytics | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+A customer does not see accounts, the timeline, Signals, or Analytics.
+
+### Artifacts
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View shared artifacts | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> |
+| Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Edit or delete your own | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Delete only |
+| Edit or delete someone else's | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Delete a task-attached artifact | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only |
+
+An Operator can edit a Cora-owned artifact, and only an Admin can delete or transfer it.
+
+### Tasks
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
+| Complete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
+| Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Delete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Customers see and complete customer-facing tasks only, and cannot create tasks or task lists.
+
+### Agents and chat
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Chat | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Build or turn on agents | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Only an Admin can change an agent someone else created, including one Cora set up.
+
+### Integrations
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Connect your own Gmail, Calendar, or Drive | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Connect company-wide tools | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+A Viewer cannot see or disconnect a teammate's connection.
+
+### Team
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Add or remove users | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Not Admin | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Operators can assign Operator and below, and cannot assign the Admin role.
 
 ## Other Designations
 
