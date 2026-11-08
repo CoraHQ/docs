@@ -10,3 +10,15 @@
 #page-title {
   font-family: "Tiempos Text", Georgia, "Times New Roman", serif;
 }
+
+/* Role columns shrink to the icon. The action label keeps the remaining width.
+   Almond sets min-w-[150px] on table cells, which blocks width: 1% unless cleared. */
+.role-matrix th:not(:first-child),
+.role-matrix td:not(:first-child) {
+  width: 1%;
+  min-width: 0;
+  white-space: nowrap;
+  text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
