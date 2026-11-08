@@ -44,6 +44,10 @@ In the customer portal, a customer sees their account's task lists on **Home**, 
 
 The User role has no access. A Cora platform admin bypasses these checks.
 
+A <Icon icon="check" color="#1F7A4D" size={16} /> means yes, a <Icon icon="xmark" color="#B42318" size={16} /> means no, and a <Icon icon="circle-half-stroke" color="#B54708" size={16} /> means partly. The sentence under each table explains a partial permission.
+
+<div className="role-matrix">
+
 ### Accounts and signals
 
 |  | Admin | Operator | Viewer | Customer |
@@ -58,18 +62,18 @@ A customer does not see accounts, the timeline, Signals, or Analytics.
 | --- | --- | --- | --- | --- |
 | View shared artifacts | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> |
 | Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
-| Edit or delete your own | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Delete only |
+| Edit or delete your own | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> |
 | Edit or delete someone else's | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
-| Delete a task-attached artifact | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only |
+| Delete a task-attached artifact | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> |
 
-An Operator can edit a Cora-owned artifact, and only an Admin can delete or transfer it.
+An Operator can edit a Cora-owned artifact, and only an Admin can delete or transfer it. A customer can delete what they created but cannot edit it. A customer can delete only a task-attached artifact they created.
 
 ### Tasks
 
 |  | Admin | Operator | Viewer | Customer |
 | --- | --- | --- | --- | --- |
-| View | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
-| Complete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
+| View | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> |
+| Complete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> |
 | Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
 | Delete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
 
@@ -80,9 +84,9 @@ Customers see and complete customer-facing tasks only, and cannot create tasks o
 |  | Admin | Operator | Viewer | Customer |
 | --- | --- | --- | --- | --- |
 | Chat | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
-| Build or turn on agents | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Build or turn on agents | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
 
-Only an Admin can change an agent someone else created, including one Cora set up.
+Only an Admin can change an agent someone else created, including one Cora set up. An Operator can build or turn on only agents they created.
 
 ### MCP
 
@@ -103,9 +107,11 @@ A Viewer cannot see or disconnect a teammate's connection.
 
 |  | Admin | Operator | Viewer | Customer |
 | --- | --- | --- | --- | --- |
-| Add or remove users | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Not Admin | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Add or remove users | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="circle-half-stroke" color="#B54708" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
 
 Operators can assign Operator and below, and cannot assign the Admin role.
+
+</div>
 
 ## Other Designations
 
