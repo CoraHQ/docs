@@ -136,6 +136,7 @@ The Okta integration setup is a three-step process. You'll configure your Okta a
 Cora.ai supports **just-in-time (JIT) user provisioning** via Okta. This means:
 
 - **No manual provisioning needed** — As long as a user clicks the Cora tile in Okta (or goes to app.cora.ai and enters their work email), they will be logged in and provisioned automatically on first access.
+- **Role on first sign-in** — A person on your company domain who has no role, or only the User role, becomes an Operator. Okta never assigns Admin. To keep someone as a Viewer, add them on the [Team](/getting-started/managing-team) page as a Viewer before their first sign-in.
 - **No SCIM required** — Because Cora does not use a license-based model, there is no need for SCIM or manual user management. Inactive or dormant users have no commercial impact.
 - **Deprovisioning** — If a user should no longer have access, simply unassign them from the Cora.ai app in Okta. They will no longer be able to authenticate.
 

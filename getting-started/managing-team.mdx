@@ -1,7 +1,7 @@
 ---
 title: "Manage Your Team and User Roles in Cora"
 sidebarTitle: "Team"
-description: "Add, edit, and remove users in your Cora workspace. Learn about roles (User, Customer, Operator, Admin) and team designations like Account Owner and Manager."
+description: "Add, edit, and remove users in your Cora workspace. Learn about roles (User, Customer, Viewer, Operator, Admin) and team designations like Account Owner and Manager."
 ---
 
 Manage who has access to your Cora workspace and what they can do. Operators and admins can add new users, assign roles, and remove access, all from the Team page in Settings.
@@ -12,11 +12,21 @@ Each user is assigned a role that determines what they can see and do in Cora. R
 
 **User**
 
-No functional access. This is a placeholder role for users that exist in the system but have not yet been assigned a working role. Users with only this role will see an "Unauthorized" page on login. An operator or admin must change their role before they can use Cora.
+No functional access. This is a placeholder role for users that exist in the system but have not yet been assigned a working role. Users with only this role will see an "Unauthorized" page on login. An operator or admin must change their role before they can use Cora. Okta sign-in is the exception: it assigns Operator, as described in **Automatic Provisioning with Okta** below.
 
 **Customer**
 
 Access to task lists and artifacts. This role is designed for collaboration with your customers (external users) on use cases like product launches, onboarding, and other agent-driven workflows.
+
+**Viewer**
+
+Read-only access for people who need to follow accounts without changing them, such as AEs, contractors, and readers from other functions.
+
+A Viewer can open the accounts list, each account's overview and signals timeline, the Signals page, Analytics, and artifacts shared with the organization or with them, including artifacts they created.
+
+A Viewer can connect their own Gmail, Google Calendar, and Google Drive. They cannot connect company-wide tools, such as Slack or Salesforce, and they cannot see or disconnect a teammate's connection.
+
+A Viewer cannot create or edit anything, use chat, work tasks, or build or turn on agents. Calls and messages still appear on the timeline when Gong, Slack, or a teammate's connected Gmail or calendar already captured them.
 
 **Operator**
 
@@ -26,9 +36,76 @@ Can manage users and access most features, including chat, agents, analytics, an
 
 Full administrative access, including user management, integrations, settings, and configuration across all organizations.
 
-A user's role determines what they see after login: the manager app, the customer portal, or an unauthorized page.
+A user's role determines what they see after login: the manager app, a read-only view of it for a Viewer, the customer portal, or an unauthorized page.
 
 In the customer portal, a customer sees their account's task lists on **Home**, their open tasks on **Tasks**, and on **Artifacts** the task lists plus the documents shared with them. To give a customer a document, see [Share with someone at a customer account](/using-cora/artifacts#share-with-someone-at-a-customer-account).
+
+## What each role can do
+
+The User role has no access. A Cora platform admin bypasses these checks.
+
+### Accounts and signals
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View accounts, overview, timeline, Signals, and Analytics | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+A customer does not see accounts, the timeline, Signals, or Analytics.
+
+### Artifacts
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View shared artifacts | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> |
+| Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Edit or delete your own | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Delete only |
+| Edit or delete someone else's | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Delete a task-attached artifact | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only |
+
+An Operator can edit a Cora-owned artifact, and only an Admin can delete or transfer it.
+
+### Tasks
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| View | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
+| Complete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Customer-facing only |
+| Create | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Delete | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Customers see and complete customer-facing tasks only, and cannot create tasks or task lists.
+
+### Agents and chat
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Chat | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Build or turn on agents | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Own only | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Only an Admin can change an agent someone else created, including one Cora set up.
+
+### MCP
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Use MCP | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+### Integrations
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Connect your own Gmail, Calendar, or Drive | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+| Connect company-wide tools | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+A Viewer cannot see or disconnect a teammate's connection.
+
+### Team
+
+|  | Admin | Operator | Viewer | Customer |
+| --- | --- | --- | --- | --- |
+| Add or remove users | <Icon icon="check" color="#1F7A4D" size={16} /> | <Icon icon="check" color="#1F7A4D" size={16} /> Not Admin | <Icon icon="xmark" color="#B42318" size={16} /> | <Icon icon="xmark" color="#B42318" size={16} /> |
+
+Operators can assign Operator and below, and cannot assign the Admin role.
 
 ## Other Designations
 
@@ -88,12 +165,17 @@ Use the search bar at the top of the team list to find users by name or email. Y
 Both Operators and Admins can add, edit, and remove users in their organization and its customer organizations. The difference is in which roles they can assign:
 
 - **Admins** can assign any role, including other Admins.
-- **Operators** can assign Operator and below, but cannot assign the Admin role.
+- **Operators** can assign Operator and below, including Viewer, but cannot assign the Admin role.
+- **Viewers** cannot add, edit, or remove users.
 
 Users you do not have permission to manage will not show edit or remove actions on their row.
 
 ## Automatic Provisioning with Okta
 
-If your organization uses Okta for SSO, user creation and role assignment are handled automatically via just-in-time (JIT) provisioning. When a user authenticates through Okta for the first time, their Cora account is created and their role is assigned based on your Okta configuration. No manual setup is required on the Team page.
+If your organization uses Okta for SSO, Cora creates the account the first time someone signs in.
+
+- On first sign-in through Okta, a person on your company domain who has no role, or only the User role, becomes an Operator.
+- Okta never assigns Admin.
+- To keep someone as a Viewer, add them on the **Team** page as a Viewer before their first sign-in.
 
 For setup instructions, see the [Okta SSO integration guide](/integrations/okta-sso).
