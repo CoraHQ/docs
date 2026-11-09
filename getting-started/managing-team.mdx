@@ -12,7 +12,7 @@ Each user is assigned a role that determines what they can see and do in Cora. R
 
 **User**
 
-No functional access. This is a placeholder role for users that exist in the system but have not yet been assigned a working role. Users with only this role will see an "Unauthorized" page on login. An operator or admin must change their role before they can use Cora. Okta sign-in is the exception: it assigns Operator, as described in **Automatic Provisioning with Okta** below.
+No functional access. This is a placeholder role for users that exist in the system but have not yet been assigned a working role. Users with only this role will see an "Unauthorized" page on login. An operator or admin must change their role before they can use Cora. Okta and Microsoft Entra ID sign-in are the exception: they assign Operator, as described in **Automatic Provisioning with SSO** below.
 
 **Customer**
 
@@ -174,12 +174,12 @@ Both Operators and Admins can add, edit, and remove users in their organization 
 
 Users you do not have permission to manage will not show edit or remove actions on their row.
 
-## Automatic Provisioning with Okta
+## Automatic Provisioning with SSO
 
-If your organization uses Okta for SSO, Cora creates the account the first time someone signs in.
+If your organization uses Okta or Microsoft Entra ID for SSO, Cora creates the account the first time someone signs in.
 
-- On first sign-in through Okta, a person on your company domain who has no role, or only the User role, becomes an Operator.
-- Okta never assigns Admin.
+- On first sign-in through Okta or Entra ID, a person on your company domain who has no role, or only the User role, becomes an Operator.
+- SSO sign-in never assigns Admin.
 - To keep someone as a Viewer, add them on the **Team** page as a Viewer before their first sign-in.
 
-For setup instructions, see the [Okta SSO integration guide](/integrations/okta-sso).
+For setup instructions, see the [Okta SSO integration guide](/integrations/okta-sso) or the [Microsoft Entra ID SSO integration guide](/integrations/entra-id-sso).

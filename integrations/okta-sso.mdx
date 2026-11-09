@@ -131,6 +131,21 @@ The Okta integration setup is a three-step process. You'll configure your Okta a
   </Step>
 </Steps>
 
+## Restrict sign-in to Okta only
+
+Once Okta sign-in is working, you can ask Cora to make it the only way your employees sign in. Contact your Cora.ai implementation contact, and we'll turn off email and password, Google, and Slack sign-in for your organization.
+
+After that:
+
+- **Employees sign in through Okta** — They enter their work email on the Cora sign-in page, which sends them to Okta, or they click the Cora tile in their Okta dashboard.
+- **Other sign-in methods are rejected** — Anyone who tries email and password, Google, or Slack sees an error asking them to sign in with Okta.
+- **Existing sessions on other methods stop working** — People who signed in another way are signed out on their next action and need to sign in again through Okta.
+- **Cora MCP uses Okta too** — Signing in to [Cora MCP](/integrations/cora-mcp) from an AI tool goes through Okta.
+
+<Warning>
+  Before you ask Cora to restrict sign-in, make sure everyone who needs Cora is assigned to the Cora.ai app in Okta. Anyone who isn't assigned can't sign in once other methods are turned off.
+</Warning>
+
 ## User Provisioning
 
 Cora.ai supports **just-in-time (JIT) user provisioning** via Okta. This means:
