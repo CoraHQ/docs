@@ -1,0 +1,210 @@
+---
+title: "Set Up Entra SSO for Cora"
+sidebarTitle: "Entra SSO"
+description: "Register Cora as an app in Entra using OpenID Connect so employees can sign in with their work accounts, be provisioned automatically, and optionally use Entra as the only way to sign in."
+---
+
+The Entra integration enables Single Sign-On (SSO) for your organization's employees accessing Cora.ai. Using Microsoft Entra ID (formerly Azure Active Directory) as your identity provider, employees sign in with their Microsoft work accounts instead of managing separate credentials.
+
+**Integration Type**: OpenID Connect (OIDC), Organization-Level<br />**Setup Time**: 15-20 minutes<br />**Required Role**: Cloud Application Administrator or Application Administrator in Entra
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- An Entra tenant for your organization
+- The **Cloud Application Administrator** or **Application Administrator** role in Entra. Either role can register the app, create its client secret, grant admin consent for the permissions Cora needs, and assign users. If your organization restricts consent further, a **Privileged Role Administrator** or **Global Administrator** can grant consent instead.
+- Microsoft Entra ID P1 or P2, if you want to assign access by group rather than by individual user
+- A list of every email domain your employees sign in with (for example, `yourcompany.com`), with one marked as your main company domain
+
+## How sign-in works
+
+Once configured, Cora routes your employees to Entra based on their email domain.
+
+1. An employee enters their work email on the Cora sign-in page (for example, `alice@yourcompany.com`)
+2. Cora recognizes the domain and sends them to Entra
+3. The employee signs in with Entra, with MFA and Conditional Access if you've configured them
+4. Entra sends them back to Cora, signed in
+
+Employees can also launch Cora from the Cora tile in [My Apps](https://myapps.microsoft.com) if you complete Step 3.
+
+## Benefits
+
+- **Familiar sign-in** — Employees use the Microsoft work account they already have
+- **Centralized access control** — Decide who can use Cora by assigning users and groups in Entra
+- **Enhanced security** — Your Entra MFA and Conditional Access policies apply to Cora
+- **Nothing to install** — The integration is transparent to end users
+- **Audit and compliance** — Sign-ins to Cora appear in your Entra sign-in logs
+
+## Setup steps
+
+Setup has three steps. You register Cora as an app in Entra, share its credentials securely with Cora.ai, and then, if you want, add a Cora tile to My Apps once we confirm setup is live.
+
+<Steps>
+  <Step title="Register Cora as an app in Entra">
+    To learn more about app registrations, read Microsoft's guide to [registering an app](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app) on Microsoft Learn.
+
+    **Register the app:**
+
+    1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com) as at least a **Cloud Application Administrator**
+    2. Browse to **Entra ID** → **App registrations** and click **New registration**
+    3. Configure the following:
+       - **Name**: "Cora.ai" (or your preferred name). Employees see this name in My Apps.
+       - **Supported account types**: Select **Single tenant only**. Older versions of the admin center label this **Accounts in this organizational directory only**.
+       - **Redirect URI**: Select the **Web** platform and enter `https://auth.cora.ai/login/callback`
+    4. Click **Register**
+
+    If the registration form doesn't show a redirect URI field, add it after registering: go to **Authentication**, click **Add Redirect URI**, select **Web**, and enter `https://auth.cora.ai/login/callback`.
+
+    **Create a client secret:**
+
+    1. In the app registration, go to **Certificates & secrets** → **Client secrets** → **New client secret**
+    2. Enter a description (for example, "Cora SSO") and choose an expiry. Entra allows at most 24 months.
+    3. Click **Add**
+    4. Copy the secret's **Value** right away. Entra shows it only once. Don't copy the **Secret ID**, which Cora can't use.
+
+    <Warning>
+      When the client secret expires, nobody can sign in to Cora with Entra. Note the expiry date, and send Cora a new secret before it lapses.
+    </Warning>
+
+    **Add API permissions:**
+
+    1. Go to **API permissions** → **Add a permission** → **Microsoft Graph** → **Delegated permissions**
+    2. Select `openid`, `profile`, `email`, and `User.Read`. Entra adds `User.Read` to new registrations by default.
+    3. Click **Add permissions**
+    4. Click **Grant admin consent for** _your organization_, then click **Yes**
+    5. Confirm that each permission's status shows **Granted for** _your organization_
+
+    **Limit access to assigned users:**
+
+    Registering the app also creates a matching enterprise app. Use it to control who can sign in to Cora.
+
+    1. Browse to **Entra ID** → **Enterprise apps** → **All applications** and select **Cora.ai**
+    2. Go to **Properties**, set **Assignment required?** to **Yes**, and click **Save**
+    3. Go to **Users and groups** → **Add user/group**, select the users or groups who should have access, and click **Assign**
+       - **Recommendation**: Start with a pilot group before rolling out organization-wide
+
+    **Save the app's details:**
+
+    From the app registration's **Overview** page, save the following values along with the client secret:
+
+    - **Directory (tenant) ID**
+    - **Application (client) ID**
+    - **Primary domain**, shown on the **Entra ID** → **Overview** page (for example, `yourcompany.onmicrosoft.com` or `yourcompany.com`)
+
+    <Warning>
+      Keep these credentials secure. You'll need them for Step 2.
+    </Warning>
+  </Step>
+  <Step title="Share credentials securely with Cora.ai">
+    Once you've registered the app, send its details to Cora.ai so we can complete the configuration on our side.
+
+    **Required Information:**
+
+    | Field | Description |
+    | --- | --- |
+    | **Directory (tenant) ID** | Unique identifier for your Entra tenant, from the app registration's **Overview** page |
+    | **Primary domain** | Your Entra tenant's primary domain (for example, `yourcompany.onmicrosoft.com`) |
+    | **Application (client) ID** | Unique identifier for the Cora app you registered in Step 1 |
+    | **Client secret value** | The secret's **Value** from Step 1 (not the Secret ID) |
+    | **Client secret expiry** | The date the client secret expires, so we can remind you to rotate it |
+    | **Email domain(s)** | Every email domain your employees sign in with, for automatic routing (for example, `yourcompany.com`). Mark one as your main company domain. |
+
+    Cora routes sign-ins to Entra for every email domain you list. The Operator role on first sign-in and the Entra-only sign-in restriction apply to your main company domain. People on any other domain need to be added on the [Team](/getting-started/managing-team) page before their first sign-in.
+
+    **Secure Sharing via Bitwarden Send:**
+
+    To securely share your Entra credentials with us, use **Bitwarden Send** (a secure one-time sharing tool; no Bitwarden account required):
+
+    1. Go to [Bitwarden Send](https://bitwarden.com/products/send/)
+    2. In the **"Text"** tab, paste the following:
+       ```text
+       Directory (tenant) ID: [your-tenant-id]
+       Primary domain: [yourcompany.onmicrosoft.com]
+       Application (client) ID: [your-client-id]
+       Client secret value: [your-client-secret-value]
+       Client secret expiry: [YYYY-MM-DD]
+       Main company domain: yourcompany.com
+       Other email domains: subsidiary.com (if any)
+       ```
+    3. Click **"Create Send"**
+    4. Click **"Copy Link"**
+    5. Send the link to your Cora.ai contact via email or Slack
+
+    **Alternative Secure Sharing Methods:**
+
+    If you prefer not to use Bitwarden Send, you can also:
+
+    - Share via your organization's secure file sharing platform
+    - Send via encrypted email
+    - Share during a scheduled call with screen sharing
+
+    **What Happens Next:**
+
+    1. Cora.ai receives your credentials securely
+    2. Our team configures the integration on our side (typically within 1 business day)
+    3. We'll notify you when the integration is ready for testing
+    4. You can then proceed to Step 3 to add the Cora tile to My Apps
+  </Step>
+  <Step title="Add the Cora tile to My Apps (optional)">
+    Once Cora.ai confirms the integration is live, complete these settings so assigned users can launch Cora from [My Apps](https://myapps.microsoft.com):
+
+    1. **Set the Home page URL** — Cora.ai will provide you with a URL in the format `https://app.cora.ai/start-login?connection=<your-org>-entra`. In the app registration, go to **Branding & properties** and paste this URL into the **Home page URL** field, then click **Save**. My Apps opens this URL when someone clicks the tile.
+    2. **Make the app visible to users** — Entra hides new app registrations from My Apps by default. Browse to **Entra ID** → **Enterprise apps** → **All applications** → **Cora.ai** → **Properties**, set **Visible to users?** to **Yes**, and click **Save**.
+    3. **Verify** — Assigned users should now see the Cora.ai tile in My Apps and can click it to sign in to Cora directly.
+  </Step>
+</Steps>
+
+## Restrict sign-in to Entra only
+
+Once Entra sign-in is working, you can ask Cora to make it the only way your employees sign in. Contact your Cora.ai implementation contact, and we'll turn off email code, Google, and Slack sign-in for your organization.
+
+The restriction covers everyone on your main company domain, plus anyone added on the [Team](/getting-started/managing-team) page. After that:
+
+- **Employees sign in with Entra** — They enter their work email on the Cora sign-in page, which sends them to Entra, or they click the Cora tile in My Apps.
+- **Other sign-in methods are rejected** — Anyone who tries email code, Google, or Slack sees an error asking them to sign in with Entra.
+- **Existing sessions on other methods stop working** — People who signed in another way are signed out on their next action and need to sign in again with Entra.
+- **Cora MCP uses Entra too** — Signing in to [Cora MCP](/integrations/cora-mcp) from an AI tool goes through Entra.
+
+<Warning>
+  Before you ask Cora to restrict sign-in, make sure everyone who needs Cora is assigned to the Cora.ai app in Entra. Anyone who isn't assigned can't sign in once other methods are turned off.
+</Warning>
+
+## User provisioning
+
+Cora.ai supports **just-in-time (JIT) user provisioning** via Entra. This means:
+
+- **No manual provisioning needed** — As long as a user clicks the Cora tile in My Apps (or goes to app.cora.ai and enters their work email), they will be signed in and provisioned automatically on first access.
+- **Role on first sign-in** — A person on your main company domain who has no role, or only the User role, becomes an Operator. Entra sign-in never assigns Admin. To keep someone as a Viewer, add them on the [Team](/getting-started/managing-team) page as a Viewer before their first sign-in. Anyone on another email domain must be added on the Team page before their first sign-in, or they see an "Unauthorized" page.
+- **No SCIM required** — Because Cora does not use a license-based model, there is no need for SCIM or manual user management. Inactive or dormant users have no commercial impact.
+- **Deprovisioning** — If a user should no longer have access, unassign them (or remove them from the assigned group) on the Cora.ai enterprise app in Entra. They can no longer sign in, but a Cora session they already have open stays valid until it expires. To remove access immediately, also remove them on the [Team](/getting-started/managing-team) page.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Users see error AADSTS50105 or a message that they aren't assigned to the app. What's wrong?">
+    The Cora.ai enterprise app requires assignment, and the user isn't assigned to it. In **Entra ID** → **Enterprise apps** → **Cora.ai** → **Users and groups**, assign the user directly or add them to an assigned group. Entra only honors direct membership of an assigned group, not nested groups. Test with the affected user rather than a Global Administrator, because Global Administrators can sign in without an assignment.
+  </Accordion>
+
+  <Accordion title="The Cora.ai tile doesn't appear in My Apps. What's wrong?">
+    Check that **Visible to users?** is set to **Yes** on the enterprise app's **Properties** page, that the **Home page URL** is set under **Branding & properties** in the app registration, and that the user is assigned to the app (directly or via group).
+  </Accordion>
+
+  <Accordion title="Sign-in stopped working for everyone. What happened?">
+    The most common cause is an expired client secret. Create a new client secret in the app registration under **Certificates & secrets**, and send the new value and its expiry date to Cora.ai using Bitwarden Send.
+  </Accordion>
+
+  <Accordion title="Do we need to manually provision users or submit tickets?">
+    No. Cora supports just-in-time provisioning. Users on your main company domain are automatically created on their first sign-in with Entra. No ServiceNow ticket, no admin action, no delay.
+  </Accordion>
+
+  <Accordion title="What if a user was previously using Google SSO?">
+    Users who were previously authenticated via Google SSO will need to click **"Continue with email"** (or use the My Apps tile) once to transition to Entra sign-in. This is a one-time action.
+  </Accordion>
+
+  <Accordion title="Does Cora.ai support SCIM?">
+    SCIM is on our roadmap but not currently supported. However, because Cora uses JIT provisioning and has no per-seat licensing, the practical need for SCIM is minimal: users auto-provision on first access and dormant accounts have no cost impact.
+  </Accordion>
+</AccordionGroup>
+
+If you run into issues, contact your Cora.ai implementation contact or email [support@cora.ai](mailto:support@cora.ai).

@@ -89,7 +89,9 @@ The Okta integration setup is a three-step process. You'll configure your Okta a
     | **Okta Domain** | Okta's domain name for your organization (for example, `yourcompany.okta.com`) |
     | **Client ID** | Unique identifier for your registered Okta application from Step 1 |
     | **Client Secret** | Authentication secret for your registered Okta application from Step 1 |
-    | **Email Domain(s)** | Your organization's email domain(s) to enable automatic routing (for example, `yourcompany.com`) |
+    | **Email Domain(s)** | Your organization's email domain(s) to enable automatic routing (for example, `yourcompany.com`). Mark one as your main company domain. |
+
+    Cora routes sign-ins to Okta for every email domain you list. The Operator role on first sign-in and the Okta-only sign-in restriction apply to your main company domain. People on any other domain need to be added on the [Team](/getting-started/managing-team) page before their first sign-in.
 
     **Secure Sharing via Bitwarden Send:**
 
@@ -101,7 +103,8 @@ The Okta integration setup is a three-step process. You'll configure your Okta a
        Okta Domain: [your-org].okta.com
        Client ID: [your-client-id]
        Client Secret: [your-client-secret]
-       Email Domain(s): yourcompany.com, subsidiary.com (if multiple)
+       Main company domain: yourcompany.com
+       Other email domains: subsidiary.com (if any)
        ```
     3. Click **"Create Send"**
     4. Click **"Copy Link"**
@@ -131,14 +134,29 @@ The Okta integration setup is a three-step process. You'll configure your Okta a
   </Step>
 </Steps>
 
+## Restrict sign-in to Okta only
+
+Once Okta sign-in is working, you can ask Cora to make it the only way your employees sign in. Contact your Cora.ai implementation contact, and we'll turn off email code, Google, and Slack sign-in for your organization.
+
+The restriction covers everyone on your main company domain, plus anyone added on the [Team](/getting-started/managing-team) page. After that:
+
+- **Employees sign in through Okta** — They enter their work email on the Cora sign-in page, which sends them to Okta, or they click the Cora tile in their Okta dashboard.
+- **Other sign-in methods are rejected** — Anyone who tries email code, Google, or Slack sees an error asking them to sign in with Okta.
+- **Existing sessions on other methods stop working** — People who signed in another way are signed out on their next action and need to sign in again through Okta.
+- **Cora MCP uses Okta too** — Signing in to [Cora MCP](/integrations/cora-mcp) from an AI tool goes through Okta.
+
+<Warning>
+  Before you ask Cora to restrict sign-in, make sure everyone who needs Cora is assigned to the Cora.ai app in Okta. Anyone who isn't assigned can't sign in once other methods are turned off.
+</Warning>
+
 ## User Provisioning
 
 Cora.ai supports **just-in-time (JIT) user provisioning** via Okta. This means:
 
 - **No manual provisioning needed** — As long as a user clicks the Cora tile in Okta (or goes to app.cora.ai and enters their work email), they will be logged in and provisioned automatically on first access.
-- **Role on first sign-in** — A person on your company domain who has no role, or only the User role, becomes an Operator. Okta never assigns Admin. To keep someone as a Viewer, add them on the [Team](/getting-started/managing-team) page as a Viewer before their first sign-in.
+- **Role on first sign-in** — A person on your main company domain who has no role, or only the User role, becomes an Operator. Okta never assigns Admin. To keep someone as a Viewer, add them on the [Team](/getting-started/managing-team) page as a Viewer before their first sign-in. Anyone on another email domain must be added on the Team page before their first sign-in, or they see an "Unauthorized" page.
 - **No SCIM required** — Because Cora does not use a license-based model, there is no need for SCIM or manual user management. Inactive or dormant users have no commercial impact.
-- **Deprovisioning** — If a user should no longer have access, simply unassign them from the Cora.ai app in Okta. They will no longer be able to authenticate.
+- **Deprovisioning** — If a user should no longer have access, simply unassign them from the Cora.ai app in Okta. They can no longer sign in, but a Cora session they already have open stays valid until it expires. To remove access immediately, also remove them on the [Team](/getting-started/managing-team) page.
 
 ## FAQ
 
