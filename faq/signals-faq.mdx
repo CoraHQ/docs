@@ -53,14 +53,18 @@ Signals are lifecycle events Cora detects across your customer accounts. If you'
   </Accordion>
 
   <Accordion title="How far back does Cora look when detecting Signals?">
-    The detection pipeline runs every hour, processing new activity from your connected integrations each cycle. How far back data is available to analyze depends on the source:
+    Cora runs detection every hour on new activity from your connected integrations. How far back it looks depends on the kind of source.
 
-    - **Gmail** — 30 days
-    - **Gong** — 30 days
-    - **Slack** — no lookback (messages only after the bot is in the channel)
-    - **Intercom** — 30 days
+    **Conversations and meetings.** Cora's AI reads these. On first connection, Cora imports recent history:
 
-    After the initial sync, Cora continuously analyzes new activity as it arrives on the hourly cycle. When classifying an event, the AI also considers up to 90 days of contact engagement history and 48 hours of cross-source context, so it can spot trends even if the triggering activity just happened.
+    - **Gmail, Gong, Intercom, Zendesk, Granola, Attention** — about the last 30 days
+    - **Google Calendar** — meetings from the last 30 days and the next 30 days. An upcoming meeting can produce a Signal only after it ends.
+    - **Gainsight Timeline** — activities from the last 30 days
+    - **Slack** — no lookback. Cora picks up messages live, only after it's added to the channel.
+
+    **CRM and data records.** **HubSpot, Salesforce, Gainsight, Snowflake, BigQuery, Postgres, and SFTP/S3** use rule-based detection. Each hourly run checks every current record against your detection conditions, however old the record is. To limit matches to recent events, add a date compare (see the entries above). Gainsight "changed to" and "changed from" rules only fire on changes Cora sees after you connect.
+
+    When classifying a conversation, the AI also considers up to 90 days of contact engagement history and the last 48 hours of other events on the account, so it can spot trends even when the triggering activity just happened.
   </Accordion>
 
   <Accordion title="I added Cora to Slack but I’m not seeing Signals.">
