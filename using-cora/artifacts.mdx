@@ -23,7 +23,7 @@ Artifacts are not agent runs, and they are not signals. A run is one execution o
 Use **Filters** on the **Artifacts** page to show specific types. The filter labels are:
 
 - **Document.** Markdown you can read in Cora, such as a meeting prep doc, a QBR summary, or an account brief. Chat and agents both write these. You can mark one as a [template](#templates).
-- **Dashboard.** Live charts and tables over your warehouse data. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**.
+- **Dashboard.** A data app Cora builds over your data: live charts, tables, and actions you can take in place. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**. See [Data apps](#data-apps).
 - **Presentation.** An in-app slide deck, such as a QBR or a book review. Ask Cora in chat when you want one. Chat shows a preview. Reopen it from **Artifacts** with the **Presentation** filter, then **Present** from the player. You cannot pin a presentation to **Analytics**; that stays dashboards. You can mark one as a [template](#templates).
 - **Page.** An HTML page you ask Cora to build, such as a renewal page. Ask Cora in chat when you want one. You can mark one as a [template](#templates).
 - **Survey** and **Survey Response.** A **Survey** is the reusable template. A **Survey Response** is a completed set of answers, attached to the account you sent the link for. Building, sending, and reporting on surveys is covered in [Surveys](/using-cora/surveys).
@@ -132,6 +132,42 @@ Your change applies right away.
 <Note>
   You'll only see **Share** on artifacts you created. Cora can only change visibility or people-access on artifacts you own — someone else's private document or dashboard won't show up for you until they add you.
 </Note>
+
+## Data apps
+
+A dashboard is a small data app Cora builds for you. Use it to work, not just to read: a review queue, a renewal tracker, a triage board.
+
+It shows on **Artifacts** under the **Dashboard** filter, and you can pin it to **Analytics**.
+
+Ask Cora in chat for one. Describe the app you want, for example: _"Build a renewal tracker for accounts renewing this quarter, where I can assign an owner and create a follow-up task."_
+
+### What a data app can do
+
+- Show charts, tables, and metrics over your accounts, tasks, signals, and connected tools.
+- Let you filter and drill in, when you ask Cora for it.
+- Sort and export its tables. Tables come with CSV export unless you ask Cora to leave it out.
+- Act on a row in Cora: approve or reject a task, mark it complete, assign it, or create a task or checklist.
+- Stay current. Tasks and agent runs sync within about 15 minutes. Connected tools, such as Slack or Salesforce, sync within about an hour. Short lists also read live data when the app opens, so a change made elsewhere shows up right away.
+
+### Taking action
+
+Every action shows what it will change and waits for you to confirm. Opening an app never changes anything.
+
+An action runs as you, with your access, in your workspace. It cannot reach another workspace's data.
+
+One action runs at a time. A second click while one is running answers "Another action is already running."
+
+The change shows in the app the moment it finishes.
+
+### Who can act
+
+Admins and Operators can act in any data app they can open, with the same permissions they have in chat.
+
+A Viewer can open a shared data app and see its data. An action that changes something answers "View-only access can't change data." A lookup still works, and it shows only customer-facing tasks.
+
+Customers do not have data apps in the customer portal.
+
+Change a data app in chat, as described in [Who can edit](#who-can-edit).
 
 ## Pages
 
