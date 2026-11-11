@@ -23,7 +23,7 @@ Artifacts are not agent runs, and they are not signals. A run is one execution o
 Use **Filters** on the **Artifacts** page to show specific types. The filter labels are:
 
 - **Document.** Markdown you can read in Cora, such as a meeting prep doc, a QBR summary, or an account brief. Chat and agents both write these. You can mark one as a [template](#templates).
-- **Dashboard.** Live charts and tables over your warehouse data. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**.
+- **Dashboard.** Live charts and tables over your warehouse data. Ask Cora in chat when you want one. You can pin a dashboard to **Analytics**. A dashboard can also be a data app with buttons that act on rows; see [Dashboards](#dashboards).
 - **Presentation.** An in-app slide deck, such as a QBR or a book review. Ask Cora in chat when you want one. Chat shows a preview. Reopen it from **Artifacts** with the **Presentation** filter, then **Present** from the player. You cannot pin a presentation to **Analytics**; that stays dashboards. You can mark one as a [template](#templates).
 - **Page.** An HTML page you ask Cora to build, such as a renewal page. Ask Cora in chat when you want one. You can mark one as a [template](#templates).
 - **Survey** and **Survey Response.** A **Survey** is the reusable template. A **Survey Response** is a completed set of answers, attached to the account you sent the link for. Building, sending, and reporting on surveys is covered in [Surveys](/using-cora/surveys).
@@ -132,6 +132,36 @@ Your change applies right away.
 <Note>
   You'll only see **Share** on artifacts you created. Cora can only change visibility or people-access on artifacts you own — someone else's private document or dashboard won't show up for you until they add you.
 </Note>
+
+## Dashboards
+
+A dashboard can be something you work from, such as a review queue, a renewal tracker, or a triage board. It shows live data, with buttons on each row.
+
+Ask Cora in chat for one. Cora saves it on **Artifacts**, and you can pin it to **Analytics**.
+
+Charts and tables read Cora's synced data. Tasks and agent runs catch up within about 15 minutes. Data from connected tools, such as Slack or Salesforce, catches up within about an hour.
+
+### Buttons that take action
+
+Ask Cora to add one, for example: _"Add Approve and Reject buttons to each task in my review dashboard."_
+
+Cora builds each button to show what it will change and wait for you to confirm. Opening a dashboard never changes anything.
+
+A button runs as you, with your access, in your workspace. It cannot reach another workspace's data.
+
+One action runs at a time. A second click while one is running answers "Another action is already running."
+
+The change appears in the dashboard right away. For short lists, the dashboard also checks live data when it opens, so a change made elsewhere shows up without waiting for the next sync.
+
+### Who can use the buttons
+
+Admins and Operators can use the buttons on any dashboard they can open, with the same permissions they have in chat.
+
+A Viewer can open a shared dashboard and see its data. A button that changes something answers "View-only access can't change data." A button that only looks something up still works, and it shows only customer-facing tasks.
+
+Customers do not have dashboards in the customer portal.
+
+Edit a dashboard or its buttons in chat, as described in [Who can edit](#who-can-edit).
 
 ## Pages
 
