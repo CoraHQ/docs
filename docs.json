@@ -57,7 +57,14 @@
         "group": "Using Cora",
         "icon": "sparkles",
         "pages": [
-          "using-cora/artifacts",
+          {
+            "group": "Artifacts",
+            "root": "using-cora/artifacts",
+            "pages": [
+              "using-cora/data-apps",
+              "using-cora/pages"
+            ]
+          },
           "using-cora/signals",
           "using-cora/setting-up-signals",
           "using-cora/custom-columns",
