@@ -35,8 +35,8 @@ Let us walk through a concrete example. Say you want a weekly summary of account
     - **What timezone?** Eastern, Pacific, UTC, etc.
     - **What data should it include?** Health scores, risk signals, renewal dates, usage metrics, etc.
     - **How autonomous should it be?** Internal-only alerts (Crawl), drafts with approval (Walk), or fully autonomous (Run).
-    - **What is the goal?** The outcome that finishes the run, such as three people active within 30 days of launch. Skip this when the agent has no finish line.
-    - **When is the goal not met?** The exit condition, such as fewer than three people active 30 days after launch. On **Runs**, this line is **Exit if:**.
+    - **What is the goal?** The outcome the run is working toward, such as three people active within 30 days of launch. Skip this when the agent has no outcome to pursue.
+    - **When should the run stop?** The exit condition. It covers the goal reached and the other branch, such as three people active, or 30 days pass. On **Runs**, this line is **Exit if:**.
 
     Cora offers multiple-choice options for most questions, so you can pick by number rather than typing long answers. If none of the options fit, you can always describe what you want in your own words.
   </Step>
