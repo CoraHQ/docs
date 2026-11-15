@@ -50,15 +50,32 @@ Manual runs produce the same output as scheduled or event-triggered runs. They a
 
 Every time an agent runs, it creates a record you can review. To check on an agent's recent activity:
 
-**On the Agents page:** Open the agent and look at its run history. Each run shows its status (completed, in progress, or failed), the target account, and when it ran.
+**On the Agents page:** Open the agent and select **Runs**. An agent with no goal shows **Account**, **Run**, **Where it stands**, and **Started**. The task line stays under **Where it stands**. There is no **Exit if**, and no **Met** or **Not met**.
 
 **In chat:** Ask Cora about recent runs:
 
 - _"Did my renewal digest run this morning?"_
 - _"What happened on the last run of my onboarding agent?"_
 - _"Why did my account health agent fail?"_
+- _"What did the last run say about the goal?"_
 
 Cora can show you what happened in each run, including what actions were taken and what went wrong if a run failed. If a failure occurred, Cora will explain the issue in plain language and offer to fix the agent.
+
+### When the agent has a goal
+
+Open the agent and select **Runs**.
+
+The header shows the goal. When you set an exit condition, it shows **Exit if:** once.
+
+The tally reads **Goal met in N of M runs**. Select **Met** or **Not met** to filter the table. The tally does not change.
+
+The table columns are **Account**, **Run**, **Goal**, and **Started**.
+
+**Goal** shows **Met** with a green flag, or **Not met** with a grey flag, and the note. An open run shows only its note. With no note yet, it says **No goal update yet**. A stopped or finished run with no verdict says **No goal report.** **Started** shows when the run began. A stopped or finished run also shows how long it ran.
+
+A run's goal work ends when a task first reports met or not met. Later scheduled passes do not run. A review that is already waiting stays open. You can still run the task yourself. Stopping a run is a separate action.
+
+An agent with no goal keeps **Where it stands** and does not show **Met** or **Not met**.
 
 ## Refining an Agent Through Chat
 
