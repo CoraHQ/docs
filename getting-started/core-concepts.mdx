@@ -1,7 +1,7 @@
 ---
 title: "Core Concepts in Cora"
 sidebarTitle: "Core Concepts"
-description: "The key vocabulary in Cora: signals, agents, runs, tasks, skills, and artifacts, and how they fit together."
+description: "The key vocabulary in Cora: signals, agents, runs, goals, tasks, skills, and artifacts, and how they fit together."
 ---
 
 Cora has a small set of nouns that show up everywhere. Learn them here, then follow the links for the how-tos.
@@ -12,7 +12,11 @@ Cora has a small set of nouns that show up everywhere. Learn them here, then fol
 
 **Agent.** A reusable workflow you save so the same work can run again. An agent has a trigger (manual, scheduled, or a signal), tasks, and an autonomy level. You build and refine agents in chat, then turn them on from the **Agents** page. Trigger types and autonomy levels are covered in [Understanding Agents](/agents/understanding-agents).
 
-**Agent run.** One execution of an agent. Each time an agent fires (on a schedule, from a signal, or when you start it), Cora creates a run. Review what happened from the **Agents** page.
+**Agent run.** One execution of an agent. Each time an agent fires (on a schedule, from a signal, or when you start it), Cora creates a run. A run with a goal ends that goal work when a task reports met or not met. Review what happened from the **Agents** page.
+
+**Goal.** The business outcome a run works toward. The exit condition lists the concrete signals that end the run. You describe it when you build the agent. A task reports whether the run met it.
+
+**Exit condition.** When the run stops. It covers the goal reached and the other branch, such as time running out. When a task reports met or not met, Cora turns off the run's remaining steps for you, and reviews already waiting stay open. Optional. The **Runs** tab shows it once, as **Exit if:**.
 
 **Task.** One step inside an agent. A simple agent might have a single task, such as querying data and posting to Slack. A more complex agent chains tasks: gather data, send an email, then follow up if the customer replies.
 
