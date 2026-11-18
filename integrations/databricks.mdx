@@ -1,0 +1,98 @@
+---
+title: "Integrate Databricks with Cora"
+sidebarTitle: "Databricks"
+description: "Connect a Databricks SQL warehouse to Cora to sync the tables you choose and query them live from chat, read-only."
+---
+
+The Databricks integration gives Cora.ai a direct, read-only connection to a Databricks SQL warehouse. Cora.ai signs in as a service principal you create, syncs the tables you choose once a day, and makes that data available to agents, dashboards, and workflows. Chat can also query the warehouse live.
+
+**Integration Type**: OAuth machine-to-machine (service principal + OAuth secret), Organization-Level<br />**Required Role**: Cora.ai Admin or Operator, plus a Databricks workspace admin<br />**Connects to**: A Databricks SQL warehouse with Unity Catalog tables
+
+## Prerequisites
+
+- A Databricks workspace admin, who can create a service principal and its OAuth secret
+- A SQL warehouse, and the catalog and schema that hold the tables you want to share
+
+## Setup steps
+
+<Note>
+  Live queries can read anything the service principal can read, not only the synced tables. Grant it only the data you want to share. Some workspaces give all users access to the workspace catalog by default, so check what the service principal can read before you connect.
+</Note>
+
+<Steps>
+  <Step title="Create a service principal and an OAuth secret">
+    In your Databricks workspace, create a service principal for Cora.ai with the **Databricks SQL access** entitlement. Note its application ID: this is the client ID you enter in Cora.ai. Then, on its **Secrets** tab, generate an OAuth secret. In the **Generate OAuth secret** dialog:
+
+    1. Choose **BI Tools** and keep the default access level, **Read + Restricted query**
+    2. Set a lifetime from 1 to 730 days. Cora.ai cannot connect once the secret expires, and Databricks revokes a secret that is not used for 90 days
+    3. Copy the secret value. Databricks shows it only once
+  </Step>
+  <Step title="Grant read access">
+    Give the service principal the **Can use** permission on the SQL warehouse. Then grant it read access in Unity Catalog, using its application ID in backticks:
+
+    ```sql
+    GRANT USE CATALOG ON CATALOG <catalog> TO `<application-id>`;
+    GRANT USE SCHEMA ON SCHEMA <catalog>.<schema> TO `<application-id>`;
+    GRANT SELECT ON SCHEMA <catalog>.<schema> TO `<application-id>`;
+    ```
+
+    `SELECT` on the schema also covers tables you add later. To share fewer tables, grant `SELECT` on each table instead.
+  </Step>
+  <Step title="Connect Databricks in Cora.ai">
+    1. Log into Cora.ai as an **Admin** or **Operator**
+    2. Go to **Settings** → **Organization Settings** → **Integrations**
+    3. Find the **Databricks** row and click **Connect**
+    4. In the **Connection** section, fill in the fields below, then click **Connect**. In Databricks, the hostname and HTTP path are under **SQL Warehouses** → your warehouse → **Connection details**
+
+    | Field | Description |
+    | --- | --- |
+    | **Server Hostname** | The workspace hostname, for example `dbc-1234.cloud.databricks.com`. A leading `https://` or trailing `/` is removed. Required. |
+    | **HTTP Path** | The SQL warehouse's HTTP path, for example `/sql/1.0/warehouses/abc123`. Required. |
+    | **Catalog** | The Unity Catalog catalog that holds the tables. Required. |
+    | **Schema** | The schema that holds the tables. Required. |
+    | **Client ID** | The service principal's application ID. Required. |
+    | **Client secret** | The OAuth secret from step 1. It is encrypted on save and never shown again. Leave it blank to keep the stored secret. |
+
+    The connection is saved and the integration is turned on. The button changes to **Save**, and the status reads **Connected**.
+  </Step>
+  <Step title="Choose the tables to sync">
+    There is no table picker yet. An Admin can ask Cora.ai in chat, for example "Sync the accounts and usage_daily tables from Databricks", or your Cora.ai contact can set them up. Until then, **Sources** reads "No sources configured yet." and nothing syncs.
+  </Step>
+</Steps>
+
+## What Cora.ai accesses
+
+**Reads**: The tables you choose, in full, once a day (06:00 UTC by default). Chat answers from this synced copy. When you ask for live data, or for a table that is not synced, Cora.ai queries the warehouse directly.
+
+**Writes**: None. The OAuth scope makes every session read-only, so Databricks rejects any insert, update, delete, or schema change.
+
+## Limits
+
+- **One catalog and one schema.** A connection syncs tables from the catalog and schema you entered
+- **Full refresh only.** Each sync reads every column of each table and replaces Cora.ai's copy. Large tables take longer and use more warehouse compute
+- **Databricks hostnames only.** **Server Hostname** must be on a Databricks domain, such as `cloud.databricks.com`, `azuredatabricks.net`, or `gcp.databricks.com`. A custom domain, port, or path is refused
+- **Stopped warehouses.** A sync or live query starts a stopped warehouse. Databricks starts serverless warehouses in seconds, and pro and classic warehouses in about 4 minutes
+- **Live query size.** A live query returns 1,000 rows by default and 5,000 at most. The warehouse stops it after 30 seconds of running
+
+## Security
+
+| Principle | How it's enforced |
+| --- | --- |
+| **Read-only** | Cora.ai always requests the read-only scope `sql:read:restricted-query`, even when the secret allows more, such as `all-apis` |
+| **Credential security** | The client secret is write-only: encrypted at rest, never returned by the app, and never shown in the UI |
+| **Revocability** | Disconnect in Cora.ai to remove the stored secret, or delete the secret or the service principal in Databricks |
+
+## Troubleshooting
+
+- **Save shows "Failed to save — Retry".** Check **Server Hostname**. It must be the workspace hostname only, on a Databricks domain.
+- **Data stopped updating.** A failed sync leaves the connector reading **Connected**, with the last successful **Last Synced** time. Ask Cora.ai in chat for the Databricks pipeline status. `invalid_client: Client authentication failed` means Databricks refused the **Client ID** and **Client secret**. Check both, and check that the secret has not expired.
+- **Connected, but nothing is syncing.** If **Sources** reads "No sources configured yet.", choose the tables (step 4). Also confirm **Enable Integration** is on.
+- **A live query says "The Databricks SQL warehouse did not finish the query within 45 seconds. It may be starting up: retry the query shortly."** The warehouse is starting or busy. Ask again once it is running.
+
+## Disconnecting
+
+To **pause** syncing without losing your setup, open the Databricks connector and turn off the **Enable Integration** toggle. Your connection details and stored secret are kept, the status reads **Paused**, and syncing and live queries stop until you turn it back on.
+
+To fully **disconnect**, open the connector and click **Disconnect**. This turns off syncing and removes the stored secret from Cora.ai. To reconnect later, enter your connection details and a secret again.
+
+If you need help, email [support@cora.ai](mailto:support@cora.ai).
