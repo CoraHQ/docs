@@ -13,7 +13,7 @@ The Databricks integration gives Cora.ai a direct, read-only connection to a Dat
 - A Databricks workspace admin, who can create a service principal and its OAuth secret
 - A SQL warehouse, and the catalog and schema that hold the tables you want to share
 
-## Setup Steps
+## Setup steps
 
 <Note>
   Live queries can read anything the service principal can read, not only the synced tables. Grant it only the data you want to share. Some workspaces give all users access to the workspace catalog by default, so check what the service principal can read before you connect.
@@ -60,7 +60,7 @@ The Databricks integration gives Cora.ai a direct, read-only connection to a Dat
   </Step>
 </Steps>
 
-## What Cora.ai Accesses
+## What Cora.ai accesses
 
 **Reads**: The tables you choose, in full, once a day (06:00 UTC by default). Chat answers from this synced copy. When you ask for live data, or for a table that is not synced, Cora.ai queries the warehouse directly.
 
