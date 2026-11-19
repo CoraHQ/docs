@@ -21,7 +21,7 @@ In short, an Action is a single unit of work Cora does for you. In a little more
 
 A few things to keep in mind:
 
-- Actions count the same way no matter how the work starts: from the Cora app, a workflow or signal, or a request through our API or MCP.
+- Actions count the same way no matter how the work starts: from the Cora app, a workflow or signal, or a request through MCP.
 - Actions do not include signing in, status or health checks, viewing usage data, or re-opening outputs Cora already generated.
 - Actions include work Cora does based on configurations you set up, or that Cora set up with your approval.
 
@@ -35,7 +35,7 @@ A few things to keep in mind:
 
 An Action is counted whenever Cora runs an AI inference or performs a task in one of your connected systems. Work that involves neither is not an Action.
 
-This is true no matter how the work starts. Whether you ask Cora directly in the app, a workflow or signal triggers it automatically, or another system calls Cora through our API or MCP interface, the same work counts as the same number of Actions. This includes work Cora performs based on configurations you set up, or that Cora set up on your behalf with your approval.
+This is true no matter how the work starts. Whether you ask Cora directly in the app, a workflow or signal triggers it automatically, or another system calls Cora through our MCP interface, the same work counts as the same number of Actions. This includes work Cora performs based on configurations you set up, or that Cora set up on your behalf with your approval.
 
 As a rule of thumb, Cora counts an Action only when it actively does something for you: it runs an AI inference, or it performs a task such as sending, updating, or fetching data on request. The automatic work that keeps your data flowing and on screen is not counted.
 
@@ -66,4 +66,4 @@ These lists are illustrative, not exhaustive, but they cover the most common cas
 ## Good to know
 
 - A single agent run can involve several Actions. For example, an agent that sends an email, updates a record, and runs a query performs three Actions, not one.
-- When another system or agent calls Cora through the API or MCP, each task Cora performs counts as one Action.
+- When another system or agent calls Cora through MCP, each task Cora performs counts as one Action.
