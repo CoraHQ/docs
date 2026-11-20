@@ -66,16 +66,16 @@ Ownership sync maps CRM fields to Cora team roles, so the right team members are
     Click **Add another line for** the role to add another line. The button includes the role name, for example **Add another line for Account Owner**.
   </Step>
   <Step title="Save">
-    Click **Save**. Cora confirms with **Saved. Account ownership will sync on the next data refresh.**
+    Click **Save**. **Saved. Account ownership will sync on the next data refresh.** appears only when there are no warnings. If a source column has values and none match a CRM user, **Save** still succeeds, that success text is not shown, and the dialog warns `None of the values in {field} match a {CRM} user, so this line will not assign anyone. Existing owners stay until a line matches.` When the comparison cannot be made, the warning is `The values in {field} cannot be matched to a {CRM} user, so this line will not assign anyone. Existing owners stay until a line matches.`
   </Step>
 </Steps>
 
 ### How lines work
 
-The tab shows: **Lines run top to bottom. Owners who no longer match are removed on the next refresh.**
+The tab shows: **Lines run top to bottom. Changes apply the next time accounts refresh, and owners who no longer match are removed then.**
 
 - Each line after the first joins the line above with **Otherwise** (**Only if nobody was found above**) or **Also** (**Add this person as another owner too**).
-- **Only when** adds conditions on account fields. All conditions on a line must match. The button reads **Only when…** until you add conditions, and the editor heading is **Only when all of these match**. The operators are the same as the import filters.
+- Each line shows **Only when all of these match**, including when it has no conditions yet, and the condition rows stay open. Add a condition with **Add another condition**. All conditions on a line must match. The operators are the same as the import filters.
 - **Skip if this person is inactive in Salesforce** passes the account to the next line when that user is inactive. On a **The manager of** line, the label is **Skip if the manager is inactive in Salesforce**, and Cora checks the manager instead. Both options are Salesforce only.
 - Reorder a line with **Move line up** and **Move line down**.
 
@@ -96,7 +96,7 @@ Cora tries the lines from top to bottom. **Otherwise** runs only when no earlier
 </Note>
 
 <Warning>
-  If a condition field no longer exists in your CRM, the line shows `{field} no longer exists in {CRM}. Pick another field or remove this condition.` **Save** stays blocked until you pick another field or remove the condition. If a saved field disappears later, Cora leaves that role unchanged on refresh rather than reassigning owners.
+  If a condition field no longer exists in your CRM, the line shows `{field} no longer exists in {CRM}. Pick another field or remove this condition.` **Save** is blocked only while ownership sync is on and the field list has loaded, and the button then reads **Fix 1 problem to save** or **Fix N problems to save**. Turning ownership sync off lets **Save** succeed without changing the condition. If the field list has not loaded, **Save** is not blocked and the dialog warns `Couldn't verify that every condition field still exists in {CRM}, so this was saved without that check.` If a saved field disappears later, Cora leaves that role unchanged on refresh rather than reassigning owners.
 </Warning>
 
 <Note>
