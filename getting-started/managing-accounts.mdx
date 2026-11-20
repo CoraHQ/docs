@@ -1,7 +1,7 @@
 ---
 title: "Import and Manage Your Accounts in Cora"
 sidebarTitle: "Accounts"
-description: "Import accounts from Salesforce or HubSpot, configure ownership sync, filter by ownership, add accounts manually, and delete accounts in Cora."
+description: "Import accounts from Salesforce or HubSpot, configure ownership sync rules, filter by ownership, add accounts manually, and delete accounts in Cora."
 ---
 
 The Accounts page is where you manage which customer accounts are in Cora and who owns them. You can import accounts from your CRM, configure ownership sync so the right team members are mapped to each account, filter your view by ownership, and delete accounts you no longer track.
@@ -45,28 +45,63 @@ Once your CRM (Salesforce or HubSpot) is connected, you can import accounts into
 
 Ownership sync maps CRM fields to Cora team roles, so the right team members are associated with each account. This powers the ownership filters on the Accounts and Signals tabs.
 
-### Setting Up Ownership Sync
+### Setting up ownership sync
 
 <Steps>
-  <Step title="Navigate and open ownership sync">
-    1. Navigate to the **Accounts** page.
-    2. Click **New Account**, then **Sync from Salesforce** or **Sync from HubSpot**.
-    3. Switch to the **Account Ownership** tab.
-    4. Toggle **Enable ownership sync** on.
+  <Step title="Open ownership sync">
+    1. Go to **Accounts**.
+    2. Click **New Account**.
+    3. Click **Sync from Salesforce** or **Sync from HubSpot**.
+    4. Open the **Account Ownership** tab.
+    5. Turn on **Enable ownership sync**.
   </Step>
-  <Step title="Configure field mappings">
-    For each field mapping, configure:
+  <Step title="Add a role">
+    Click **Add a role** and pick a role. Each role gets its own card. The roles are **Account Owner**, **Manager**, **Technical Account Manager**, **Customer Success Manager**, **Account Executive**, **Client Delivery Lead**, **Change Activation Partner**, **Technical Implementation Manager**, **Account Manager**, and **Client Partner**.
+  </Step>
+  <Step title="Add lines">
+    Each line reads **The person in** or **The manager of**, then a CRM field that holds a user.
 
-    - **Field** — select a CRM field that references a user (for example, an owner or lookup field)
-    - **Role** — choose the team role to assign. Options include **Account Owner**, **Manager**, **Technical Account Manager**, **Customer Success Manager**, **Account Executive**, **Client Delivery Lead**, **Change Activation Partner**, **Technical Implementation Manager**, **Account Manager**, and **Client Partner**.
-    - **Their mgr toggle** (Salesforce only) — when enabled, Cora resolves the _manager_ of the person in the mapped field via Salesforce's user hierarchy, rather than the person themselves. Use this to automatically assign a Manager role to the reporting manager of the account owner or CSM.
+    **The manager of** is Salesforce only. It uses the Salesforce user hierarchy, so Cora assigns the reporting manager of the person in that field.
+
+    Click **Add another line for** the role to add another line. The button includes the role name, for example **Add another line for Account Owner**.
   </Step>
   <Step title="Save">
-    Click **Save**.
+    Click **Save**. Cora confirms with **Saved. Account ownership will sync on the next data refresh.**
   </Step>
 </Steps>
 
-You can add multiple field mappings. For example, map one field with the **Account Owner** role to identify direct owners, and map another field with **Their mgr** enabled and the **Manager** role to assign their reporting manager.
+### How lines work
+
+The tab shows: **Lines run top to bottom. Owners who no longer match are removed on the next refresh.**
+
+- Each line after the first joins the line above with **Otherwise** (**Only if nobody was found above**) or **Also** (**Add this person as another owner too**).
+- **Only when** adds conditions on account fields. All conditions on a line must match. The button reads **Only when…** until you add conditions, and the editor heading is **Only when all of these match**. The operators are the same as the import filters.
+- **Skip if this person is inactive in Salesforce** passes the account to the next line when that user is inactive. On a **The manager of** line, the label is **Skip if the manager is inactive in Salesforce**, and Cora checks the manager instead. Both options are Salesforce only.
+- Reorder a line with **Move line up** and **Move line down**.
+
+### Example
+
+On an **Account Owner** card, one chain looks like this:
+
+1. **The person in** **Customer Success Manager**, **Only when** **Implementation Status** equals **Success**, with **Skip if this person is inactive in Salesforce**.
+2. **Otherwise**, **The person in** **Implementation Manager**, with **Skip if this person is inactive in Salesforce**.
+3. **Otherwise**, **The manager of** **Implementation Manager**.
+
+Cora tries the lines from top to bottom. **Otherwise** runs only when no earlier line found someone.
+
+### Notes
+
+<Note>
+  **does not equal** and **is not one of** do not match accounts where the field is empty.
+</Note>
+
+<Warning>
+  If a condition field no longer exists in your CRM, the line shows `{field} no longer exists in {CRM}. Pick another field or remove this condition.` **Save** stays blocked until you pick another field or remove the condition. If a saved field disappears later, Cora leaves that role unchanged on refresh rather than reassigning owners.
+</Warning>
+
+<Note>
+  Existing setups open as lines joined by **Also**, which behaves the same as before.
+</Note>
 
 Ownership syncs automatically on each data refresh. Cora resolves users by matching the email address associated with the CRM user to a Cora user account.
 
