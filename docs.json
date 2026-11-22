@@ -63,7 +63,6 @@
             "root": "using-cora/artifacts",
             "pages": [
               "using-cora/data-apps",
-              "using-cora/personalized-ui",
               "using-cora/pages"
             ]
           },
