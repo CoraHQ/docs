@@ -1,10 +1,10 @@
 ---
 title: "Integrate Google Calendar with Cora"
 sidebarTitle: "Google Calendar"
-description: "Connect Google Calendar to Cora so agents can reference meeting schedules and Cora can detect lifecycle events from completed customer meetings."
+description: "Connect Google Calendar to Cora so agents can reference meeting schedules, find times when your team is free, and detect lifecycle events from completed customer meetings."
 ---
 
-The Google Calendar integration gives Cora read-only access to your calendar so it can reference your upcoming meetings in chat and agents, and detect lifecycle events from completed customer meetings.
+The Google Calendar integration gives Cora read-only access to your calendar so it can reference your upcoming meetings in chat and agents, find times when you and your teammates are free, and detect lifecycle events from completed customer meetings.
 
 **Integration Type**: OAuth 2.0, User-Level<br />**Scope**: Read-only (`calendar.readonly`)
 
@@ -49,6 +49,25 @@ Before setting up the integration, make sure you have:
   </Step>
 </Steps>
 
+## Find meeting times
+
+Cora can find times when several teammates are free, for example to email a customer kickoff options from the CSMs on their account.
+Ask in chat, such as "When are the CSMs on Acme free next week for a 45-minute kickoff?", or build an agent that proposes times.
+
+Cora checks each person's calendar live, using the Google Calendar connection that person made to Cora, and returns only the times when everyone is free.
+Nothing is stored.
+
+- **Busy and free follow your Google Calendar.** Cora uses Google's own free/busy view, so it follows the same **Busy** and **Free** status that Calendly and other scheduling tools use. An event set to **Free** does not block you; an event set to **Busy** does, including all-day events, focus time, and out of office.
+- **Only working hours count.** Cora uses the working hours set in your Google Calendar settings. If you have none, Cora assumes 9 AM to 5 PM on weekdays in your calendar's time zone, and says so.
+- **Teammates must connect.** Cora only checks teammates who connected Google Calendar to Cora in your workspace. Anyone else is reported as not checked, never as free.
+- **Your primary calendar.** Cora reads your primary calendar only.
+
+To control when you appear busy, change the event in Google Calendar: open it and set **Busy** or **Free**.
+
+<Note>
+  When you connect Google Calendar, teammates in your workspace can use Cora to see when you are free or busy. They see time ranges only, never your event titles, descriptions, or attendees.
+</Note>
+
 ## What Cora.ai Accesses
 
 **Reads:**
@@ -57,8 +76,9 @@ Before setting up the integration, make sure you have:
 - Upcoming events (date, time, title, attendees, location)
 - Event details when referenced in conversation
 - Completed meetings for lifecycle event detection (title, description, attendees, organizer, start and end time, duration, conference URL, and status)
+- Your free/busy times, working hours, and time zone, when you or a teammate looks for meeting times
 
-Cora does not create, modify, or delete any calendar events. Each user connects their own calendar; Cora only accesses the calendar of the user who authorized the connection.
+Cora does not create, modify, or delete any calendar events. Each user connects their own calendar; Cora only shows event details to the user who authorized the connection. Teammates in your workspace see only when you are free or busy.
 
 When Lifecycle Events are enabled, Cora syncs completed meetings from that primary calendar and matches them to customer accounts by attendee or organizer email. Those meetings are used to detect lifecycle events and surface them as [Signals](/using-cora/signals). Meetings without a CRM-matched participant do not produce Signals. Cora re-evaluates completed, CRM-matched meetings about once an hour.
 
