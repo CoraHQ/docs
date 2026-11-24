@@ -30,12 +30,48 @@ Google Slides files can't be marked as templates. For those, use the Google Slid
 
 Cora turns any Google Slides file you bring into a finished deck, filled with your account data and edits. It always works on a copy, so your original is never changed.
 
-Two ways to use it, often combined in one deck:
+Cora fills a deck two ways, and you can combine them in one deck:
 
-- **Template**: Cora fills placeholders in `{{ }}` braces, like `{{company_name}}` → AcmeCorp
-- **Existing deck**: Cora swaps fixed text, like **Jan 1, 2026** → June 22, 2026
+- **Placeholders**: Cora fills names in `{{ }}` braces, like `{{company_name}}` → AcmeCorp
+- **Text swaps**: Cora replaces exact text already in the deck, like **Jan 1, 2026** → June 22, 2026
 
-Placeholders give the most consistent results. They're optional fill-in-the-blank fields, and anything you leave unfilled simply shows as `{{ }}` text in the deck.
+### Placeholders or text swaps
+
+Placeholders give the most consistent results, because Cora fills each one by name.
+Use them in a template you build for Cora, especially one an agent fills on every run.
+
+Text swaps work on any deck, including last quarter's finished deck.
+Cora reads the deck first, then replaces the exact text you point it to.
+Matching is exact, including capitalization, so pick distinctive text: swapping **2024** changes every place it appears.
+A swap can't span two text boxes or table cells.
+
+Only `{{ }}` braces are placeholders.
+Text in other brackets, like `[Customer Name]` or `<<name>>`, is filled as a text swap and stays as written when Cora has no value for it.
+
+Filled text takes the style of the placeholder's first character, so format the placeholder the way you want the value to look.
+Cora fills plain text: line breaks work, but Markdown like `**bold**` shows up literally.
+
+### Removing optional slides
+
+When an agent fills a deck, Cora deletes every slide that still has an unfilled `{{ }}` placeholder.
+Use this to include a slide only when it applies, like a product slide the customer didn't buy.
+
+In chat, Cora never deletes slides.
+Unfilled placeholders stay visible so you can see what still needs a value.
+
+To make a slide optional:
+
+1. Add a placeholder to the slide, like `{{if_purchased_lifecycle}}`, in a text box on the slide (not the speaker notes).
+2. In the agent's instructions, tell it to fill that placeholder with empty text when the slide applies. That clears the placeholder and keeps the slide.
+3. Tell it to leave the placeholder out when the slide doesn't apply. Cora deletes the slide.
+
+<Warning>
+  Any unfilled placeholder deletes its whole slide, including one the agent had no value for or one with a misspelled name. If a slide must always stay, tell the agent to fill every placeholder on it, with a fallback like **TBD** when a value is missing. Text that uses `{{ }}` braces for another reason also deletes its slide.
+</Warning>
+
+Slides are only removed when the agent fills at least one placeholder in that run, so a deck filled only with text swaps never loses slides.
+Cora removes whole slides, not part of a slide.
+To blank out a section, have the agent fill its placeholder with empty text; the text box itself stays.
 
 ### Creating a deck
 
