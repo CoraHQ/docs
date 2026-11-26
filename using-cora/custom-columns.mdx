@@ -8,7 +8,7 @@ Add scored, labeled, AI-generated, and manually-set columns to your Accounts tab
 
 ## Overview
 
-Custom Columns let you add your own columns to the Accounts table, pulling data from your connected integrations. Use them to surface raw CRM fields, score accounts, categorize them with rules, generate AI insights, roll up multiple scores into a single composite metric, or track statuses your team sets by hand.
+Custom Columns let you add your own columns to the Accounts table, pulling data from your connected integrations or from [custom datasets](/using-cora/custom-datasets). Use them to surface raw CRM fields, score accounts, categorize them with rules, generate AI insights, roll up multiple scores into a single composite metric, or track statuses your team sets by hand.
 
 Columns appear on the Accounts page alongside built-in columns like Users and Last Activity. Everyone who can access the Accounts page can view them. Only Admins can add, edit, reorder, recompute, or delete columns. Visibility stays personal. Anyone with access can still set a Manual input value.
 
@@ -26,6 +26,7 @@ For the one-page summary on each account, see [Account briefs](/using-cora/accou
 - **Executive Summary**: generate a one-line AI summary of each account's recent activity and sentiment from lifecycle data.
 - **Expansion Potential**: use AI to assess expansion likelihood based on usage patterns, recent conversations, and deal history.
 - **Account Segmentation**: band accounts by ARR, employee count, or industry tier for at-a-glance portfolio views.
+- **Scores your columns can't express on their own**: compare two fields, take the oldest open item, or aggregate source rows with a [custom dataset](/using-cora/custom-datasets), then band or roll that value up.
 
 Scores you collect through surveys, such as CSAT and NPS, can feed these columns too, so a customer's survey results sit alongside their other account data. See [Creating and Sending Surveys](/using-cora/surveys).
 
@@ -41,6 +42,10 @@ There are six column types. Pick the one that matches your use case:
 | **Rule** | First-match-wins conditions that assign a label and score. | Categorical logic across multiple fields. |
 | **AI** | A natural-language prompt evaluated against selected data fields to produce a text or numeric answer. | Qualitative insights that structured rules cannot capture. |
 | **Rollup** | Weighted average of other numeric columns into a single composite score. | Combining multiple signals into one overall metric. |
+
+<Note>
+  Need a value no column type can compute? Build a [custom dataset](/using-cora/custom-datasets).
+</Note>
 
 ## Creating a Column
 
@@ -80,7 +85,7 @@ A Data column surfaces a raw field value from your connected integrations — no
 
 Configuration:
 
-- **Source**: pick an integration data source (for example, Salesforce, HubSpot, Gainsight).
+- **Source**: pick an integration data source (for example, Salesforce, HubSpot, Gainsight) or a custom dataset.
 - **Field**: select the field to display (for example, ARR, Account Owner, Region).
 - **Aggregation**: how to compute the value: raw value, days since, most recent value, or count/sum/average in the last N days.
 - **Display Format**: how to render the value in the cell. Options depend on the field's data type:
@@ -114,7 +119,7 @@ A Banded column takes a numeric or date field, applies threshold bands, and disp
 
 Configuration:
 
-- **Source**: pick an integration data source (for example, Gainsight, Salesforce, Gong).
+- **Source**: pick an integration data source (for example, Gainsight, Salesforce, Gong) or a custom dataset.
 - **Field**: select the metric to band on. For event-based sources like Gong calls, you can use "All records" to count events.
 - **Aggregation**: how to compute the value: raw value, days since, or count/sum/average in the last N days.
 - **Bands**: define thresholds with an operator (greater than or equal to, greater than, less than or equal to, less than, equals, not equals), value, label, color (green/yellow/red/grey), and score.

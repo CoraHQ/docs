@@ -68,6 +68,7 @@
           },
           "using-cora/signals",
           "using-cora/setting-up-signals",
+          "using-cora/custom-datasets",
           "using-cora/custom-columns",
           "using-cora/account-briefs",
           "using-cora/surveys",
