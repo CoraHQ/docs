@@ -1,10 +1,10 @@
 ---
 title: "Integrate Databricks with Cora"
 sidebarTitle: "Databricks"
-description: "Connect a Databricks SQL warehouse to Cora to sync the tables you choose and query them live from chat, read-only."
+description: "Connect a Databricks SQL warehouse to Cora to sync the tables you choose, detect Signals from them, and query them live from chat, read-only."
 ---
 
-The Databricks integration gives Cora.ai a direct, read-only connection to a Databricks SQL warehouse. Cora.ai signs in as a service principal you create, syncs the tables you choose once a day, and makes that data available to agents, dashboards, and workflows. Chat can also query the warehouse live.
+The Databricks integration gives Cora.ai a direct, read-only connection to a Databricks SQL warehouse. Cora.ai signs in as a service principal you create, syncs the tables you choose once a day, and makes that data available to agents, dashboards, and workflows. A synced table can also produce [Signals](/using-cora/setting-up-signals). Chat can also query the warehouse live.
 
 **Integration Type**: OAuth machine-to-machine (service principal + OAuth secret), Organization-Level<br />**Required Role**: Cora.ai Admin, plus a Databricks workspace admin<br />**Connects to**: A Databricks SQL warehouse with Unity Catalog tables
 
@@ -65,6 +65,14 @@ The Databricks integration gives Cora.ai a direct, read-only connection to a Dat
 **Reads**: The tables you choose, in full, once a day (06:00 UTC by default). Chat answers from this synced copy. When you ask for live data, or for a table that is not synced, Cora.ai queries the warehouse directly.
 
 **Writes**: None. The OAuth scope makes every session read-only, so Databricks rejects any insert, update, delete, or schema change.
+
+## Signals from synced tables
+
+A synced table can be a rule-based source for [Signals](/using-cora/setting-up-signals). Your Cora.ai contact turns this on for each table.
+
+- **Key columns.** Tell your Cora.ai contact which column or columns identify one record, for example `account_id`. Cora.ai uses them so a record that still matches a rule does not produce the same Signal again after each daily full refresh
+- **Detection rules.** Once a table is on, it shows as a source, for example **Databricks - Accounts**, when you add [detection conditions](/using-cora/setting-up-signals#detection-conditions) to an event type
+- **Timing.** Cora.ai checks the synced copy every hour. A new or changed row can produce a Signal after the next daily sync
 
 ## Limits
 
